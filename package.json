@@ -30,7 +30,7 @@
     "@types/node": "^20.19.43",
     "esbuild": "^0.28.2",
     "eslint": "^10.14.0",
-    "npm-run-all2": "^8.0.4",
+    "npm-run-all2": "^9.0.4",
     "prettier": "^3.9.10",
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
