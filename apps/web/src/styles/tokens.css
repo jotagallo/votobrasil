@@ -1,0 +1,96 @@
+/*
+ * Tokens de design: cores, tipografia, espaçamento, raios, sombras e movimento.
+ * Verde, amarelo e azul aparecem como acentos; o vermelho é reservado a ênfase e alertas.
+ */
+:root {
+  /* Texto e superfícies */
+  --ink: #0a1b3d;
+  --ink-soft: #33466b;
+  --muted: #55627f;
+  --bg: #ffffff;
+  --bg-soft: #f2f6fb;
+  --bg-tint: #e8f0fa;
+  --line: #dde5f0;
+  --line-strong: #bccadd;
+
+  /* Marca */
+  --blue-950: #061636;
+  --blue-900: #002776;
+  --blue-700: #0b4da2;
+  --blue-100: #dce8fa;
+  --blue-50: #eef4fd;
+  --green-800: #00622a;
+  --green-700: #007a33;
+  --green-500: #009c3b;
+  --green-100: #dff3e6;
+  --yellow: #ffdf00;
+  --yellow-deep: #f2c300;
+  --yellow-100: #fff6bf;
+  --red: #c8102e;
+  --red-100: #fde8ec;
+
+  /* Tipografia */
+  --font-sans:
+    'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --text-hero: clamp(2.1rem, 1.3rem + 4.3vw, 4.4rem);
+  --text-h1: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);
+  --text-h2: clamp(1.55rem, 1.3rem + 1.2vw, 2.25rem);
+  --text-h3: clamp(1.15rem, 1.08rem + 0.35vw, 1.35rem);
+  --text-lede: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Espaçamento */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --section-y: clamp(2.75rem, 2rem + 4vw, 5.5rem);
+
+  /* Raios */
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Sombras suaves em camadas */
+  --shadow-xs: 0 1px 2px rgb(10 27 61 / 0.06);
+  --shadow-sm: 0 1px 2px rgb(10 27 61 / 0.05), 0 4px 14px -2px rgb(10 27 61 / 0.07);
+  --shadow-md:
+    0 1px 2px rgb(10 27 61 / 0.04), 0 6px 16px -4px rgb(10 27 61 / 0.08),
+    0 18px 36px -12px rgb(10 27 61 / 0.1);
+  --shadow-lg:
+    0 2px 4px rgb(10 27 61 / 0.04), 0 12px 24px -6px rgb(10 27 61 / 0.1),
+    0 32px 64px -16px rgb(10 27 61 / 0.16);
+
+  /* Movimento */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration: 180ms;
+
+  /* Layout */
+  --touch: 2.75rem;
+  --container: 74rem;
+  --measure: 42rem;
+  --gutter: 1.125rem;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --gutter: 1.75rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --gutter: 2.25rem;
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@votobr/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "node build.mjs",
+    "start": "node dist/server.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@fastify/compress": "^9.3.0",
+    "@fastify/helmet": "^13.2.0",
+    "@fastify/rate-limit": "^11.2.2",
+    "@fastify/static": "^10.1.8",
+    "@votobr/shared": "*",
+    "fastify": "^5.12.8",
+    "lru-cache": "^11.5.3"
+  }
+}

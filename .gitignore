@@ -1,0 +1,23 @@
+node_modules/
+dist/
+build/
+coverage/
+.DS_Store
+*.log
+
+# segredos e configuração local — nunca versionar
+.env
+.env.*
+!.env.example
+*.pem
+*.tfvars
+!*.tfvars.example
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl.bak
+
+# dados oficiais baixados/processados (reprodutíveis via `npm run data:build`)
+/data/raw/
+/data/processed/
+/.cache/

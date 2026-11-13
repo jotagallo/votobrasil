@@ -1,0 +1,856 @@
+{
+  "app": {
+    "name": "VotoBrasil",
+    "skip": "Ir para o conteúdo",
+    "homeLabel": "VotoBrasil — página inicial"
+  },
+  "nav": {
+    "main": "Navegação principal",
+    "menu": "Menu",
+    "close": "Fechar",
+    "home": "Início",
+    "houses": "Casas legislativas",
+    "systems": "Sistemas eleitorais",
+    "methodology": "Metodologia",
+    "semipresidentialism": "Semipresidencialismo",
+    "about": "Sobre"
+  },
+  "lang": {
+    "label": "Idioma",
+    "names": {
+      "pt-BR": "Português",
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "houses": {
+    "federal": {
+      "short": "Câmara dos Deputados",
+      "name": "Câmara dos Deputados"
+    },
+    "state": {
+      "short": "Assembleia Legislativa",
+      "name": "Assembleias Legislativas"
+    },
+    "municipal": {
+      "short": "Câmara Municipal",
+      "name": "Câmaras Municipais"
+    }
+  },
+  "footer": {
+    "disclaimer": "Simulação contrafactual com premissas simplificadoras; não é previsão de resultados. O VotoBrasil é independente e não tem vínculo com o TSE nem com o governo.",
+    "links": "Links do rodapé",
+    "source": "Código-fonte",
+    "data": "Dados: TSE (dados abertos) e IBGE (malhas territoriais). Sem cookies; estatísticas de uso só com consentimento (LGPD)."
+  },
+  "consent": {
+    "label": "Aviso de privacidade",
+    "text": "Usamos estatísticas de audiência sem cookies (Umami) para saber, de forma agregada, quais páginas e simulações são usadas. Elas só são ativadas com o seu consentimento, conforme a LGPD (Lei 13.709/2018), e você pode mudar de ideia a qualquer momento em “Preferências de privacidade”, no rodapé.",
+    "more": "Saiba mais",
+    "accept": "Aceitar",
+    "reject": "Recusar",
+    "manage": "Preferências de privacidade"
+  },
+  "common": {
+    "loading": "Carregando…",
+    "retry": "Tentar novamente",
+    "share": "Compartilhar",
+    "shareCopied": "Link copiado",
+    "shareDone": "Compartilhado",
+    "shareFailed": "Não foi possível compartilhar. Copie o endereço na barra do navegador.",
+    "breadcrumb": "Você está em",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "errors": {
+    "title": "Não foi possível carregar os dados",
+    "body": "Verifique sua conexão e tente novamente."
+  },
+  "selector": {
+    "legend": "Sistema eleitoral",
+    "learnMore": "Entenda este sistema"
+  },
+  "systems": {
+    "title": "Sistemas eleitorais",
+    "lede": "Como cada sistema transforma votos em cadeiras, com os argumentos mais citados a favor e contra.",
+    "how": "Como funciona",
+    "pros": "Argumentos favoráveis",
+    "cons": "Críticas e limitações",
+    "inSimulation": "Neste simulador",
+    "intro": [
+      "Um sistema eleitoral é a regra que converte votos em cadeiras. Estes são os cinco que o VotoBrasil consegue simular a partir dos votos reais.",
+      "Nenhum sistema é neutro: cada desenho privilegia certos objetivos — proporcionalidade, vínculo com o território, formação de maiorias, custo das campanhas — em detrimento de outros. O site apresenta as regras e os argumentos usuais de cada lado, sem recomendar um deles.",
+      "Em linhas gerais: nos sistemas proporcionais, as cadeiras acompanham a votação dos partidos; nos distritais, vence o mais votado em cada distrito; nos mistos, os dois mecanismos se combinam."
+    ],
+    "compare": {
+      "title": "Comparação resumida",
+      "system": "Sistema",
+      "districts": "Usa distritos",
+      "lists": "Usa listas partidárias",
+      "proportionality": "Proporcionalidade entre partidos"
+    },
+    "atual": {
+      "name": "Proporcional de lista aberta (sistema atual)",
+      "short": "Atual",
+      "summary": "Os votos em candidatos e legendas definem quantas cadeiras cada partido ou federação recebe; dentro do partido, são eleitos os mais votados.",
+      "proportionality": "Alta",
+      "how": [
+        "Soma-se a votação de cada partido ou federação na circunscrição (votos nominais nos candidatos mais votos de legenda). O total de votos válidos dividido pelo número de cadeiras dá o **quociente eleitoral (QE)**; cada partido recebe tantas cadeiras quantas vezes sua votação contém o QE (**quociente partidário**).",
+        "As cadeiras que sobram são distribuídas pelo método das maiores médias (D'Hondt). Dentro de cada partido, são eleitos os candidatos mais votados que atingem a votação mínima individual prevista em lei (10% do QE).",
+        "Partidos podem se unir em federações, que concorrem e atuam como um único partido por, no mínimo, quatro anos. Coligações em eleições proporcionais deixaram de existir em 2020."
+      ],
+      "pros": [
+        "Mantém a bancada de cada partido próxima da votação que obteve.",
+        "O eleitor escolhe pessoas e também pode votar na legenda.",
+        "Permite a representação de partidos de diferentes tamanhos e de grupos minoritários."
+      ],
+      "cons": [
+        "Em circunscrições grandes (como estados populosos), as campanhas individuais são caras e os candidatos do mesmo partido competem entre si.",
+        "O vínculo entre eleitor e representante é fraco: a circunscrição é o estado inteiro e cada partido lança dezenas de candidatos.",
+        "Votos de legenda e de candidatos não eleitos podem ajudar a eleger outros candidatos do mesmo partido, o que nem sempre é percebido pelo eleitor.",
+        "Muitos partidos obtêm representação; para parte dos analistas isso dificulta a formação de maiorias, para outros apenas reflete a pluralidade do eleitorado."
+      ],
+      "sim": [
+        "O resultado “atual” é o oficial publicado pelo TSE para cada cargo e circunscrição. O motor do VotoBrasil reproduz o cálculo para conferência (veja a [Metodologia](/metodologia))."
+      ]
+    },
+    "lista-fechada": {
+      "name": "Lista fechada",
+      "short": "Lista fechada",
+      "summary": "O eleitor vota na lista do partido; as cadeiras são distribuídas entre as listas e ocupadas na ordem definida pelo partido.",
+      "proportionality": "Alta",
+      "how": [
+        "Cada partido ou federação apresenta antes da eleição uma lista ordenada de candidatos. O eleitor vota na lista; as cadeiras são distribuídas entre as listas pelo método D'Hondt e ocupadas de cima para baixo.",
+        "É o sistema usado, com variações, em vários países europeus e latino-americanos."
+      ],
+      "pros": [
+        "A disputa é entre partidos, o que tende a baratear campanhas e reduzir a competição interna.",
+        "A ordem da lista é conhecida antes da votação.",
+        "Facilita a aplicação de regras de paridade ou de cotas na composição das listas."
+      ],
+      "cons": [
+        "A escolha de quem será eleito passa para as direções partidárias; o eleitor não escolhe candidatos individualmente.",
+        "Reduz a possibilidade de o eleitor premiar ou punir parlamentares específicos.",
+        "Exige regras de democracia interna e transparência na montagem das listas."
+      ],
+      "sim": [
+        "Os partidos não definiram listas ordenadas, então o VotoBrasil ordena a lista de cada partido ou federação pela votação nominal que seus candidatos tiveram.",
+        "As cadeiras são distribuídas por D'Hondt sobre o total de votos (nominais mais legenda) de cada partido ou federação, sem o piso de votação individual do sistema atual."
+      ]
+    },
+    "distritao": {
+      "name": "Distritão",
+      "short": "Distritão",
+      "summary": "São eleitos os candidatos mais votados da circunscrição, sem considerar partidos nem quocientes.",
+      "proportionality": "Variável",
+      "how": [
+        "Em cada circunscrição (por exemplo, um estado), os candidatos mais votados individualmente ocupam as cadeiras disponíveis, independentemente do partido. Na literatura, é conhecido como voto único não transferível (SNTV).",
+        "Os votos de legenda não influem na escolha dos eleitos."
+      ],
+      "pros": [
+        "É simples de entender: são eleitos os mais votados.",
+        "O voto é dado diretamente a pessoas.",
+        "Dispensa quocientes e sobras."
+      ],
+      "cons": [
+        "Muitos votos não elegem ninguém (votos em candidatos não eleitos e votos excedentes de candidatos muito votados).",
+        "Tende a favorecer candidatos já conhecidos e a enfraquecer os partidos como organizações.",
+        "A representação de cada partido depende de como seus votos se distribuem entre candidatos, não só de quantos votos obteve."
+      ],
+      "sim": [
+        "O VotoBrasil elege, em cada UF ou município, os candidatos com mais votos nominais, até o número de cadeiras. Os votos de legenda não contam."
+      ]
+    },
+    "distrital-puro": {
+      "name": "Voto distrital puro",
+      "short": "Distrital puro",
+      "summary": "A circunscrição é dividida em distritos de uma cadeira cada; vence o mais votado em cada distrito.",
+      "proportionality": "Em geral baixa",
+      "how": [
+        "A circunscrição é dividida em tantos distritos quanto as cadeiras. Cada distrito elege um representante por maioria simples, em turno único: vence quem tem mais votos, mesmo sem maioria absoluta.",
+        "Os votos dados a quem não vence no distrito não geram cadeiras."
+      ],
+      "pros": [
+        "Cada eleitor tem um representante identificável no seu território.",
+        "As campanhas ficam concentradas em áreas menores, o que pode reduzir custos.",
+        "Facilita a prestação de contas do parlamentar ao eleitorado local."
+      ],
+      "cons": [
+        "A distribuição de cadeiras pode divergir bastante da votação nacional: o partido com maioria relativa em muitos distritos tende a ser super-representado.",
+        "Votos em candidatos derrotados são desperdiçados, e grupos minoritários dispersos podem ficar sem representação.",
+        "Exige traçar os distritos, o que pode ser alvo de manipulação (gerrymandering) e precisa ser refeito quando a população muda."
+      ],
+      "sim": [
+        "O VotoBrasil desenha distritos hipotéticos com população estimada a partir do Censo 2022 (meta de ±5%), conectividade no grafo e municípios inteiros sempre que possível. Os limites no mapa são aproximados; veja as regras e limitações na [Metodologia](/metodologia).",
+        "Cada candidato disputa apenas o distrito onde teve sua maior votação, e em cada distrito vence o candidato mais votado entre os que o disputam. O voto nominal do eleitor é usado como voto distrital; votos de legenda não elegem candidatos distritais."
+      ]
+    },
+    "distrital-misto": {
+      "name": "Voto distrital misto (PEC 2/2025)",
+      "short": "Distrital misto",
+      "summary": "Metade das cadeiras é decidida em distritos e o restante pela lista partidária; o total de cada partido é proporcional ao voto no partido, como propõe a PEC 2/2025.",
+      "proportionality": "Alta",
+      "how": [
+        "O eleitor dá **dois votos desvinculados**: um em candidato do seu distrito, eleito por maioria simples, e outro em um partido (voto de lista).",
+        "Pela PEC 2/2025 (art. 45, §§ 1º a 3º, na redação proposta), cada estado elege em distritos de um deputado **metade das suas cadeiras, ou o número inteiro maior mais próximo**. O total de cadeiras de cada partido é calculado pela votação no partido; dele se descontam as vitórias distritais, e a lista preordenada pelo partido completa a diferença.",
+        "Se um partido vence mais distritos do que lhe caberia pela proporcionalidade, mantém essas cadeiras e **a diferença é acrescida ao total de deputados** (§ 4º): a Câmara pode ficar maior que as 513 cadeiras atuais. É o modelo compensatório, inspirado no sistema alemão."
+      ],
+      "pros": [
+        "Combina representação proporcional entre partidos com um representante identificável em cada distrito.",
+        "O eleitor pode votar num candidato local e num partido diferente sem distorcer o peso de cada partido.",
+        "Desperdiça menos votos que o distrital puro e preserva espaço para partidos médios e pequenos."
+      ],
+      "cons": [
+        "É mais complexo para o eleitor e para a apuração: dois votos e duas formas de eleição.",
+        "Cria dois tipos de deputado (de distrito e de lista), e a ordem das listas fica com as direções partidárias.",
+        "As cadeiras excedentes tornam o tamanho da Câmara variável de uma eleição para outra.",
+        "Exige traçar distritos, sujeitos a disputas e a manipulação (gerrymandering)."
+      ],
+      "sim": [
+        "Em cada circunscrição, metade das cadeiras (arredondada para cima) é decidida em distritos hipotéticos, como no distrital puro. O total de cada partido ou federação sai do D'Hondt sobre as cadeiras da circunscrição pelos votos nominais mais legenda; descontadas as vitórias distritais, a lista completa a diferença, na ordem da votação nominal dos candidatos.",
+        "Quando um partido vence mais distritos do que o seu direito proporcional, mantém as vitórias e a casa cresce (cadeiras excedentes). O simulador informa quantas cadeiras a casa teria.",
+        "A PEC trata só da Câmara dos Deputados; o VotoBrasil aplica a mesma regra às assembleias legislativas e câmaras municipais como exercício comparativo."
+      ]
+    },
+    "examples": {
+      "title": "Exemplos numéricos",
+      "lede": "Dois exemplos pequenos, com números inventados, mostram a mecânica das regras. Não são dados reais.",
+      "party": "Partido",
+      "votes": "Votos",
+      "votesOverQuotient": "Votos ÷ QE",
+      "direct": "Cadeiras pelo QP",
+      "leftoverSeats": "Cadeiras das sobras",
+      "total": "Total",
+      "districtWins": "Vitórias nos distritos",
+      "listVotes": "Votos de lista (%)",
+      "entitled": "Direito proporcional",
+      "fromList": "Vagas de lista",
+      "proportional": {
+        "title": "Proporcional: quociente eleitoral e sobras (D'Hondt)",
+        "intro": "Uma circunscrição com **{seats}** cadeiras e **{total}** votos válidos. O quociente eleitoral é {total} ÷ {seats} = **{quotient}** votos. Cada partido recebe como cadeiras diretas a parte inteira de votos ÷ QE (quociente partidário). Restam **{leftover}** cadeiras, distribuídas pelo método D'Hondt: a cada rodada, a cadeira vai ao partido com a maior média, igual a votos ÷ (cadeiras já obtidas + 1).",
+        "note": "Rodada 1: médias de 25.000 (A), 26.667 (B), 15.000 (C) e 20.000 (D); a cadeira vai para B. Rodada 2: médias de 25.000 (A), 20.000 (B), 15.000 (C) e 20.000 (D); a cadeira vai para A. Neste exemplo, aplicar o D'Hondt diretamente às 8 cadeiras daria o mesmo resultado (4, 3, 1 e 0); em outros casos os dois caminhos podem divergir."
+      },
+      "mixed": {
+        "title": "Distrital misto da PEC: compensação e cadeiras excedentes",
+        "intro": "Uma circunscrição com **{seats}** cadeiras: **{district}** decididas em distritos e, em princípio, **{list}** pela lista. A tabela mostra as vitórias distritais de cada partido e a votação de lista.",
+        "note": "O D'Hondt aplicado às 10 cadeiras pelos votos de lista dá o direito proporcional de cada partido (A 4, B 4, C 2). Descontadas as vitórias distritais, a lista completa a diferença: A recebe 1 vaga de lista, B recebe 2 e C, que não venceu distritos, recebe 2. O resultado final é proporcional ao voto no partido; os distritos definem apenas **quem** ocupa parte das cadeiras.",
+        "overhang": "**Cadeiras excedentes:** se o partido {party} tivesse vencido os {wins} distritos, ficaria com {wins} cadeiras, mais que as {entitled} a que tem direito. Pela PEC, ele as mantém e a casa passa a ter {total} cadeiras (art. 45, § 4º)."
+      }
+    },
+    "pec": {
+      "title": "A PEC 2/2025 e o voto distrital misto",
+      "caveat": "Confira o texto oficial da proposição em camara.leg.br: a redação e a tramitação podem mudar.",
+      "body": [
+        "A PEC 2/2025, de autoria do deputado Luiz Carlos Hauly e de outros parlamentares, propõe para a Câmara dos Deputados o voto distrital misto, com dois votos desvinculados: um em candidato do distrito e outro em partido.",
+        "O texto define um modelo **compensatório**: metade das cadeiras de cada estado (ou o número inteiro maior mais próximo) é preenchida nos distritos; o total de cada partido segue a proporção do voto no partido; e vitórias distritais além dessa proporção ampliam a Câmara (art. 45, §§ 1º a 5º, na redação proposta). É essa a regra que o VotoBrasil simula, com a divisão fixa em 50%.",
+        "Há uma inconsistência no texto apresentado: o inciso I do art. 45 fala em dois terços das vagas em distritos e um terço por listas, enquanto o § 1º fixa 50%. O simulador segue o § 1º, que detalha a regra; a redação final pode mudar durante a tramitação."
+      ]
+    }
+  },
+  "chamber": {
+    "seatsUnit": "cadeiras",
+    "official": "Resultado oficial",
+    "officialShort": "Ofic.",
+    "officialLower": "oficial",
+    "scenario": "Cenário simulado",
+    "scenarioShort": "Cen.",
+    "scenarioNamed": "Cenário: {system}",
+    "sameAsOfficial": "O sistema atual é o próprio resultado oficial: não há diferença a comparar.",
+    "noChange": "Nenhuma cadeira muda de partido em relação ao resultado oficial.",
+    "changed": "{count} de {total} cadeiras mudam de partido em relação ao resultado oficial.",
+    "overhang": "Com as cadeiras excedentes previstas na PEC 2/2025 (art. 45, § 4º), a casa teria {total} cadeiras: as {official} atuais mais {extra}.",
+    "showTop": "Mostrar só os maiores partidos",
+    "showAll": "Mostrar todos os {count} partidos",
+    "others": "Outros ({count})",
+    "viewTable": "Ver tabela",
+    "tableLabel": "Votos e cadeiras por partido",
+    "party": "Partido",
+    "votes": "Votos",
+    "voteShare": "% dos votos",
+    "metricsTitle": "Indicadores"
+  },
+  "metrics": {
+    "gallagher": {
+      "name": "Índice de Gallagher",
+      "hint": "Distância entre a porcentagem de votos e a de cadeiras dos partidos, em pontos percentuais. Zero é proporcionalidade perfeita; quanto menor, mais proporcional."
+    },
+    "effectiveParties": {
+      "name": "Número efetivo de partidos",
+      "hint": "Quantos partidos de tamanho igual teriam a mesma fragmentação da distribuição de cadeiras (índice de Laakso–Taagepera)."
+    },
+    "partiesWithSeats": {
+      "name": "Partidos com cadeiras",
+      "hint": "Quantidade de partidos que elegeram ao menos um parlamentar."
+    },
+    "partiesForMajority": {
+      "name": "Partidos para a maioria",
+      "hint": "Menor número de partidos, começando pelas maiores bancadas, que somam a maioria das cadeiras."
+    },
+    "largestShare": {
+      "name": "Maior bancada",
+      "hint": "Fração das cadeiras ocupada pelo maior partido."
+    },
+    "votesWithoutSeatPct": {
+      "name": "Votos sem representação",
+      "hint": "Porcentagem dos votos dados a partidos que não elegeram nenhum parlamentar."
+    },
+    "majority": {
+      "name": "Maioria"
+    }
+  },
+  "map": {
+    "brazilTitle": "Mapa por unidade da federação",
+    "modeLabel": "Colorir o mapa por",
+    "brazilLabel": "Mapa do Brasil por UF. Selecione uma UF para abrir a página correspondente.",
+    "viewTable": "Ver tabela",
+    "tableLabel": "Resultado por UF",
+    "mode": {
+      "leader": "Maior bancada",
+      "change": "Mudança"
+    },
+    "modeHint": {
+      "leader": "A cor indica o partido com mais cadeiras em cada UF no cenário simulado. Selecione uma UF para ver os detalhes.",
+      "change": "A intensidade indica a fração das cadeiras da UF que mudam de partido em relação ao resultado oficial."
+    },
+    "legend": {
+      "none": "Nenhuma mudança",
+      "above": "Mais de {value}",
+      "upTo": "Até {value}"
+    },
+    "ufDescription": "{name}: {seats} cadeiras; maior bancada no cenário: {leader}; {changed} cadeiras mudam de partido.",
+    "ufCount": "UFs: {count}",
+    "col": {
+      "area": "UF",
+      "seats": "Cadeiras",
+      "leaderOfficial": "Maior bancada (oficial)",
+      "leaderScenario": "Maior bancada (cenário)",
+      "changed": "Cadeiras que mudam"
+    },
+    "pickLabel": "Mapa do Brasil: escolha uma UF",
+    "pickDescription": "{name}: {seats} cadeiras na Assembleia"
+  },
+  "districtMap": {
+    "title": "Mapa dos distritos simulados",
+    "colorBy": "Colorir por",
+    "colorMode": {
+      "district": "Distrito",
+      "party": "Partido vencedor"
+    },
+    "stateLabel": "Mapa com {count} distritos simulados do estado, coloridos por distrito.",
+    "cityLabel": "Mapa com {count} distritos simulados do município, coloridos por distrito.",
+    "stateLede": "{count} distritos hipotéticos, equilibrados pela população estimada a partir do Censo 2022. O algoritmo conecta municípios vizinhos e locais de votação; o mapa é uma aproximação, não uma delimitação oficial.",
+    "cityLede": "{count} distritos hipotéticos, formados por grupos de locais de votação. A população do Censo 2022 é repartida pelo eleitorado de cada local: não é uma contagem de moradores por distrito.",
+    "stateNote": "Os distritos são hipotéticos: a PEC deixa o desenho para uma lei futura. Nos {split} municípios divididos, a área de cada local de votação é aproximada pela região mais próxima dele (diagrama de Voronoi).",
+    "cityNote": "A área de cada um dos {count} pontos de votação é aproximada pela região mais próxima dele (diagrama de Voronoi), recortada pelo contorno do município — não é a abrangência real do local. Os distritos são hipotéticos.",
+    "munDistrict": "{name}: distrito {district}",
+    "munPart": "{name}: parte no distrito {district}",
+    "unnamed": "Distrito {n}",
+    "plusOne": "{name} e mais 1 município",
+    "plusMany": "{name} e mais {count} municípios",
+    "hint": "Passe o mouse ou toque num distrito, no mapa ou na lista, para destacá-lo. Clique para aproximar.",
+    "searchState": "Buscar município",
+    "searchCity": "Buscar bairro",
+    "listLabel": "Lista dos distritos",
+    "rowPopulation": "{pop} hab. estimados · {dev}% da média",
+    "rowVoters": "{voters} eleitores",
+    "margin": "margem {value} p.p.",
+    "noMatch": "Nenhum distrito encontrado.",
+    "reset": "Ver todos os distritos"
+  },
+  "winners": {
+    "title": "Quem ganha e quem perde cadeira",
+    "gainedTitle": "Eleitos só no cenário",
+    "gainedHint": "Candidatos que ocupariam uma cadeira no cenário, mas não foram eleitos oficialmente.",
+    "lostTitle": "Eleitos só no resultado oficial",
+    "lostHint": "Candidatos eleitos oficialmente que ficariam sem cadeira no cenário.",
+    "none": "Nenhum candidato nesta lista.",
+    "showLess": "Mostrar menos",
+    "showAll": "Mostrar todos ({count})",
+    "summary": "{kept} candidatos são eleitos nos dois casos; {gained} são eleitos só no cenário e {lost} só no resultado oficial.",
+    "votes": "{count} votos",
+    "tier": {
+      "oficial": "Eleito (oficial)",
+      "qp": "Quociente partidário",
+      "sobra": "Sobras",
+      "lista": "Lista",
+      "distrito": "Distrito",
+      "mais-votados": "Mais votados"
+    }
+  },
+  "areas": {
+    "label": "Lista de áreas",
+    "name": "Área",
+    "uf": "UF",
+    "seats": "Cadeiras",
+    "electorate": "Eleitores"
+  },
+  "explorer": {
+    "shareText": "Simulação das cadeiras sob diferentes sistemas eleitorais, com dados oficiais do TSE.",
+    "federal": {
+      "title": "Câmara dos Deputados",
+      "lede": "Soma das 27 unidades da federação. Escolha um sistema para ver como ficariam as cadeiras com os votos de 2026."
+    },
+    "state": {
+      "title": "Assembleias Legislativas"
+    }
+  },
+  "house": {
+    "federal": {
+      "areasTitle": "Câmara dos Deputados por unidade da federação",
+      "intro": [
+        "A Câmara dos Deputados tem 513 cadeiras distribuídas entre as 27 unidades da federação, de forma proporcional à população, com mínimo de 8 e máximo de 70 por UF.",
+        "Cada UF é uma circunscrição. Escolha uma para ver o resultado oficial e a simulação."
+      ]
+    },
+    "state": {
+      "areasTitle": "Assembleias Legislativas por unidade da federação",
+      "intro": [
+        "As Assembleias Legislativas elegem deputados estaduais em cada UF; no Distrito Federal, o equivalente é a Câmara Legislativa, com deputados distritais. O número de cadeiras de cada casa segue a regra da Constituição, com base na bancada federal da UF.",
+        "Cada Assembleia é uma casa independente. Escolha um estado para ver o resultado oficial e a simulação."
+      ],
+      "pickTitle": "Escolha um estado",
+      "pickHint": "Cada Assembleia Legislativa é eleita separadamente, então somar as 27 casas não diz muito. Clique no mapa ou na lista para ver o resultado oficial e a simulação de uma UF."
+    },
+    "municipal": {
+      "areasTitle": "Câmaras Municipais das cidades com 1 milhão de eleitores ou mais",
+      "intro": [
+        "O VotoBrasil cobre as Câmaras Municipais de todas as cidades com 1 milhão de eleitores ou mais — 11 na eleição de 2024, cujos resultados são usados aqui.",
+        "Nas cidades, a unidade mínima dos distritos simulados é o local de votação."
+      ]
+    }
+  },
+  "area": {
+    "districtNoticeLabel": "Aviso sobre os distritos",
+    "switch": "Trocar de área",
+    "unit": {
+      "zone": "zonas eleitorais",
+      "votingPlace": "locais de votação"
+    },
+    "facts": "{seats} cadeiras · {electorate} eleitores · eleição de {year}",
+    "districtNotice": "Neste cenário, os distritos são **hipotéticos**: o algoritmo usa {units} {level} e busca equilibrar a população estimada. As fronteiras são aproximadas; outro desenho poderia eleger outros candidatos.",
+    "mixedSplit": "Divisão das cadeiras neste cenário: {district} nos distritos e {list} pela lista.",
+    "deviation": "Maior desvio de população de um distrito: {value}% em relação à média."
+  },
+  "home": {
+    "intro": {
+      "eyebrow": "PEC 2/2025 · em debate no Congresso",
+      "title": "Está sendo discutido no Congresso um novo sistema político. Você sabe como ele funciona?",
+      "lede": "Uma proposta de mudança na Constituição pode alterar a forma como você escolhe os seus deputados e quem comanda o governo. Entender a proposta é o primeiro passo para ter uma opinião sobre ela.",
+      "changesTitle": "O que muda, em poucas palavras",
+      "changes": {
+        "vote": {
+          "title": "O seu voto",
+          "text": "Você passaria a dar dois votos: um num candidato do seu distrito — uma região do seu estado — e outro num partido."
+        },
+        "chamber": {
+          "title": "A Câmara",
+          "text": "Metade dos deputados seria eleita nos distritos e a outra metade pelas listas dos partidos. A Câmara poderia passar dos 513 deputados de hoje."
+        },
+        "government": {
+          "title": "O governo",
+          "text": "O Presidente continuaria eleito pelo voto direto, mas o governo do dia a dia ficaria com um Primeiro-Ministro, que só se mantém no cargo com o apoio da Câmara."
+        }
+      },
+      "alert": {
+        "title": "Por que prestar atenção",
+        "body": [
+          "Regras eleitorais decidem quem chega ao poder e costumam valer por muitas eleições. Quando mudam sem que a população entenda e participe do debate, o eleitor só descobre os efeitos na hora de votar — e uma emenda à Constituição só pode ser desfeita por outra emenda, aprovada por 3/5 da Câmara e do Senado em dois turnos.",
+          "Sistemas com Primeiro-Ministro já foram levados ao voto popular duas vezes no Brasil, em 1963 e em 1993, e rejeitados nas duas. Uma mudança desse tamanho merece ser discutida com a sociedade, e não apenas dentro do Congresso."
+        ]
+      },
+      "act": {
+        "title": "Como participar",
+        "items": [
+          "**Entenda:** use o simulador abaixo para ver como os votos reais da última eleição virariam cadeiras com a regra da PEC.",
+          "**Acompanhe:** a tramitação é pública no [site da Câmara](https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2483164).",
+          "**Opine:** responda à [enquete oficial da Câmara](https://www.camara.leg.br/enquetes/2483164) e procure os deputados do seu estado para dizer o que você pensa."
+        ]
+      },
+      "cta": {
+        "simulate": "Ver como ficaria a Câmara",
+        "mixed": "Como funciona o distrital misto"
+      },
+      "neutral": "O VotoBrasil é independente: não defende nem combate a proposta."
+    },
+    "eyebrow": "Simulador de sistemas eleitorais",
+    "title": "Veja como seria a Câmara dos Deputados com outro sistema eleitoral",
+    "lede": "Os mesmos votos oficiais do TSE, reapurados por outras regras: o distrital misto da PEC, o distrital puro, o distritão e a lista fechada. Compare com o resultado real, partido a partido.",
+    "disclaimer": "Simulação contrafactual com premissas simplificadoras: mostra o que os mesmos votos produziriam sob outra regra, não o que aconteceria numa eleição futura.",
+    "cta": {
+      "explore": "Explorar a simulação",
+      "systems": "Entender os sistemas"
+    },
+    "trust": {
+      "label": "Em resumo",
+      "data": "Dados abertos do TSE",
+      "open": "Código aberto",
+      "privacy": "Sem cookies · LGPD"
+    },
+    "hero": {
+      "caption": "Ilustração com cadeiras genéricas, sem dados reais"
+    },
+    "stats": {
+      "label": "O VotoBrasil em números",
+      "seats": "cadeiras na Câmara dos Deputados",
+      "states": "unidades da federação",
+      "cities": "cidades com 1 milhão de eleitores ou mais",
+      "systems": "sistemas eleitorais comparados"
+    },
+    "how": {
+      "eyebrow": "Como funciona",
+      "title": "Três passos, sempre com os mesmos votos",
+      "lede": "O que muda é só a regra que transforma votos em cadeiras.",
+      "step1": {
+        "title": "Votos reais",
+        "text": "Partimos dos votos oficiais publicados pelo TSE: candidatos, partidos e votação de cada zona eleitoral."
+      },
+      "step2": {
+        "title": "Outra regra",
+        "text": "Você escolhe um sistema (lista fechada, distrital ou misto) e os mesmos votos são reapurados. Candidatos, partidos e votos ficam fixos."
+      },
+      "step3": {
+        "title": "Comparação",
+        "text": "O hemiciclo, as bancadas, quem ganha ou perde cadeiras e as métricas de proporcionalidade aparecem ao lado do resultado oficial."
+      }
+    },
+    "explorer": {
+      "eyebrow": "Simulador"
+    },
+    "debate": {
+      "eyebrow": "Para pensar",
+      "title": "E seria bom para o país?",
+      "lede": "Não existe uma resposta técnica única: depende do que você acha mais importante. Estes são os argumentos mais ouvidos dos dois lados.",
+      "prosTitle": "Quem defende diz que…",
+      "pros": [
+        "Cada região teria um deputado conhecido, mais fácil de cobrar.",
+        "Campanhas em distritos menores tenderiam a ser mais baratas.",
+        "O voto no partido manteria a Câmara proporcional à votação das legendas.",
+        "Com um Primeiro-Ministro, crises de governo poderiam ser resolvidas com a troca do governo, sem impeachment."
+      ],
+      "consTitle": "Quem critica diz que…",
+      "cons": [
+        "O sistema fica mais complicado: dois votos, dois tipos de deputado e uma Câmara que pode mudar de tamanho.",
+        "A ordem dos candidatos nas listas ficaria nas mãos das direções dos partidos.",
+        "O desenho dos distritos pode ser manipulado e precisa ser refeito de tempos em tempos.",
+        "Mudar o sistema de governo e o sistema eleitoral ao mesmo tempo aumenta a incerteza sobre os efeitos."
+      ],
+      "opinionTitle": "Forme a sua opinião",
+      "opinion": [
+        "O VotoBrasil não diz qual sistema é melhor. Pegamos os votos reais da última eleição, publicados pelo TSE, e recalculamos quem seria eleito com cada regra, para você comparar com os próprios olhos.",
+        "São simulações com premissas simplificadoras, explicadas na [Metodologia](/metodologia): servem para comparar regras, não para prever eleições."
+      ],
+      "semi": "Entender o semipresidencialismo",
+      "systems": "Comparar todos os sistemas"
+    },
+    "reading": {
+      "eyebrow": "Antes de interpretar",
+      "title": "Como ler os resultados",
+      "body": [
+        "O resultado “oficial” é o publicado pelo TSE, obtido pelo sistema proporcional de lista aberta. O “cenário” usa exatamente os mesmos votos; muda apenas a regra que os converte em cadeiras.",
+        "Candidatos, partidos e votos ficam fixos: não se simulam mudanças no comportamento do eleitor, na estratégia dos partidos nem nas coligações.",
+        "Nos sistemas com distritos, os distritos são traçados por algoritmo e não correspondem a distritos reais. Veja os detalhes e os limites na [Metodologia](/metodologia)."
+      ]
+    },
+    "more": {
+      "title": "Explore mais",
+      "state": {
+        "title": "Assembleias Legislativas",
+        "text": "Escolha um estado e veja como ficaria a Assembleia Legislativa com cada sistema."
+      },
+      "municipal": {
+        "title": "Câmaras Municipais",
+        "text": "Explore as cidades com 1 milhão de eleitores ou mais, com distritos desenhados a partir dos locais de votação."
+      },
+      "systems": {
+        "title": "Sistemas eleitorais",
+        "text": "Como cada sistema transforma votos em cadeiras, com exemplos numéricos."
+      },
+      "methodology": {
+        "title": "Metodologia",
+        "text": "Fontes, premissas, fórmulas e validação do motor contra o resultado oficial."
+      },
+      "semi": {
+        "title": "Semipresidencialismo",
+        "text": "O que a PEC 2/2025 propõe e quantos partidos seriam necessários para uma maioria."
+      }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "VotoBrasil — Simulador de sistemas eleitorais com dados do TSE",
+      "description": "Simule como ficariam as cadeiras da Câmara dos Deputados, das assembleias e das câmaras municipais sob outros sistemas eleitorais, com dados oficiais do TSE. Simulação contrafactual, não previsão."
+    },
+    "systems": {
+      "title": "Sistemas eleitorais — VotoBrasil",
+      "description": "Como cada sistema transforma votos em cadeiras: proporcional atual, lista fechada, distritão, voto distrital e modelos mistos, com argumentos, críticas e exemplos numéricos."
+    },
+    "methodology": {
+      "title": "Metodologia — VotoBrasil",
+      "description": "Fontes oficiais, premissas, limites e fórmulas da simulação, com a validação do motor contra os resultados do TSE."
+    },
+    "semi": {
+      "title": "Semipresidencialismo e governabilidade — VotoBrasil",
+      "description": "O que a PEC 2/2025 propõe e quantos partidos seriam necessários para formar maioria na Câmara dos Deputados em cada cenário eleitoral."
+    },
+    "about": {
+      "title": "Sobre — VotoBrasil",
+      "description": "Projeto independente e de código aberto que usa dados abertos do TSE e do IBGE. Sem cookies."
+    },
+    "notFound": {
+      "title": "Página não encontrada — VotoBrasil",
+      "description": "A página procurada não existe."
+    },
+    "house": {
+      "federal": {
+        "title": "Câmara dos Deputados — VotoBrasil",
+        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para a Câmara dos Deputados, por unidade da federação."
+      },
+      "state": {
+        "title": "Assembleias Legislativas — VotoBrasil",
+        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para as Assembleias Legislativas e a Câmara Legislativa do DF."
+      },
+      "municipal": {
+        "title": "Câmaras Municipais — VotoBrasil",
+        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para as Câmaras Municipais das cidades com 1 milhão de eleitores ou mais."
+      }
+    },
+    "area": {
+      "title": "{name} · {house} — VotoBrasil",
+      "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para {house}: {name}, com dados do TSE."
+    }
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "body": "O endereço não existe ou foi movido.",
+    "cta": "Voltar ao início"
+  },
+  "about": {
+    "title": "Sobre o VotoBrasil",
+    "lede": "Um projeto aberto e independente para comparar sistemas eleitorais com dados oficiais.",
+    "project": {
+      "title": "O projeto",
+      "body": [
+        "O VotoBrasil é um site público e de código aberto que reaplica os votos reais das eleições brasileiras a sistemas eleitorais alternativos, para mostrar como mudariam as bancadas da Câmara dos Deputados, das assembleias legislativas e de câmaras municipais.",
+        "O objetivo é oferecer análise de dados verificável a um debate público relevante. Por se tratar de um tema em disputa política, o projeto publica dados, premissas e código, para que qualquer pessoa possa conferir e criticar."
+      ]
+    },
+    "sources": {
+      "title": "Fontes de dados",
+      "body": [
+        "Resultados eleitorais: Tribunal Superior Eleitoral (TSE), dados abertos — [dadosabertos.tse.jus.br](https://dadosabertos.tse.jus.br). Malhas territoriais: Instituto Brasileiro de Geografia e Estatística (IBGE) — [ibge.gov.br](https://www.ibge.gov.br/geociencias/organizacao-do-territorio/malhas-territoriais.html).",
+        "A lista completa de arquivos, com tamanho, data de obtenção e SHA-256, está na página de [Metodologia](/metodologia)."
+      ]
+    },
+    "independence": {
+      "title": "Independência",
+      "body": [
+        "O VotoBrasil **não é um serviço do TSE, do IBGE nem de qualquer órgão do governo**, partido ou campanha. Os dados usados são públicos; a interpretação e eventuais erros são de responsabilidade do projeto.",
+        "As simulações são contrafactuais: respondem “o que aconteceria com estes votos sob esta regra?”, e não “o que aconteceria numa eleição futura?”."
+      ]
+    },
+    "privacy": {
+      "title": "Privacidade e LGPD",
+      "body": [
+        "O VotoBrasil não usa cookies, não pede cadastro e não cria perfis de visitantes. O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados Pessoais (LGPD, Lei 13.709/2018).",
+        "**Estatísticas de uso.** Quando habilitado, o site usa o Umami, um serviço de estatísticas sem cookies, para contar visitas, páginas e interações (como a troca de sistema ou de idioma). O serviço recebe dados técnicos da conexão — como endereço IP, navegador, tipo de dispositivo e idioma — usados apenas para gerar contagens agregadas; os eventos registram ações de uso, sem identificar pessoas.",
+        "**Base legal e escolha.** As estatísticas só são ativadas depois que você aceita o aviso de privacidade (consentimento, art. 7º, I, da LGPD). Se recusar, nada é enviado. Você pode dar ou revogar o consentimento a qualquer momento em “Preferências de privacidade”, no rodapé. Se o navegador enviar o sinal “Do Not Track” ou o Global Privacy Control, as estatísticas ficam desligadas e o aviso nem é exibido.",
+        "**Armazenamento local.** O site guarda no seu navegador (localStorage) apenas a sua escolha sobre as estatísticas. As escolhas feitas no simulador ficam no endereço da página, para facilitar o compartilhamento.",
+        "**Seus direitos.** Você pode pedir informações, correção ou eliminação de dados (art. 18 da LGPD) pelos canais do repositório do projeto, indicados em “Como contribuir”."
+      ]
+    },
+    "contribute": {
+      "title": "Como contribuir",
+      "body": [
+        "Sugestões, correções e contribuições são bem-vindas por issues e pull requests no repositório. Relatos de erros nos dados ou nas descrições dos sistemas são especialmente úteis.",
+        "Para reproduzir os números localmente, siga as instruções da página de [Metodologia](/metodologia)."
+      ],
+      "repoLink": "Ver o repositório",
+      "noRepo": "O endereço do repositório ainda não foi configurado nesta instalação (variável `VITE_REPO_URL`)."
+    },
+    "credits": {
+      "title": "Créditos",
+      "body": [
+        "Dados: TSE e IBGE. Interface construída com React e Vite; mapas com D3 (d3-geo, d3-delaunay) e TopoJSON. Todas as bibliotecas são de código aberto."
+      ]
+    }
+  },
+  "methodology": {
+    "title": "Metodologia",
+    "lede": "Como os números são produzidos, o que a simulação assume e onde ela deixa de valer.",
+    "sources": {
+      "title": "Fontes e versão dos dados",
+      "body": [
+        "Votos, candidatos e resultados oficiais vêm dos dados abertos do TSE, com votação detalhada por zona eleitoral e por local de votação. Limites territoriais e códigos de município vêm das malhas do IBGE.",
+        "Cada arquivo de origem é registrado com URL, tamanho, data de obtenção e hash SHA-256, para que seja possível conferir que os mesmos dados foram usados."
+      ],
+      "version": "Versão dos dados: {version} · gerada em {date}",
+      "name": "Arquivo",
+      "size": "Tamanho",
+      "date": "Obtido em",
+      "empty": "Nenhuma fonte registrada."
+    },
+    "validation": {
+      "title": "Validação do motor",
+      "body": [
+        "O motor aplica as regras da lista aberta aos votos de cada área e compara o conjunto de eleitos com o resultado oficial do TSE. Como o “sistema atual” exibido no site é o próprio resultado oficial, essa checagem serve para confirmar que motor e dados estão corretos antes de aplicar o motor a outros sistemas.",
+        "Eventuais divergências são listadas abaixo."
+      ],
+      "exact": "áreas em que o motor reproduz exatamente os eleitos oficiais",
+      "rules": "Regras de referência:",
+      "inexact": "{count} áreas com divergência",
+      "inexactLabel": "Áreas com divergência",
+      "area": "Área",
+      "seats": "Cadeiras",
+      "missing": "Eleitos oficiais não reproduzidos",
+      "allExact": "Todas as áreas foram reproduzidas exatamente."
+    },
+    "assumptions": {
+      "title": "Premissas da simulação",
+      "body": [
+        "**Um voto como proxy dos dois votos.** A PEC 2/2025 prevê dois votos desvinculados (distrito e partido). Os dados disponíveis têm um voto por eleitor (em candidato ou na legenda); a simulação usa esse mesmo voto nos dois componentes. Numa eleição real, os eleitores poderiam dividir seus votos.",
+        "**Comportamento fixo.** Candidatos, partidos e votos permanecem os mesmos. Não se simulam mudanças no comportamento do eleitor (como o voto estratégico), na estratégia dos partidos (lançamento de candidaturas, alianças) nem na oferta de candidaturas, que sob outras regras seria diferente.",
+        "**Sem coligações.** Coligações em eleições proporcionais não existem desde 2020. Federações partidárias são tratadas como uma única entidade na distribuição de cadeiras; as cadeiras são depois atribuídas ao partido de cada candidato eleito.",
+        "**Tamanho das casas.** O número de cadeiras de cada circunscrição é o oficial. A exceção é o distrital misto: como prevê a PEC 2/2025, vitórias distritais além do direito proporcional de um partido viram cadeiras excedentes, e a casa cresce."
+      ]
+    },
+    "districts": {
+      "title": "Como os distritos são desenhados",
+      "body": [
+        "Os distritos são **hipotéticos**, não uma proposta de mapa eleitoral. O algoritmo é determinístico e se inspira no PLS 86/2017 e na PEC 2/2025: equilíbrio populacional, conectividade, compacidade e preservação de municípios e regiões. Não é uma certificação de cumprimento desses projetos.",
+        "**População.** Usamos os totais municipais do Censo 2022 (IBGE). Dentro de cada município, a população é estimada por local de votação, proporcionalmente ao eleitorado, sem usar setores censitários. Isso vale também para municípios divididos nos mapas estaduais. Municípios sem registro no Censo, como Boa Esperança do Norte (MT), recebem uma estimativa pela razão população/eleitorado da área; mudanças de limites municipais são uma limitação. A meta é ±5%, e o processamento rejeita desvios acima de ±10%. O PLS permite a exceção de 10% apenas em um distrito ou em 10% deles, o que for maior; o simulador ainda não impõe essa restrição de quantidade.",
+        "**Municípios e vizinhança.** Municípios até meia cota são inicialmente indivisíveis; se o equilíbrio exigir, novas tentativas permitem dividir os que passam de 1/4 e de 1/10 da cota. As ligações usam fronteiras do IBGE e triangulação entre locais de votação. Componentes isolados, como ilhas, são ligados ao ponto mais próximo. A poda de ligações longas é uma heurística: não detecta barreiras naturais. Verificamos a conectividade de cada distrito nesse grafo; ela não garante a continuidade exata das áreas aproximadas por Voronoi no mapa.",
+        "**Algoritmo.** Bisseção por árvores geradoras, recombinação de distritos vizinhos e ajustes locais, inspirados em técnicas de redistritamento como as do GerryChain/MGGG. A função-objetivo considera população, compacidade e divisões de municípios, regiões imediatas e bairros. Os sorteios têm semente fixa. Votos e partidos não entram no desenho; esta otimização produz um cenário, não uma amostra estatística de todos os mapas possíveis.",
+        "**Resultado.** Os 130 desenhos (puro e misto para 65 casas) foram reproduzidos a partir das fontes: nenhum distrito ultrapassa ±10% da população estimada. O maior desvio é 8,2% (Rio de Janeiro, 51 distritos); 61 desenhos ficam inteiramente em ±5%. Nos estados, usamos votos agregados por município e zona: quando uma zona é dividida, seus votos são repartidos pelo eleitorado dos locais. Nas câmaras municipais, usamos a distribuição por seção e local.",
+        "**Outras simulações.** O [HubPolítico](https://hubpolitico.com.br/distrital) usa o Censo 2022 e compara múltiplos mapas sob as regras do PLS. O [Radar do Voto](https://radardovoto.com/voto-distrital) usa eleitores e regiões do IBGE, com margens selecionáveis de 10%, 15% ou 25%. O [Ranking dos Políticos](https://ranking.org.br/artigos/simulacao-voto-distrital-misto-congresso-2026) usa eleitores e preserva municípios pequenos, sem detalhar o algoritmo. Métodos e regras de cadeiras diferem: resultados próximos não validam um mapa. Outro desenho pode eleger outros candidatos."
+      ]
+    },
+    "rules": {
+      "title": "Regras de cálculo",
+      "body": [
+        "**Sistema atual.** É o resultado oficial publicado pelo TSE. O motor reproduz as regras da lista aberta (Código Eleitoral, arts. 106 a 111, com a redação da Lei 14.211/2021): quociente eleitoral = votos válidos ÷ cadeiras, com fração igual ou inferior a 0,5 desprezada e fração superior a 0,5 arredondada para cima; quociente partidário = parte inteira de (votos do partido ou federação ÷ QE); sobras pelo método de maiores médias (D'Hondt).",
+        "Na validação, o motor adota a interpretação do STF de 2024 (ADI 7228, 7263 e 7325): todos os partidos e candidatos disputam as sobras, mantida a votação mínima individual de 10% do QE.",
+        "**Lista fechada.** D'Hondt sobre o total de votos (nominais mais legenda) de cada partido ou federação. A ordem da lista é aproximada pela votação nominal, porque os partidos não definiram listas ordenadas.",
+        "**Distritão.** Os candidatos mais votados da circunscrição ocupam as cadeiras.",
+        "**Distrital puro e misto.** Cada candidato disputa um só distrito — aquele em que teve a maior votação — e em cada distrito vence o candidato mais votado entre os que o disputam (se nenhum candidato tiver ali a sua maior votação, vence o mais votado no distrito ainda não eleito). Votos de legenda contam apenas para a lista. No misto, são ⌈cadeiras ÷ 2⌉ distritos; o D'Hondt sobre o total de cadeiras, pelos votos nominais mais legenda, define o direito de cada partido ou federação; a lista completa a diferença em relação às vitórias distritais, na ordem da votação nominal; vitórias acima do direito proporcional geram cadeiras excedentes.",
+        "Empates são resolvidos de forma determinística (maior votação e, depois, ordem do cadastro), de modo que os resultados são reproduzíveis."
+      ]
+    },
+    "comparison": {
+      "title": "Comparação com outras simulações",
+      "body": [
+        "Comparamos os resultados do VotoBrasil com simulações independentes do voto distrital misto feitas com os mesmos votos: a do [Ranking dos Políticos](https://ranking.org.br/artigos/simulacao-voto-distrital-misto-congresso-2026), a do [Radar do Voto](https://radardovoto.com/voto-distrital), a do HubPolítico e a nota técnica do DIAP.",
+        "Uma versão anterior do VotoBrasil atribuía cada distrito ao **partido** com mais votos somados ali (todos os seus candidatos mais a legenda). Essa regra favorece sistematicamente o maior partido, que soma votos de muitos candidatos em todos os distritos: produzia ganhos exagerados para ele e perdas para partidos de centro com candidatos regionalmente fortes. As simulações de referência — e a lógica do voto distrital, em que o eleitor escolhe uma pessoa — dão o distrito ao **candidato** mais votado, e cada candidato concorre num só distrito. O VotoBrasil passou a seguir essa regra.",
+        "Com a regra corrigida, os resultados convergem. Na Câmara dos Deputados, o Ranking dos Políticos estima que o PL passaria de 121 para 125 cadeiras no misto compensatório e que 449 dos 513 eleitos se manteriam; o VotoBrasil obtém 128 cadeiras para o PL (numa casa de 531, com 18 excedentes) e 450 eleitos mantidos. As diferenças restantes vêm sobretudo do traçado dos distritos (cada simulação desenha os seus) e das cadeiras excedentes, que o VotoBrasil acrescenta à casa como manda a PEC.",
+        "A nota do DIAP simula variantes sem distritos (“distritão misto”) e por isso não é diretamente comparável. Nenhuma dessas simulações é oficial: todas dependem de premissas sobre os distritos e sobre o uso de um único voto como proxy dos dois votos previstos na PEC."
+      ]
+    },
+    "metrics": {
+      "title": "Indicadores",
+      "body": [
+        "Os indicadores comparam o resultado oficial e o cenário com os mesmos votos por partido (nominais mais legenda). Nos indicadores, os partidos de uma federação são contados individualmente, pelo partido de cada candidato eleito."
+      ],
+      "formula": {
+        "gallagher": "G = √( ½ · Σ (vᵢ − sᵢ)² )",
+        "effectiveParties": "N = 1 / Σ pᵢ²",
+        "majority": "M = ⌊S / 2⌋ + 1",
+        "partiesForMajority": "k = menor k tal que b₁ + … + bₖ ≥ M",
+        "votesWithoutSeatPct": "100 · Σ votos dos partidos sem cadeira ÷ Σ votos de todos os partidos"
+      },
+      "explain": {
+        "gallagher": "vᵢ e sᵢ são as porcentagens de votos e de cadeiras do partido i. Zero indica cadeiras exatamente proporcionais aos votos.",
+        "effectiveParties": "pᵢ é a fração das cadeiras do partido i, considerando só partidos com cadeiras (índice de Laakso–Taagepera aplicado às cadeiras).",
+        "majority": "S é o total de cadeiras; M é a menor quantidade de cadeiras que supera a metade. Para 513 cadeiras, M = 257.",
+        "partiesForMajority": "bᵢ são as bancadas em ordem decrescente. É o menor número de partidos, começando pelos maiores, que alcança a maioria. É um indicador aritmético, não uma previsão de coalizões.",
+        "votesWithoutSeatPct": "Porcentagem dos votos recebidos por partidos que não elegeram nenhum parlamentar."
+      }
+    },
+    "limits": {
+      "title": "Limites",
+      "body": [
+        "**Contrafactual, não previsão.** A simulação mostra o que os votos de uma eleição específica produziriam sob outra regra. Uma mudança real de sistema alteraria candidaturas, alianças, campanhas e o comportamento dos eleitores, e os resultados seriam provavelmente diferentes.",
+        "**Distritos hipotéticos.** Os resultados dos cenários distritais dependem do traçado dos distritos; outro desenho, com os mesmos votos, poderia eleger outros candidatos.",
+        "**Aproximações locais.** Os votos são publicados por zona eleitoral (nos estados) e por seção (nas cidades). Quando uma zona é dividida entre distritos, a parte de cada um é estimada pelos eleitores dos locais de votação; no mapa, a área de cada local é uma aproximação.",
+        "**Erros possíveis.** Dados oficiais podem ser retificados e o código pode conter falhas. Se encontrar uma divergência, registre-a no repositório do projeto."
+      ]
+    },
+    "reproduce": {
+      "title": "Código aberto e reprodução",
+      "body": [
+        "Todo o código — extração dos dados, motor de simulação, API e este site — é aberto. O processamento é determinístico: com os mesmos arquivos de origem (conferidos pelos hashes acima), produz os mesmos resultados.",
+        "Para reproduzir localmente (requer Node.js):"
+      ],
+      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
+      "repo": "Abrir o repositório"
+    }
+  },
+  "semi": {
+    "title": "Semipresidencialismo e governabilidade",
+    "lede": "O que a PEC 2/2025 propõe e o que os dados de votação mostram sobre a formação de maioria na Câmara dos Deputados.",
+    "what": {
+      "title": "O que é o semipresidencialismo",
+      "body": [
+        "No semipresidencialismo, o chefe de Estado (em geral, um presidente) e o chefe de governo (um primeiro-ministro) são cargos distintos. O primeiro-ministro depende da confiança do Legislativo e pode ser destituído por ele; o presidente costuma ter funções de representação e de arbitragem.",
+        "Há muita variação entre os países que adotam o modelo (como França, Portugal e Polônia) quanto aos poderes de cada cargo e à forma de nomear o governo. Não existe um modelo único."
+      ]
+    },
+    "pec": {
+      "title": "O que a PEC 2/2025 propõe",
+      "intro": [
+        "A Proposta de Emenda à Constituição nº 2/2025, apresentada na Câmara dos Deputados por iniciativa do deputado Luiz Carlos Hauly e de outros parlamentares, propõe mudar o sistema de governo e o sistema eleitoral da Câmara. Em linhas gerais:"
+      ],
+      "points": [
+        "O Presidente da República seria o chefe de Estado e comandante das Forças Armadas.",
+        "O Presidente nomearia um Primeiro-Ministro após ouvir os partidos com maior representação na Câmara dos Deputados; o escolhido seria um membro do Congresso Nacional com 35 anos ou mais.",
+        "O Primeiro-Ministro e o conselho de ministros chefiariam o governo, apresentariam um programa e dependeriam do apoio da Câmara dos Deputados.",
+        "A Câmara poderia destituir o governo por moção de censura.",
+        "Não haveria Vice-Presidente da República; a proposta prevê regras próprias de sucessão e de nova eleição.",
+        "Para a Câmara dos Deputados, a proposta prevê o voto distrital misto, com dois votos desvinculados: um em candidato do distrito e outro em partido."
+      ],
+      "caveat": "Descrição conforme a proposição; confira o texto oficial em [camara.leg.br](https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2483164). A redação e a tramitação podem mudar, e este site não acompanha emendas."
+    },
+    "debate": {
+      "title": "Argumentos no debate",
+      "prosTitle": "Argumentos favoráveis",
+      "consTitle": "Críticas",
+      "intro": [
+        "Há argumentos dos dois lados na ciência política e no debate público. Os itens abaixo resumem os mais citados, sem endossá-los."
+      ],
+      "pros": [
+        "Facilita a substituição de um governo que perde o apoio do Parlamento, sem recorrer a um processo de impeachment.",
+        "Separa as funções de chefe de Estado e de chefe de governo.",
+        "Estimula a formação de coalizões em torno de um programa e responsabiliza o governo diante do Parlamento."
+      ],
+      "cons": [
+        "Pode gerar conflitos entre presidente e primeiro-ministro, sobretudo quando têm bases políticas diferentes.",
+        "O chefe de governo deixa de ser escolhido diretamente pelo voto popular e passa a ser indicado.",
+        "Em sistemas partidários fragmentados, pode haver instabilidade, com trocas frequentes de governo."
+      ]
+    },
+    "gov": {
+      "title": "Governabilidade em números",
+      "body": [
+        "Em qualquer sistema com governo dependente do Parlamento, o número de partidos necessários para somar uma maioria é relevante. Abaixo, com base na Câmara dos Deputados, mostramos quantos partidos, começando pelas maiores bancadas, são necessários para a maioria no resultado oficial e no cenário escolhido.",
+        "O indicador é aritmético: não considera afinidade ideológica, alianças reais nem disciplina de bancada."
+      ],
+      "majorityTitle": "Maioria na Câmara dos Deputados",
+      "majorityLede": "A maioria é de {majority} das {seats} cadeiras: a metade, arredondada para baixo, mais uma.",
+      "partiesNeeded": "maiores bancadas necessárias para a maioria",
+      "cumulative": "soma: {total}"
+    },
+    "coalition": {
+      "title": "Montador de coalizão",
+      "lede": "Ligue e desligue partidos para ver se a soma de suas cadeiras alcança a maioria no resultado oficial e no cenário.",
+      "groupLabel": "Partidos da coalizão",
+      "clear": "Limpar seleção",
+      "caveat": "Exercício aritmético: as bancadas são as do resultado oficial e da simulação, e não indicam que esses partidos formariam de fato uma coalizão.",
+      "reached": "Maioria alcançada: {surplus} cadeiras acima do mínimo de {majority}.",
+      "missing": "Faltam {missing} cadeiras para a maioria ({majority})."
+    },
+    "future": {
+      "title": "Próximas etapas",
+      "body": [
+        "A análise de votações nominais — por exemplo, o quanto as bancadas votam de forma coesa nas votações do plenário — é uma fase futura do projeto e ainda não está incluída aqui."
+      ]
+    }
+  }
+}

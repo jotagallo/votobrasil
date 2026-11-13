@@ -1,0 +1,26 @@
+{
+  "name": "@votobr/etl",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx src/build.ts",
+    "validate": "tsx src/validate.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@votobr/shared": "*",
+    "d3-delaunay": "^6.0.6",
+    "d3-geo": "^3.1.2",
+    "topojson-client": "^3.1.0",
+    "topojson-server": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/d3-delaunay": "^6.0.4",
+    "@types/d3-geo": "^3.1.1",
+    "@types/geojson": "^7946.0.16",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-server": "^3.0.4"
+  }
+}

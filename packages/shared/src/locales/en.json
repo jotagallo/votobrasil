@@ -1,0 +1,856 @@
+{
+  "app": {
+    "name": "VotoBrasil",
+    "skip": "Skip to content",
+    "homeLabel": "VotoBrasil — home page"
+  },
+  "nav": {
+    "main": "Main navigation",
+    "menu": "Menu",
+    "close": "Close",
+    "home": "Home",
+    "houses": "Legislative bodies",
+    "systems": "Electoral systems",
+    "methodology": "Methodology",
+    "semipresidentialism": "Semi-presidentialism",
+    "about": "About"
+  },
+  "lang": {
+    "label": "Language",
+    "names": {
+      "pt-BR": "Português",
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "houses": {
+    "federal": {
+      "short": "Chamber of Deputies",
+      "name": "Chamber of Deputies"
+    },
+    "state": {
+      "short": "Legislative Assembly",
+      "name": "State Legislative Assemblies"
+    },
+    "municipal": {
+      "short": "City Council",
+      "name": "City Councils"
+    }
+  },
+  "footer": {
+    "disclaimer": "Counterfactual simulation with simplifying assumptions; it is not a forecast. VotoBrasil is independent and has no affiliation with the TSE (Superior Electoral Court) or the government.",
+    "links": "Footer links",
+    "source": "Source code",
+    "data": "Data: TSE (open data) and IBGE (boundaries). No cookies; usage statistics only with consent (LGPD)."
+  },
+  "consent": {
+    "label": "Privacy notice",
+    "text": "We use cookie-free audience statistics (Umami) to learn, in aggregate, which pages and simulations are used. They are only switched on with your consent, as required by Brazil's data protection law (LGPD, Law 13,709/2018), and you can change your mind at any time under “Privacy preferences” in the footer.",
+    "more": "Learn more",
+    "accept": "Accept",
+    "reject": "Decline",
+    "manage": "Privacy preferences"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "share": "Share",
+    "shareCopied": "Link copied",
+    "shareDone": "Shared",
+    "shareFailed": "Could not share. Copy the address from your browser's address bar.",
+    "breadcrumb": "You are here",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "title": "Could not load the data",
+    "body": "Check your connection and try again."
+  },
+  "selector": {
+    "legend": "Electoral system",
+    "learnMore": "Learn about this system"
+  },
+  "systems": {
+    "title": "Electoral systems",
+    "lede": "How each system turns votes into seats, with the most frequently cited arguments for and against.",
+    "how": "How it works",
+    "pros": "Arguments in favour",
+    "cons": "Criticisms and limitations",
+    "inSimulation": "In this simulator",
+    "intro": [
+      "An electoral system is the rule that turns votes into seats. These are the five that VotoBrasil can simulate from the actual votes.",
+      "No system is neutral: each design favours certain goals — proportionality, ties to a territory, building majorities, campaign costs — over others. The site presents the rules and the usual arguments on each side, without recommending any of them.",
+      "In broad terms: in proportional systems, seats follow party vote shares; in district systems, whoever gets the most votes in each district wins; in mixed systems, the two mechanisms are combined."
+    ],
+    "compare": {
+      "title": "Summary comparison",
+      "system": "System",
+      "districts": "Uses districts",
+      "lists": "Uses party lists",
+      "proportionality": "Proportionality between parties"
+    },
+    "atual": {
+      "name": "Open-list proportional representation (current system)",
+      "short": "Current",
+      "summary": "Votes for candidates and party labels determine how many seats each party or federation gets; within a party, the candidates with the most votes are elected.",
+      "proportionality": "High",
+      "how": [
+        "The votes of each party or federation in the constituency are added up (votes for candidates plus party-label votes). Total valid votes divided by the number of seats gives the **electoral quotient (EQ)**; each party gets as many seats as the number of times its votes contain the EQ (the **party quotient**).",
+        "The remaining seats are distributed by the highest-averages method (D'Hondt). Within each party, the candidates with the most votes are elected, provided each reaches the individual minimum set by law (10% of the EQ).",
+        "Parties may join in federations, which run and act as a single party for at least four years. Coalitions in proportional elections have been prohibited since 2020."
+      ],
+      "pros": [
+        "Keeps each party's seat share close to the share of votes it received.",
+        "Voters choose individuals and may also vote for the party label.",
+        "Allows representation of parties of different sizes and of minority groups."
+      ],
+      "cons": [
+        "In large constituencies (such as populous states), individual campaigns are expensive and candidates of the same party compete against each other.",
+        "The link between voter and representative is weak: the constituency is the whole state and each party fields dozens of candidates.",
+        "Party-label votes and votes for unelected candidates can help elect other candidates of the same party, which voters do not always realise.",
+        "Many parties win representation; some analysts argue this makes it harder to build majorities, while others see it simply as reflecting the plurality of the electorate."
+      ],
+      "sim": [
+        "The “current” result is the official one published by the TSE for each office and constituency. VotoBrasil's engine reproduces the calculation as a check (see the [Methodology](/metodologia))."
+      ]
+    },
+    "lista-fechada": {
+      "name": "Closed list",
+      "short": "Closed list",
+      "summary": "Voters choose the party's list; seats are distributed among the lists and filled in the order set by the party.",
+      "proportionality": "High",
+      "how": [
+        "Before the election, each party or federation submits an ordered list of candidates. Voters vote for the list; seats are distributed among the lists by the D'Hondt method and filled from the top of each list down.",
+        "It is used, with variations, in many European and Latin American countries."
+      ],
+      "pros": [
+        "The contest is between parties, which tends to lower campaign costs and reduce internal competition.",
+        "The order of the list is known before the vote.",
+        "Makes it easier to apply gender-parity rules or quotas when composing lists."
+      ],
+      "cons": [
+        "The choice of who is elected shifts to party leaderships; voters do not choose individual candidates.",
+        "Reduces voters' ability to reward or punish specific legislators.",
+        "Requires rules on internal party democracy and transparency in how lists are drawn up."
+      ],
+      "sim": [
+        "Parties did not set ordered lists, so VotoBrasil orders each party's or federation's list by the number of personal votes its candidates received.",
+        "Seats are distributed by D'Hondt over the total votes (personal plus party-label) of each party or federation, without the individual vote threshold of the current system."
+      ]
+    },
+    "distritao": {
+      "name": "Distritão",
+      "short": "Distritão",
+      "summary": "The candidates with the most votes in the constituency are elected, regardless of party or quotients.",
+      "proportionality": "Variable",
+      "how": [
+        "In each constituency (for example, a state), the candidates with the most individual votes fill the available seats, regardless of party. In the literature it is known as the single non-transferable vote (SNTV).",
+        "Party-label votes do not affect who is elected."
+      ],
+      "pros": [
+        "It is simple to understand: the candidates with the most votes are elected.",
+        "Votes go directly to individuals.",
+        "It needs no quotients or remainders."
+      ],
+      "cons": [
+        "Many votes elect no one (votes for unelected candidates and surplus votes for very popular candidates).",
+        "Tends to favour already well-known candidates and weaken parties as organisations.",
+        "A party's representation depends on how its votes are spread across candidates, not only on how many votes it received."
+      ],
+      "sim": [
+        "VotoBrasil elects, in each state or municipality, the candidates with the most personal votes, up to the number of seats. Party-label votes do not count."
+      ]
+    },
+    "distrital-puro": {
+      "name": "Pure district voting",
+      "short": "Pure district",
+      "summary": "The constituency is divided into single-seat districts; the candidate with the most votes in each district wins.",
+      "proportionality": "Generally low",
+      "how": [
+        "The constituency is divided into as many districts as there are seats. Each district elects one representative by plurality in a single round: whoever has the most votes wins, even without an absolute majority.",
+        "Votes for anyone who does not win in the district produce no seats."
+      ],
+      "pros": [
+        "Each voter has an identifiable representative for their area.",
+        "Campaigns are concentrated in smaller areas, which can reduce costs.",
+        "Makes it easier for legislators to be accountable to the local electorate."
+      ],
+      "cons": [
+        "The distribution of seats can diverge considerably from the overall vote: a party with a plurality in many districts tends to be over-represented.",
+        "Votes for defeated candidates are wasted, and dispersed minority groups may go unrepresented.",
+        "Districts must be drawn, which can be manipulated (gerrymandering) and must be redrawn as the population changes."
+      ],
+      "sim": [
+        "VotoBrasil draws hypothetical districts with population estimated from the 2022 Census (±5% target), graph connectivity and whole municipalities wherever possible. Map boundaries are approximate; see the rules and limitations in the [Methodology](/metodologia).",
+        "Each candidate runs only in the district where they got their highest vote, and each district is won by the most-voted candidate among those running there. The voter's candidate vote is used as the district vote; party-label votes do not elect district candidates."
+      ]
+    },
+    "distrital-misto": {
+      "name": "Mixed-member system (PEC 2/2025)",
+      "short": "Mixed-member",
+      "summary": "Half of the seats are decided in districts and the rest by party list; each party's total is proportional to the party vote, as proposed by PEC 2/2025.",
+      "proportionality": "High",
+      "how": [
+        "Voters cast **two separate votes**: one for a candidate in their district, elected by plurality, and another for a party (list vote).",
+        "Under PEC 2/2025 (art. 45, §§ 1–3, as proposed), each state elects in single-member districts **half of its seats, or the next whole number above**. Each party's total seats are calculated from the party vote; district wins are deducted from that total, and the party's ranked list fills the difference.",
+        "If a party wins more districts than its proportional share, it keeps those seats and **the difference is added to the total number of deputies** (§ 4): the Chamber may grow beyond the current 513 seats. This is the compensatory model, inspired by the German system."
+      ],
+      "pros": [
+        "Combines proportional representation between parties with an identifiable representative in each district.",
+        "Voters can choose a local candidate and a different party without distorting each party's weight.",
+        "Wastes fewer votes than first-past-the-post and keeps room for medium and small parties."
+      ],
+      "cons": [
+        "It is more complex for voters and for the count: two votes and two ways of being elected.",
+        "It creates two kinds of deputy (district and list), and the order of the lists is set by party leaderships.",
+        "Overhang seats make the size of the Chamber vary from one election to the next.",
+        "It requires drawing districts, which can be disputed and manipulated (gerrymandering)."
+      ],
+      "sim": [
+        "In each constituency, half of the seats (rounded up) are decided in hypothetical districts, as in first-past-the-post. Each party's or federation's total comes from D'Hondt over the constituency's seats using candidate plus party-label votes; after deducting district wins, the list fills the difference, in order of the candidates' personal votes.",
+        "When a party wins more districts than its proportional entitlement, it keeps the wins and the house grows (overhang seats). The simulator shows how many seats the house would have.",
+        "The PEC covers only the Chamber of Deputies; VotoBrasil applies the same rule to state assemblies and city councils as a comparative exercise."
+      ]
+    },
+    "examples": {
+      "title": "Numerical examples",
+      "lede": "Two small examples, with invented numbers, show how the rules work. They are not real data.",
+      "party": "Party",
+      "votes": "Votes",
+      "votesOverQuotient": "Votes ÷ EQ",
+      "direct": "Seats by party quotient",
+      "leftoverSeats": "Remainder seats",
+      "total": "Total",
+      "districtWins": "District wins",
+      "listVotes": "List votes (%)",
+      "entitled": "Proportional entitlement",
+      "fromList": "List seats",
+      "proportional": {
+        "title": "Proportional: electoral quotient and remainders (D'Hondt)",
+        "intro": "A constituency with **{seats}** seats and **{total}** valid votes. The electoral quotient is {total} ÷ {seats} = **{quotient}** votes. Each party gets, as direct seats, the whole-number part of votes ÷ EQ (party quotient). **{leftover}** seats remain, allocated by the D'Hondt method: in each round, the seat goes to the party with the highest average, equal to votes ÷ (seats already won + 1).",
+        "note": "Round 1: averages of 25,000 (A), 26,667 (B), 15,000 (C) and 20,000 (D); the seat goes to B. Round 2: averages of 25,000 (A), 20,000 (B), 15,000 (C) and 20,000 (D); the seat goes to A. In this example, applying D'Hondt directly to all 8 seats would give the same result (4, 3, 1 and 0); in other cases the two routes can diverge."
+      },
+      "mixed": {
+        "title": "The PEC's mixed-member system: compensation and overhang seats",
+        "intro": "A constituency with **{seats}** seats: **{district}** decided in districts and, in principle, **{list}** by list. The table shows each party's district wins and list vote.",
+        "note": "D'Hondt applied to the 10 seats using list votes gives each party's proportional entitlement (A 4, B 4, C 2). After deducting district wins, the list fills the difference: A gets 1 list seat, B gets 2 and C, which won no districts, gets 2. The final result is proportional to the party vote; districts only decide **who** fills part of the seats.",
+        "overhang": "**Overhang seats:** had party {party} won all {wins} districts, it would have {wins} seats, more than the {entitled} it is entitled to. Under the PEC it keeps them, and the house grows to {total} seats (art. 45, § 4)."
+      }
+    },
+    "pec": {
+      "title": "PEC 2/2025 and the mixed-member system",
+      "caveat": "Check the official text of the proposal at camara.leg.br: the wording and the legislative process may change.",
+      "body": [
+        "PEC 2/2025, authored by deputy Luiz Carlos Hauly and other legislators, proposes a mixed-member system for the Chamber of Deputies, with two separate votes: one for a district candidate and another for a party.",
+        "The text defines a **compensatory** model: half of each state's seats (or the next whole number above) are filled in districts; each party's total follows its share of the party vote; and district wins beyond that share enlarge the Chamber (art. 45, §§ 1–5, as proposed). This is the rule VotoBrasil simulates, with the split fixed at 50%.",
+        "The text as filed is inconsistent: item I of art. 45 mentions two thirds of seats in districts and one third by lists, while § 1 sets 50%. The simulator follows § 1, which details the rule; the final wording may change during the legislative process."
+      ]
+    }
+  },
+  "chamber": {
+    "seatsUnit": "seats",
+    "official": "Official result",
+    "officialShort": "Off.",
+    "officialLower": "official",
+    "scenario": "Simulated scenario",
+    "scenarioShort": "Scen.",
+    "scenarioNamed": "Scenario: {system}",
+    "sameAsOfficial": "The current system is the official result itself: there is no difference to compare.",
+    "noChange": "No seat changes party compared with the official result.",
+    "changed": "{count} of {total} seats change party compared with the official result.",
+    "overhang": "With the overhang seats provided for in PEC 2/2025 (art. 45, § 4), the house would have {total} seats: the current {official} plus {extra}.",
+    "showTop": "Show only the largest parties",
+    "showAll": "Show all {count} parties",
+    "others": "Others ({count})",
+    "viewTable": "View table",
+    "tableLabel": "Votes and seats by party",
+    "party": "Party",
+    "votes": "Votes",
+    "voteShare": "% of votes",
+    "metricsTitle": "Indicators"
+  },
+  "metrics": {
+    "gallagher": {
+      "name": "Gallagher index",
+      "hint": "Distance between parties' vote shares and seat shares, in percentage points. Zero is perfect proportionality; the lower, the more proportional."
+    },
+    "effectiveParties": {
+      "name": "Effective number of parties",
+      "hint": "How many equally sized parties would have the same fragmentation as the seat distribution (Laakso–Taagepera index)."
+    },
+    "partiesWithSeats": {
+      "name": "Parties with seats",
+      "hint": "Number of parties that elected at least one legislator."
+    },
+    "partiesForMajority": {
+      "name": "Parties for a majority",
+      "hint": "Smallest number of parties, starting with the largest caucuses, that together hold a majority of seats."
+    },
+    "largestShare": {
+      "name": "Largest caucus",
+      "hint": "Share of seats held by the largest party."
+    },
+    "votesWithoutSeatPct": {
+      "name": "Votes without representation",
+      "hint": "Percentage of votes cast for parties that elected no legislators."
+    },
+    "majority": {
+      "name": "Majority"
+    }
+  },
+  "map": {
+    "brazilTitle": "Map by state",
+    "modeLabel": "Colour the map by",
+    "brazilLabel": "Map of Brazil by state (UF). Select a state to open its page.",
+    "viewTable": "View table",
+    "tableLabel": "Result by state",
+    "mode": {
+      "leader": "Largest caucus",
+      "change": "Change"
+    },
+    "modeHint": {
+      "leader": "The colour shows the party with the most seats in each state in the simulated scenario. Select a state to see the details.",
+      "change": "The intensity shows the share of the state's seats that change party compared with the official result."
+    },
+    "legend": {
+      "none": "No change",
+      "above": "More than {value}",
+      "upTo": "Up to {value}"
+    },
+    "ufDescription": "{name}: {seats} seats; largest caucus in the scenario: {leader}; {changed} seats change party.",
+    "ufCount": "States: {count}",
+    "col": {
+      "area": "State",
+      "seats": "Seats",
+      "leaderOfficial": "Largest caucus (official)",
+      "leaderScenario": "Largest caucus (scenario)",
+      "changed": "Seats that change"
+    },
+    "pickLabel": "Map of Brazil: choose a state",
+    "pickDescription": "{name}: {seats} seats in the Assembly"
+  },
+  "districtMap": {
+    "title": "Map of the simulated districts",
+    "colorBy": "Colour by",
+    "colorMode": {
+      "district": "District",
+      "party": "Winning party"
+    },
+    "stateLabel": "Map with {count} simulated districts of the state, coloured by district.",
+    "cityLabel": "Map with {count} simulated districts of the municipality, coloured by district.",
+    "stateLede": "{count} hypothetical districts, balanced by population estimated from the 2022 Census. The algorithm connects neighbouring municipalities and polling places; the map is an approximation, not an official boundary plan.",
+    "cityLede": "{count} hypothetical districts formed from groups of polling places. The 2022 Census population is allocated by each place's electorate: this is not a count of residents in each district.",
+    "stateNote": "The districts are hypothetical: the amendment leaves the drawing to a future law. In the {split} split municipalities, the area of each polling place is approximated by the region closest to it (Voronoi diagram).",
+    "cityNote": "The area of each of the {count} polling points is approximated by the region closest to it (Voronoi diagram), clipped to the municipal boundary — not the actual catchment of the place. The districts are hypothetical.",
+    "munDistrict": "{name}: district {district}",
+    "munPart": "{name}: part in district {district}",
+    "unnamed": "District {n}",
+    "plusOne": "{name} and 1 more municipality",
+    "plusMany": "{name} and {count} more municipalities",
+    "hint": "Hover or tap a district, on the map or in the list, to highlight it. Click to zoom in.",
+    "searchState": "Search municipality",
+    "searchCity": "Search neighbourhood",
+    "listLabel": "List of districts",
+    "rowPopulation": "{pop} estimated residents · {dev}% vs. average",
+    "rowVoters": "{voters} voters",
+    "margin": "{value} pt margin",
+    "noMatch": "No district found.",
+    "reset": "Show all districts"
+  },
+  "winners": {
+    "title": "Who gains and who loses a seat",
+    "gainedTitle": "Elected only in the scenario",
+    "gainedHint": "Candidates who would hold a seat in the scenario but were not officially elected.",
+    "lostTitle": "Elected only in the official result",
+    "lostHint": "Candidates officially elected who would be left without a seat in the scenario.",
+    "none": "No candidates in this list.",
+    "showLess": "Show less",
+    "showAll": "Show all ({count})",
+    "summary": "{kept} candidates are elected in both cases; {gained} are elected only in the scenario and {lost} only in the official result.",
+    "votes": "{count} votes",
+    "tier": {
+      "oficial": "Elected (official)",
+      "qp": "Party quotient",
+      "sobra": "Remainders",
+      "lista": "List",
+      "distrito": "District",
+      "mais-votados": "Most votes"
+    }
+  },
+  "areas": {
+    "label": "List of areas",
+    "name": "Area",
+    "uf": "State",
+    "seats": "Seats",
+    "electorate": "Voters"
+  },
+  "explorer": {
+    "shareText": "Simulation of seats under different electoral systems, using official TSE data.",
+    "federal": {
+      "title": "Chamber of Deputies",
+      "lede": "Sum of the 27 federative units. Choose a system to see how seats would look with the 2026 votes."
+    },
+    "state": {
+      "title": "State Legislative Assemblies"
+    }
+  },
+  "house": {
+    "federal": {
+      "areasTitle": "Chamber of Deputies by federative unit",
+      "intro": [
+        "The Chamber of Deputies has 513 seats distributed among the 27 federative units in proportion to population, with a minimum of 8 and a maximum of 70 per state.",
+        "Each state is a constituency. Choose one to see the official result and the simulation."
+      ]
+    },
+    "state": {
+      "areasTitle": "State Legislative Assemblies by federative unit",
+      "intro": [
+        "Legislative Assemblies elect state deputies in each federative unit; in the Federal District, the equivalent is the Legislative Chamber, with district deputies. The number of seats in each house follows the Constitution, based on the state’s federal delegation.",
+        "Each Assembly is an independent house. Choose a state to see the official result and the simulation."
+      ],
+      "pickTitle": "Choose a state",
+      "pickHint": "Each Legislative Assembly is elected separately, so adding up the 27 houses says little. Click the map or the list to see the official result and the simulation for one state."
+    },
+    "municipal": {
+      "areasTitle": "City Councils of cities with 1 million voters or more",
+      "intro": [
+        "VotoBrasil covers the City Councils of every city with 1 million voters or more — 11 in the 2024 election, whose results are used here.",
+        "In cities, the smallest building block of the simulated districts is the polling place."
+      ]
+    }
+  },
+  "area": {
+    "districtNoticeLabel": "Notice about districts",
+    "switch": "Change area",
+    "unit": {
+      "zone": "electoral zones",
+      "votingPlace": "polling places"
+    },
+    "facts": "{seats} seats · {electorate} voters · {year} election",
+    "districtNotice": "In this scenario, districts are **hypothetical**: the algorithm uses {units} {level} and seeks to balance estimated population. Boundaries are approximate; another layout could elect other candidates.",
+    "mixedSplit": "Split of seats in this scenario: {district} in districts and {list} from the list.",
+    "deviation": "Largest population deviation of a district: {value}% relative to the average."
+  },
+  "home": {
+    "intro": {
+      "eyebrow": "PEC 2/2025 · under debate in Congress",
+      "title": "Congress is discussing a new political system. Do you know how it works?",
+      "lede": "A proposed amendment to the Constitution could change how you choose your representatives and who runs the government. Understanding it is the first step to having an opinion about it.",
+      "changesTitle": "What changes, in a nutshell",
+      "changes": {
+        "vote": {
+          "title": "Your vote",
+          "text": "You would cast two votes: one for a candidate in your district — a region of your state — and another for a party."
+        },
+        "chamber": {
+          "title": "The Chamber",
+          "text": "Half of the deputies would be elected in districts and the other half from party lists. The Chamber could grow beyond today's 513 seats."
+        },
+        "government": {
+          "title": "The government",
+          "text": "The President would still be directly elected, but day-to-day government would be led by a Prime Minister who stays in office only with the Chamber's support."
+        }
+      },
+      "alert": {
+        "title": "Why it matters",
+        "body": [
+          "Electoral rules decide who gets into power and usually last for many elections. When they change without people understanding and taking part in the debate, voters only find out the effects when they go to the polls — and a constitutional amendment can only be undone by another amendment, approved by 3/5 of both the Chamber and the Senate in two rounds.",
+          "Systems with a Prime Minister have been put to a popular vote twice in Brazil, in 1963 and 1993, and rejected both times. A change of this size deserves to be discussed with society, not only inside Congress."
+        ]
+      },
+      "act": {
+        "title": "How to take part",
+        "items": [
+          "**Understand it:** use the simulator below to see how the real votes of the last election would turn into seats under the PEC's rule.",
+          "**Follow it:** the proposal's progress is public on the [Chamber's website](https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2483164) (in Portuguese).",
+          "**Have your say:** answer the [Chamber's official poll](https://www.camara.leg.br/enquetes/2483164) and contact your state's deputies to tell them what you think."
+        ]
+      },
+      "cta": {
+        "simulate": "See how the Chamber would look",
+        "mixed": "How mixed-member voting works"
+      },
+      "neutral": "VotoBrasil is independent: it neither supports nor opposes the proposal."
+    },
+    "eyebrow": "Electoral system simulator",
+    "title": "See how the Chamber of Deputies would look under a different electoral system",
+    "lede": "The same official TSE votes, recounted under other rules: the PEC's mixed-member system, single-member districts, the “distritão” and closed lists. Compare with the real result, party by party.",
+    "disclaimer": "Counterfactual simulation with simplifying assumptions: it shows what the same votes would produce under another rule, not what would happen in a future election.",
+    "cta": {
+      "explore": "Explore the simulation",
+      "systems": "Understand the systems"
+    },
+    "trust": {
+      "label": "At a glance",
+      "data": "TSE open data",
+      "open": "Open source",
+      "privacy": "No cookies · LGPD"
+    },
+    "hero": {
+      "caption": "Illustration with generic seats, not real data"
+    },
+    "stats": {
+      "label": "VotoBrasil in numbers",
+      "seats": "seats in the Chamber of Deputies",
+      "states": "federation units",
+      "cities": "cities with 1 million voters or more",
+      "systems": "electoral systems compared"
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "Three steps, always with the same votes",
+      "lede": "Only the rule that turns votes into seats changes.",
+      "step1": {
+        "title": "Real votes",
+        "text": "We start from the official votes published by the TSE: candidates, parties and the vote in each electoral zone."
+      },
+      "step2": {
+        "title": "Another rule",
+        "text": "You pick a system (closed list, district or mixed) and the same votes are recounted. Candidates, parties and votes stay fixed."
+      },
+      "step3": {
+        "title": "Comparison",
+        "text": "The hemicycle, party caucuses, who gains or loses seats and proportionality metrics appear next to the official result."
+      }
+    },
+    "explorer": {
+      "eyebrow": "Simulator"
+    },
+    "debate": {
+      "eyebrow": "Food for thought",
+      "title": "Would it be good for the country?",
+      "lede": "There is no single technical answer: it depends on what matters most to you. These are the arguments most often heard on each side.",
+      "prosTitle": "Supporters say…",
+      "pros": [
+        "Each region would have a known deputy who is easier to hold to account.",
+        "Campaigns in smaller districts would tend to be cheaper.",
+        "The party vote would keep the Chamber proportional to each party's vote.",
+        "With a Prime Minister, government crises could be solved by replacing the government, without impeachment."
+      ],
+      "consTitle": "Critics say…",
+      "cons": [
+        "The system becomes more complicated: two votes, two kinds of deputy and a Chamber whose size can change.",
+        "The order of candidates on the lists would be in the hands of party leaderships.",
+        "District boundaries can be manipulated and must be redrawn from time to time.",
+        "Changing the system of government and the electoral system at the same time increases uncertainty about the effects."
+      ],
+      "opinionTitle": "Make up your own mind",
+      "opinion": [
+        "VotoBrasil does not say which system is best. We take the real votes of the last election, published by the TSE, and recalculate who would be elected under each rule, so you can compare for yourself.",
+        "These are simulations with simplifying assumptions, explained in the [Methodology](/metodologia): they are meant to compare rules, not to forecast elections."
+      ],
+      "semi": "Understand semi-presidentialism",
+      "systems": "Compare all systems"
+    },
+    "reading": {
+      "eyebrow": "Before you interpret",
+      "title": "How to read the results",
+      "body": [
+        "The “official” result is the one published by the TSE, obtained under the open-list proportional system. The “scenario” uses exactly the same votes; only the rule that converts them into seats changes.",
+        "Candidates, parties and votes are held fixed: no changes in voter behaviour, party strategy or coalitions are simulated.",
+        "In systems with districts, the districts are drawn by an algorithm and do not correspond to real districts. See the details and limits in the [Methodology](/metodologia)."
+      ]
+    },
+    "more": {
+      "title": "Explore more",
+      "state": {
+        "title": "State Legislative Assemblies",
+        "text": "Pick a state and see how its Legislative Assembly would look under each system."
+      },
+      "municipal": {
+        "title": "City Councils",
+        "text": "Explore the cities with 1 million voters or more, with districts drawn from polling places."
+      },
+      "systems": {
+        "title": "Electoral systems",
+        "text": "How each system turns votes into seats, with numerical examples."
+      },
+      "methodology": {
+        "title": "Methodology",
+        "text": "Sources, assumptions, formulas and validation of the engine against the official result."
+      },
+      "semi": {
+        "title": "Semi-presidentialism",
+        "text": "What PEC 2/2025 proposes and how many parties would be needed for a majority."
+      }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "VotoBrasil — Electoral system simulator with TSE data",
+      "description": "Simulate how seats in the Chamber of Deputies, state assemblies and city councils would look under other electoral systems, using official TSE data. Counterfactual simulation, not a forecast."
+    },
+    "systems": {
+      "title": "Electoral systems — VotoBrasil",
+      "description": "How each system turns votes into seats: current proportional system, closed list, distritão, district voting and mixed models, with arguments, criticisms and numerical examples."
+    },
+    "methodology": {
+      "title": "Methodology — VotoBrasil",
+      "description": "Official sources, assumptions, limits and formulas of the simulation, with validation of the engine against TSE results."
+    },
+    "semi": {
+      "title": "Semi-presidentialism and governability — VotoBrasil",
+      "description": "What PEC 2/2025 proposes and how many parties would be needed to form a majority in the Chamber of Deputies under each electoral scenario."
+    },
+    "about": {
+      "title": "About — VotoBrasil",
+      "description": "Independent, open-source project that uses open data from the TSE and IBGE. No cookies."
+    },
+    "notFound": {
+      "title": "Page not found — VotoBrasil",
+      "description": "The page you are looking for does not exist."
+    },
+    "house": {
+      "federal": {
+        "title": "Chamber of Deputies — VotoBrasil",
+        "description": "Official result and simulation of alternative electoral systems for the Chamber of Deputies, by federative unit."
+      },
+      "state": {
+        "title": "State Legislative Assemblies — VotoBrasil",
+        "description": "Official result and simulation of alternative electoral systems for the State Legislative Assemblies and the Legislative Chamber of the Federal District."
+      },
+      "municipal": {
+        "title": "City Councils — VotoBrasil",
+        "description": "Official result and simulation of alternative electoral systems for the City Councils of cities with 1 million voters or more."
+      }
+    },
+    "area": {
+      "title": "{name} · {house} — VotoBrasil",
+      "description": "Official result and simulation of alternative electoral systems for {house}: {name}, using TSE data."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The address does not exist or has been moved.",
+    "cta": "Back to home"
+  },
+  "about": {
+    "title": "About VotoBrasil",
+    "lede": "An open, independent project for comparing electoral systems using official data.",
+    "project": {
+      "title": "The project",
+      "body": [
+        "VotoBrasil is a public, open-source website that reapplies the real votes of Brazilian elections to alternative electoral systems, to show how the party composition of the Chamber of Deputies, the state legislative assemblies and city councils would change.",
+        "The aim is to offer verifiable data analysis to a relevant public debate. Because the topic is politically contested, the project publishes its data, assumptions and code so that anyone can check and critique them."
+      ]
+    },
+    "sources": {
+      "title": "Data sources",
+      "body": [
+        "Election results: Superior Electoral Court (TSE), open data — [dadosabertos.tse.jus.br](https://dadosabertos.tse.jus.br). Territorial boundaries: Brazilian Institute of Geography and Statistics (IBGE) — [ibge.gov.br](https://www.ibge.gov.br/geociencias/organizacao-do-territorio/malhas-territoriais.html).",
+        "The complete list of files, with size, retrieval date and SHA-256, is on the [Methodology](/metodologia) page."
+      ]
+    },
+    "independence": {
+      "title": "Independence",
+      "body": [
+        "VotoBrasil is **not a service of the TSE, the IBGE or any government body**, party or campaign. The data used are public; the interpretation and any errors are the project's responsibility.",
+        "The simulations are counterfactual: they answer “what would happen with these votes under this rule?”, not “what would happen in a future election?”."
+      ]
+    },
+    "privacy": {
+      "title": "Privacy and LGPD",
+      "body": [
+        "VotoBrasil does not use cookies, does not ask you to sign up and does not build visitor profiles. Personal data is handled in accordance with Brazil's General Data Protection Law (LGPD, Law 13,709/2018).",
+        "**Usage statistics.** When enabled, the site uses Umami, a cookie-free analytics service, to count visits, pages and interactions (such as changing the system or language). The service receives technical connection data — such as IP address, browser, device type and language — used only to produce aggregate counts; events record usage actions without identifying people.",
+        "**Legal basis and choice.** Statistics are only switched on after you accept the privacy notice (consent, art. 7, I, LGPD). If you decline, nothing is sent. You can give or withdraw consent at any time under “Privacy preferences” in the footer. If your browser sends a “Do Not Track” or Global Privacy Control signal, statistics stay off and the notice is not even shown.",
+        "**Local storage.** The site stores in your browser (localStorage) only your choice about statistics. The choices you make in the simulator are kept in the page address, to make sharing easier.",
+        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) through the project repository channels listed under “How to contribute”."
+      ]
+    },
+    "contribute": {
+      "title": "How to contribute",
+      "body": [
+        "Suggestions, corrections and contributions are welcome through issues and pull requests in the repository. Reports of errors in the data or in the descriptions of the systems are especially useful.",
+        "To reproduce the numbers locally, follow the instructions on the [Methodology](/metodologia) page."
+      ],
+      "repoLink": "View the repository",
+      "noRepo": "The repository address has not been configured for this installation (variable `VITE_REPO_URL`)."
+    },
+    "credits": {
+      "title": "Credits",
+      "body": [
+        "Data: TSE and IBGE. Interface built with React and Vite; maps with D3 (d3-geo, d3-delaunay) and TopoJSON. All libraries are open source."
+      ]
+    }
+  },
+  "methodology": {
+    "title": "Methodology",
+    "lede": "How the numbers are produced, what the simulation assumes and where it stops being valid.",
+    "sources": {
+      "title": "Data sources and version",
+      "body": [
+        "Votes, candidates and official results come from the TSE's open data, with detailed vote counts by electoral zone and by polling place. Territorial boundaries and municipality codes come from IBGE's territorial meshes.",
+        "Each source file is recorded with its URL, size, retrieval date and SHA-256 hash, so that it is possible to check that the same data were used."
+      ],
+      "version": "Data version: {version} · generated on {date}",
+      "name": "File",
+      "size": "Size",
+      "date": "Retrieved on",
+      "empty": "No sources recorded."
+    },
+    "validation": {
+      "title": "Engine validation",
+      "body": [
+        "The engine applies the open-list rules to the votes of each area and compares the set of elected candidates with the TSE's official result. Since the “current system” shown on the site is the official result itself, this check serves to confirm that the engine and the data are correct before the engine is applied to other systems.",
+        "Any discrepancies are listed below."
+      ],
+      "exact": "areas where the engine exactly reproduces the officially elected candidates",
+      "rules": "Reference rules:",
+      "inexact": "{count} areas with discrepancies",
+      "inexactLabel": "Areas with discrepancies",
+      "area": "Area",
+      "seats": "Seats",
+      "missing": "Officially elected not reproduced",
+      "allExact": "All areas were reproduced exactly."
+    },
+    "assumptions": {
+      "title": "Simulation assumptions",
+      "body": [
+        "**One vote as a proxy for the two votes.** PEC 2/2025 provides for two unlinked votes (district and party). The available data have one vote per voter (for a candidate or the party label); the simulation uses that same vote for both components. In a real election, voters could split their votes.",
+        "**Fixed behaviour.** Candidates, parties and votes remain the same. No changes are simulated in voter behaviour (such as strategic voting), in party strategy (fielding of candidates, alliances) or in the supply of candidacies, which would differ under other rules.",
+        "**No coalitions.** Coalitions in proportional elections have not existed since 2020. Party federations are treated as a single entity in the distribution of seats; seats are then assigned to the party of each elected candidate.",
+        "**House size.** Each constituency keeps its official number of seats. The exception is the mixed-member system: as PEC 2/2025 provides, district wins beyond a party's proportional entitlement become overhang seats, and the house grows."
+      ]
+    },
+    "districts": {
+      "title": "How districts are drawn",
+      "body": [
+        "These districts are **hypothetical**, not a proposed electoral map. The deterministic algorithm is inspired by PLS 86/2017 and PEC 2/2025: population balance, connectivity, compactness and preservation of municipalities and regions. This is not a certification of compliance with those proposals.",
+        "**Population.** We use municipal totals from the 2022 Census (IBGE). Within each municipality, population is estimated per polling place in proportion to its electorate, without census tracts. This also applies to split municipalities in state maps. Municipalities absent from the Census, such as Boa Esperança do Norte (MT), receive an estimate using the area's population-to-electorate ratio; boundary changes are a limitation. The target is ±5%, and processing rejects deviations above ±10%. The PLS allows the 10% exception only in one district or 10% of districts, whichever is greater; the simulator does not yet enforce that count restriction.",
+        "**Municipalities and adjacency.** Municipalities up to half a quota are initially indivisible; when balancing requires it, retries allow splitting those above 1/4 and 1/10 of the quota. Links use IBGE boundaries and triangulation between polling places. Isolated components, such as islands, are linked to the closest point. Pruning long links is a heuristic, not natural-barrier detection. Each district's connectivity is checked in this graph; it does not guarantee exact contiguity of the Voronoi approximations on the map.",
+        "**Algorithm.** Spanning-tree bisection, recombination of neighbouring districts and local adjustments, inspired by redistricting techniques such as those in GerryChain/MGGG. The objective considers population, compactness and splits of municipalities, immediate regions and neighbourhoods. Draws use a fixed seed. Votes and parties do not influence boundaries; this optimisation produces one scenario, not a statistical sample of all possible maps.",
+        "**Result.** All 130 plans (single-member and mixed for 65 houses) were reproduced from the sources: no district exceeds ±10% of estimated population. The largest deviation is 8.2% (Rio de Janeiro, 51 districts); 61 plans are entirely within ±5%. In states, we use votes aggregated by municipality and electoral zone: split zones have votes allocated by polling-place electorate. For city councils, we use section and polling-place distributions.",
+        "**Other simulations.** [HubPolítico](https://hubpolitico.com.br/distrital) uses the 2022 Census and compares multiple maps under PLS rules. [Radar do Voto](https://radardovoto.com/voto-distrital) uses voters and IBGE regions, with selectable margins of 10%, 15% or 25%. [Ranking dos Políticos](https://ranking.org.br/artigos/simulacao-voto-distrital-misto-congresso-2026) uses voters and preserves small municipalities without detailing its algorithm. Methods and seat rules differ: similar results do not validate a map. Other boundaries can elect other candidates."
+      ]
+    },
+    "rules": {
+      "title": "Calculation rules",
+      "body": [
+        "**Current system.** This is the official result published by the TSE. The engine reproduces the open-list rules (Electoral Code, arts. 106 to 111, as worded by Law 14,211/2021): electoral quotient = valid votes ÷ seats, with a fraction equal to or below 0.5 dropped and a fraction above 0.5 rounded up; party quotient = whole-number part of (party or federation votes ÷ EQ); remainders by the highest-averages method (D'Hondt).",
+        "In validation, the engine adopts the 2024 Supreme Federal Court (STF) interpretation (ADI 7228, 7263 and 7325): all parties and candidates compete for remainders, with the individual minimum vote of 10% of the EQ retained.",
+        "**Closed list.** D'Hondt over the total votes (personal plus party-label) of each party or federation. The order of the list is approximated by personal votes, because parties did not set ordered lists.",
+        "**Distritão.** The candidates with the most votes in the constituency fill the seats.",
+        "**First-past-the-post and mixed-member.** Each candidate runs in a single district — the one where they got their highest vote — and each district is won by the most-voted candidate among those running there (if no candidate has their highest vote there, the most-voted not-yet-elected candidate in the district wins). Party-label votes count only for the list. In the mixed-member system there are ⌈seats ÷ 2⌉ districts; D'Hondt over all seats, using candidate plus label votes, sets each party's or federation's entitlement; the list fills the difference from district wins, in order of personal votes; wins above the proportional entitlement create overhang seats.",
+        "Ties are resolved deterministically (higher vote total and then registration order), so results are reproducible."
+      ]
+    },
+    "comparison": {
+      "title": "Comparison with other simulations",
+      "body": [
+        "We compared VotoBrasil's results with independent simulations of the mixed-member system using the same votes: those by [Ranking dos Políticos](https://ranking.org.br/artigos/simulacao-voto-distrital-misto-congresso-2026), [Radar do Voto](https://radardovoto.com/voto-distrital), HubPolítico and a technical note by DIAP.",
+        "An earlier version of VotoBrasil gave each district to the **party** with the most votes added up there (all its candidates plus the party label). That rule systematically favours the largest party, which adds up votes from many candidates in every district: it produced exaggerated gains for it and losses for centrist parties with regionally strong candidates. The reference simulations — and the logic of district voting, in which voters choose a person — give the district to the most-voted **candidate**, and each candidate runs in only one district. VotoBrasil now follows that rule.",
+        "With the corrected rule, the results converge. For the Chamber of Deputies, Ranking dos Políticos estimates that PL would go from 121 to 125 seats under the compensatory mixed system and that 449 of the 513 elected would stay; VotoBrasil gets 128 seats for PL (in a 531-seat house, with 18 overhang seats) and 450 elected members kept. The remaining differences come mainly from district drawing (each simulation draws its own) and from overhang seats, which VotoBrasil adds to the house as the PEC requires.",
+        "DIAP's note simulates variants without districts (a “mixed distritão”), so it is not directly comparable. None of these simulations is official: all depend on assumptions about districts and on using a single vote as a proxy for the two votes in the PEC."
+      ]
+    },
+    "metrics": {
+      "title": "Indicators",
+      "body": [
+        "The indicators compare the official result and the scenario using the same votes by party (personal plus party-label). In the indicators, the parties of a federation are counted individually, by the party of each elected candidate."
+      ],
+      "formula": {
+        "gallagher": "G = √( ½ · Σ (vᵢ − sᵢ)² )",
+        "effectiveParties": "N = 1 / Σ pᵢ²",
+        "majority": "M = ⌊S / 2⌋ + 1",
+        "partiesForMajority": "k = smallest k such that b₁ + … + bₖ ≥ M",
+        "votesWithoutSeatPct": "100 · Σ votes of parties without seats ÷ Σ votes of all parties"
+      },
+      "explain": {
+        "gallagher": "vᵢ and sᵢ are the vote and seat percentages of party i. Zero means seats exactly proportional to votes.",
+        "effectiveParties": "pᵢ is the share of seats of party i, considering only parties with seats (Laakso–Taagepera index applied to seats).",
+        "majority": "S is the total number of seats; M is the smallest number of seats that exceeds half. For 513 seats, M = 257.",
+        "partiesForMajority": "bᵢ are the caucuses in descending order. It is the smallest number of parties, starting with the largest, that reaches a majority. It is an arithmetic indicator, not a forecast of coalitions.",
+        "votesWithoutSeatPct": "Percentage of votes received by parties that elected no legislators."
+      }
+    },
+    "limits": {
+      "title": "Limits",
+      "body": [
+        "**Counterfactual, not a forecast.** The simulation shows what the votes of one specific election would produce under another rule. A real change of system would alter candidacies, alliances, campaigns and voter behaviour, and the results would probably be different.",
+        "**Hypothetical districts.** The results of district-based scenarios depend on how the districts are drawn; a different layout, with the same votes, could elect other candidates.",
+        "**Local approximations.** Votes are published by electoral zone (in states) and by polling station (in cities). When a zone is split between districts, each part's share is estimated from the voters of its polling places; on the map, the area of each polling place is an approximation.",
+        "**Possible errors.** Official data may be corrected and the code may contain faults. If you find a discrepancy, please report it in the project's repository."
+      ]
+    },
+    "reproduce": {
+      "title": "Open source and reproduction",
+      "body": [
+        "All the code — data extraction, simulation engine, API and this site — is open. The processing is deterministic: given the same source files (checked by the hashes above), it produces the same results.",
+        "To reproduce locally (requires Node.js):"
+      ],
+      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
+      "repo": "Open the repository"
+    }
+  },
+  "semi": {
+    "title": "Semi-presidentialism and governability",
+    "lede": "What PEC 2/2025 proposes and what the vote data show about forming a majority in the Chamber of Deputies.",
+    "what": {
+      "title": "What semi-presidentialism is",
+      "body": [
+        "In semi-presidentialism, the head of state (generally a president) and the head of government (a prime minister) are distinct offices. The prime minister depends on the confidence of the legislature and can be dismissed by it; the president usually has representative and arbitration functions.",
+        "There is wide variation among the countries that adopt the model (such as France, Portugal and Poland) in the powers of each office and in how the government is appointed. There is no single model."
+      ]
+    },
+    "pec": {
+      "title": "What PEC 2/2025 proposes",
+      "intro": [
+        "Proposed Constitutional Amendment No. 2/2025, submitted in the Chamber of Deputies on the initiative of Deputy Luiz Carlos Hauly and other legislators, proposes changing both the system of government and the electoral system of the Chamber. In broad terms:"
+      ],
+      "points": [
+        "The President of the Republic would be the head of state and commander of the Armed Forces.",
+        "The President would appoint a Prime Minister after hearing the parties with the largest representation in the Chamber of Deputies; the person chosen would be a member of the National Congress aged 35 or over.",
+        "The Prime Minister and the council of ministers would head the government, present a programme and depend on the support of the Chamber of Deputies.",
+        "The Chamber could dismiss the government through a motion of censure.",
+        "There would be no Vice-President of the Republic; the proposal sets out its own rules for succession and for a new election.",
+        "For the Chamber of Deputies, the proposal provides for mixed district voting, with two unlinked votes: one for a candidate in the district and one for a party."
+      ],
+      "caveat": "Description according to the proposal; check the official text at [camara.leg.br](https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2483164). The wording and its progress may change, and this site does not track amendments."
+    },
+    "debate": {
+      "title": "Arguments in the debate",
+      "prosTitle": "Arguments in favour",
+      "consTitle": "Criticisms",
+      "intro": [
+        "There are arguments on both sides in political science and in public debate. The items below summarise the most frequently cited ones, without endorsing them."
+      ],
+      "pros": [
+        "Makes it easier to replace a government that loses the support of parliament, without resorting to impeachment.",
+        "Separates the roles of head of state and head of government.",
+        "Encourages coalitions built around a programme and makes the government accountable to parliament."
+      ],
+      "cons": [
+        "May generate conflicts between president and prime minister, especially when they have different political bases.",
+        "The head of government is no longer chosen directly by popular vote but is appointed.",
+        "In fragmented party systems, there may be instability, with frequent changes of government."
+      ]
+    },
+    "gov": {
+      "title": "Governability in numbers",
+      "body": [
+        "In any system in which the government depends on parliament, the number of parties needed to add up to a majority matters. Below, based on the Chamber of Deputies, we show how many parties, starting with the largest caucuses, are needed for a majority in the official result and in the chosen scenario.",
+        "The indicator is arithmetic: it does not consider ideological affinity, real alliances or caucus discipline."
+      ],
+      "majorityTitle": "Majority in the Chamber of Deputies",
+      "majorityLede": "A majority is {majority} of the {seats} seats: half, rounded down, plus one.",
+      "partiesNeeded": "largest caucuses needed for a majority",
+      "cumulative": "total: {total}"
+    },
+    "coalition": {
+      "title": "Coalition builder",
+      "lede": "Switch parties on and off to see whether the sum of their seats reaches a majority in the official result and in the scenario.",
+      "groupLabel": "Coalition parties",
+      "clear": "Clear selection",
+      "caveat": "Arithmetic exercise: the caucuses are those of the official result and of the simulation, and do not indicate that these parties would actually form a coalition.",
+      "reached": "Majority reached: {surplus} seats above the minimum of {majority}.",
+      "missing": "{missing} seats short of a majority ({majority})."
+    },
+    "future": {
+      "title": "Next steps",
+      "body": [
+        "Analysis of roll-call votes — for example, how cohesively caucuses vote in plenary sessions — is a future phase of the project and is not yet included here."
+      ]
+    }
+  }
+}

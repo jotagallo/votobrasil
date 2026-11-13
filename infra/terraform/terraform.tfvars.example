@@ -1,0 +1,22 @@
+# Copy to terraform.tfvars (git-ignored) or pass with -var-file. Never commit real values.
+
+aws_region = "us-east-1" # "sa-east-1" lowers origin latency at a higher price
+project    = "votobr"
+environment = "prod"
+
+instance_type = "t4g.small"
+
+github_repository = "owner/repo"
+
+# Optional custom domain (certificate must be issued in us-east-1)
+# domain_name         = "votobr.example.org"
+# acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/00000000-0000-0000-0000-000000000000"
+
+# Set to false when the AWS account already has the GitHub Actions OIDC provider
+# create_github_oidc_provider = true
+
+# cloudfront_price_class = "PriceClass_All"
+
+# Enables the monthly budget alert and the environment health alarm
+# alarm_email        = "you@example.org"
+# monthly_budget_usd = 25

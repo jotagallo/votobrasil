@@ -1,0 +1,856 @@
+{
+  "app": {
+    "name": "VotoBrasil",
+    "skip": "Saltar al contenido",
+    "homeLabel": "VotoBrasil — página de inicio"
+  },
+  "nav": {
+    "main": "Navegación principal",
+    "menu": "Menú",
+    "close": "Cerrar",
+    "home": "Inicio",
+    "houses": "Cuerpos legislativos",
+    "systems": "Sistemas electorales",
+    "methodology": "Metodología",
+    "semipresidentialism": "Semipresidencialismo",
+    "about": "Acerca de"
+  },
+  "lang": {
+    "label": "Idioma",
+    "names": {
+      "pt-BR": "Português",
+      "en": "English",
+      "es": "Español"
+    }
+  },
+  "houses": {
+    "federal": {
+      "short": "Cámara de Diputados",
+      "name": "Cámara de Diputados"
+    },
+    "state": {
+      "short": "Asamblea Legislativa",
+      "name": "Asambleas Legislativas estatales"
+    },
+    "municipal": {
+      "short": "Cámara Municipal",
+      "name": "Cámaras Municipales"
+    }
+  },
+  "footer": {
+    "disclaimer": "Simulación contrafactual con supuestos simplificadores; no es un pronóstico. VotoBrasil es independiente y no tiene vínculo con el TSE (Tribunal Superior Electoral) ni con el gobierno.",
+    "links": "Enlaces del pie de página",
+    "source": "Código fuente",
+    "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Sin cookies; estadísticas de uso solo con consentimiento (LGPD)."
+  },
+  "consent": {
+    "label": "Aviso de privacidad",
+    "text": "Usamos estadísticas de audiencia sin cookies (Umami) para saber, de forma agregada, qué páginas y simulaciones se usan. Solo se activan con su consentimiento, conforme a la ley brasileña de protección de datos (LGPD, Ley 13.709/2018), y puede cambiar de opinión en cualquier momento en “Preferencias de privacidad”, en el pie de página.",
+    "more": "Más información",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "manage": "Preferencias de privacidad"
+  },
+  "common": {
+    "loading": "Cargando…",
+    "retry": "Intentar de nuevo",
+    "share": "Compartir",
+    "shareCopied": "Enlace copiado",
+    "shareDone": "Compartido",
+    "shareFailed": "No fue posible compartir. Copia la dirección de la barra del navegador.",
+    "breadcrumb": "Estás en",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "errors": {
+    "title": "No fue posible cargar los datos",
+    "body": "Comprueba tu conexión e inténtalo de nuevo."
+  },
+  "selector": {
+    "legend": "Sistema electoral",
+    "learnMore": "Conoce este sistema"
+  },
+  "systems": {
+    "title": "Sistemas electorales",
+    "lede": "Cómo cada sistema convierte votos en escaños, con los argumentos más citados a favor y en contra.",
+    "how": "Cómo funciona",
+    "pros": "Argumentos a favor",
+    "cons": "Críticas y limitaciones",
+    "inSimulation": "En este simulador",
+    "intro": [
+      "Un sistema electoral es la regla que convierte votos en escaños. Estos son los cinco que VotoBrasil puede simular a partir de los votos reales.",
+      "Ningún sistema es neutral: cada diseño privilegia ciertos objetivos —proporcionalidad, vínculo con el territorio, formación de mayorías, costo de las campañas— en detrimento de otros. El sitio presenta las reglas y los argumentos habituales de cada lado, sin recomendar ninguno.",
+      "En líneas generales: en los sistemas proporcionales, los escaños acompañan la votación de los partidos; en los distritales, gana el más votado en cada distrito; en los mixtos, ambos mecanismos se combinan."
+    ],
+    "compare": {
+      "title": "Comparación resumida",
+      "system": "Sistema",
+      "districts": "Usa distritos",
+      "lists": "Usa listas partidarias",
+      "proportionality": "Proporcionalidad entre partidos"
+    },
+    "atual": {
+      "name": "Proporcional de lista abierta (sistema actual)",
+      "short": "Actual",
+      "summary": "Los votos a candidatos y a la sigla definen cuántos escaños recibe cada partido o federación; dentro del partido, resultan electos los más votados.",
+      "proportionality": "Alta",
+      "how": [
+        "Se suma la votación de cada partido o federación en la circunscripción (votos nominales a los candidatos más votos a la sigla). El total de votos válidos dividido por el número de escaños da el **cociente electoral (CE)**; cada partido recibe tantos escaños como veces su votación contiene el CE (**cociente partidario**).",
+        "Los escaños restantes se distribuyen por el método de las mayores medias (D'Hondt). Dentro de cada partido, resultan electos los candidatos más votados que alcancen la votación mínima individual prevista por ley (10% del CE).",
+        "Los partidos pueden unirse en federaciones, que compiten y actúan como un único partido durante al menos cuatro años. Las coaliciones en elecciones proporcionales dejaron de existir en 2020."
+      ],
+      "pros": [
+        "Mantiene la bancada de cada partido cercana a la votación que obtuvo.",
+        "El elector escoge personas y también puede votar por la sigla.",
+        "Permite la representación de partidos de distintos tamaños y de grupos minoritarios."
+      ],
+      "cons": [
+        "En circunscripciones grandes (como los estados más poblados), las campañas individuales son caras y los candidatos de un mismo partido compiten entre sí.",
+        "El vínculo entre elector y representante es débil: la circunscripción es el estado entero y cada partido presenta decenas de candidatos.",
+        "Los votos a la sigla y a candidatos no electos pueden ayudar a elegir a otros candidatos del mismo partido, algo que el elector no siempre percibe.",
+        "Muchos partidos obtienen representación; para una parte de los analistas esto dificulta la formación de mayorías, mientras que para otros solo refleja la pluralidad del electorado."
+      ],
+      "sim": [
+        "El resultado “actual” es el oficial publicado por el TSE para cada cargo y circunscripción. El motor de VotoBrasil reproduce el cálculo como verificación (consulta la [Metodología](/metodologia))."
+      ]
+    },
+    "lista-fechada": {
+      "name": "Lista cerrada",
+      "short": "Lista cerrada",
+      "summary": "El elector vota por la lista del partido; los escaños se distribuyen entre las listas y se ocupan en el orden definido por el partido.",
+      "proportionality": "Alta",
+      "how": [
+        "Cada partido o federación presenta antes de la elección una lista ordenada de candidatos. El elector vota por la lista; los escaños se distribuyen entre las listas por el método D'Hondt y se ocupan de arriba hacia abajo.",
+        "Es el sistema usado, con variaciones, en varios países europeos y latinoamericanos."
+      ],
+      "pros": [
+        "La disputa es entre partidos, lo que tiende a abaratar las campañas y a reducir la competencia interna.",
+        "El orden de la lista se conoce antes de la votación.",
+        "Facilita la aplicación de reglas de paridad o de cuotas en la composición de las listas."
+      ],
+      "cons": [
+        "La decisión sobre quién resulta electo pasa a las direcciones partidarias; el elector no escoge candidatos individualmente.",
+        "Reduce la posibilidad de que el elector premie o castigue a legisladores concretos.",
+        "Exige reglas de democracia interna y transparencia en la elaboración de las listas."
+      ],
+      "sim": [
+        "Los partidos no definieron listas ordenadas, de modo que VotoBrasil ordena la lista de cada partido o federación según la votación nominal que obtuvieron sus candidatos.",
+        "Los escaños se distribuyen por D'Hondt sobre el total de votos (nominales más sigla) de cada partido o federación, sin el umbral de votación individual del sistema actual."
+      ]
+    },
+    "distritao": {
+      "name": "Distritão",
+      "short": "Distritão",
+      "summary": "Resultan electos los candidatos más votados de la circunscripción, sin considerar partidos ni cocientes.",
+      "proportionality": "Variable",
+      "how": [
+        "En cada circunscripción (por ejemplo, un estado), los candidatos con más votos individuales ocupan los escaños disponibles, independientemente del partido. En la literatura se lo conoce como voto único no transferible (SNTV).",
+        "Los votos a la sigla no influyen en la elección de los candidatos."
+      ],
+      "pros": [
+        "Es fácil de entender: resultan electos los más votados.",
+        "El voto se da directamente a personas.",
+        "No requiere cocientes ni restos."
+      ],
+      "cons": [
+        "Muchos votos no eligen a nadie (votos a candidatos no electos y votos excedentes de candidatos muy votados).",
+        "Tiende a favorecer a candidatos ya conocidos y a debilitar a los partidos como organizaciones.",
+        "La representación de cada partido depende de cómo se distribuyen sus votos entre los candidatos, y no solo de cuántos votos obtuvo."
+      ],
+      "sim": [
+        "VotoBrasil elige, en cada UF o municipio, a los candidatos con más votos nominales, hasta completar el número de escaños. Los votos a la sigla no cuentan."
+      ]
+    },
+    "distrital-puro": {
+      "name": "Voto distrital puro",
+      "short": "Distrital puro",
+      "summary": "La circunscripción se divide en distritos de un escaño cada uno; gana el más votado en cada distrito.",
+      "proportionality": "En general baja",
+      "how": [
+        "La circunscripción se divide en tantos distritos como escaños. Cada distrito elige a un representante por mayoría simple, en una sola vuelta: gana quien tiene más votos, aunque no alcance la mayoría absoluta.",
+        "Los votos dados a quien no gana en el distrito no generan escaños."
+      ],
+      "pros": [
+        "Cada elector tiene un representante identificable en su territorio.",
+        "Las campañas se concentran en áreas más pequeñas, lo que puede reducir costos.",
+        "Facilita que el legislador rinda cuentas al electorado local."
+      ],
+      "cons": [
+        "La distribución de escaños puede diferir bastante de la votación nacional: el partido con mayoría relativa en muchos distritos tiende a quedar sobrerrepresentado.",
+        "Los votos a candidatos derrotados se desperdician y los grupos minoritarios dispersos pueden quedar sin representación.",
+        "Exige trazar los distritos, algo que puede ser objeto de manipulación (gerrymandering) y que debe rehacerse cuando cambia la población."
+      ],
+      "sim": [
+        "VotoBrasil dibuja distritos hipotéticos con población estimada a partir del Censo 2022 (meta de ±5%), conectividad en el grafo y municipios enteros cuando es posible. Los límites del mapa son aproximados; consulta las reglas y limitaciones en la [Metodología](/metodologia).",
+        "Cada candidato compite solo en el distrito donde obtuvo su mayor votación, y en cada distrito gana el candidato más votado entre quienes lo disputan. El voto nominal del elector se usa como voto distrital; los votos de legenda no eligen candidatos distritales."
+      ]
+    },
+    "distrital-misto": {
+      "name": "Sistema mixto distrital (PEC 2/2025)",
+      "short": "Distrital mixto",
+      "summary": "La mitad de los escaños se decide en distritos y el resto por lista partidaria; el total de cada partido es proporcional al voto al partido, como propone la PEC 2/2025.",
+      "proportionality": "Alta",
+      "how": [
+        "El elector emite **dos votos independientes**: uno por un candidato de su distrito, elegido por mayoría simple, y otro por un partido (voto de lista).",
+        "Según la PEC 2/2025 (art. 45, §§ 1º a 3º, en la redacción propuesta), cada estado elige en distritos uninominales **la mitad de sus escaños, o el número entero mayor más próximo**. El total de escaños de cada partido se calcula por el voto al partido; de él se descuentan las victorias distritales, y la lista ordenada por el partido completa la diferencia.",
+        "Si un partido gana más distritos de los que le corresponderían por la proporcionalidad, conserva esos escaños y **la diferencia se suma al total de diputados** (§ 4º): la Cámara puede superar los 513 escaños actuales. Es el modelo compensatorio, inspirado en el sistema alemán."
+      ],
+      "pros": [
+        "Combina representación proporcional entre partidos con un representante identificable en cada distrito.",
+        "El elector puede votar por un candidato local y por un partido distinto sin distorsionar el peso de cada partido.",
+        "Desperdicia menos votos que el distrital puro y preserva espacio para partidos medianos y pequeños."
+      ],
+      "cons": [
+        "Es más complejo para el elector y para el escrutinio: dos votos y dos formas de elección.",
+        "Crea dos tipos de diputado (de distrito y de lista), y el orden de las listas queda en manos de las direcciones partidarias.",
+        "Los escaños excedentes hacen que el tamaño de la Cámara varíe de una elección a otra.",
+        "Exige trazar distritos, sujetos a disputas y a manipulación (gerrymandering)."
+      ],
+      "sim": [
+        "En cada circunscripción, la mitad de los escaños (redondeada hacia arriba) se decide en distritos hipotéticos, como en el distrital puro. El total de cada partido o federación sale del D'Hondt sobre los escaños de la circunscripción con los votos nominales más los de legenda; descontadas las victorias distritales, la lista completa la diferencia, en el orden de la votación nominal de los candidatos.",
+        "Cuando un partido gana más distritos que su derecho proporcional, conserva las victorias y la cámara crece (escaños excedentes). El simulador informa cuántos escaños tendría la cámara.",
+        "La PEC trata solo de la Cámara de Diputados; VotoBrasil aplica la misma regla a las asambleas legislativas y cámaras municipales como ejercicio comparativo."
+      ]
+    },
+    "examples": {
+      "title": "Ejemplos numéricos",
+      "lede": "Dos ejemplos pequeños, con números inventados, muestran la mecánica de las reglas. No son datos reales.",
+      "party": "Partido",
+      "votes": "Votos",
+      "votesOverQuotient": "Votos ÷ CE",
+      "direct": "Escaños por cociente partidario",
+      "leftoverSeats": "Escaños por restos",
+      "total": "Total",
+      "districtWins": "Victorias en distritos",
+      "listVotes": "Votos de lista (%)",
+      "entitled": "Derecho proporcional",
+      "fromList": "Escaños de lista",
+      "proportional": {
+        "title": "Proporcional: cociente electoral y restos (D'Hondt)",
+        "intro": "Una circunscripción con **{seats}** escaños y **{total}** votos válidos. El cociente electoral es {total} ÷ {seats} = **{quotient}** votos. Cada partido recibe como escaños directos la parte entera de votos ÷ CE (cociente partidario). Quedan **{leftover}** escaños, distribuidos por el método D'Hondt: en cada ronda, el escaño va al partido con la mayor media, igual a votos ÷ (escaños ya obtenidos + 1).",
+        "note": "Ronda 1: medias de 25.000 (A), 26.667 (B), 15.000 (C) y 20.000 (D); el escaño va a B. Ronda 2: medias de 25.000 (A), 20.000 (B), 15.000 (C) y 20.000 (D); el escaño va a A. En este ejemplo, aplicar D'Hondt directamente a los 8 escaños daría el mismo resultado (4, 3, 1 y 0); en otros casos los dos caminos pueden diferir."
+      },
+      "mixed": {
+        "title": "El mixto de la PEC: compensación y escaños excedentes",
+        "intro": "Una circunscripción con **{seats}** escaños: **{district}** decididos en distritos y, en principio, **{list}** por la lista. La tabla muestra las victorias distritales de cada partido y la votación de lista.",
+        "note": "El D'Hondt aplicado a los 10 escaños con los votos de lista da el derecho proporcional de cada partido (A 4, B 4, C 2). Descontadas las victorias distritales, la lista completa la diferencia: A recibe 1 escaño de lista, B recibe 2 y C, que no ganó distritos, recibe 2. El resultado final es proporcional al voto al partido; los distritos solo definen **quién** ocupa parte de los escaños.",
+        "overhang": "**Escaños excedentes:** si el partido {party} hubiera ganado los {wins} distritos, tendría {wins} escaños, más que los {entitled} a los que tiene derecho. Según la PEC, los conserva y la cámara pasa a tener {total} escaños (art. 45, § 4º)."
+      }
+    },
+    "pec": {
+      "title": "La PEC 2/2025 y el sistema mixto distrital",
+      "caveat": "Consulte el texto oficial de la propuesta en camara.leg.br: la redacción y la tramitación pueden cambiar.",
+      "body": [
+        "La PEC 2/2025, de autoría del diputado Luiz Carlos Hauly y de otros parlamentarios, propone para la Cámara de Diputados el sistema mixto distrital, con dos votos independientes: uno por un candidato del distrito y otro por un partido.",
+        "El texto define un modelo **compensatorio**: la mitad de los escaños de cada estado (o el número entero mayor más próximo) se cubre en los distritos; el total de cada partido sigue la proporción del voto al partido; y las victorias distritales que superan esa proporción amplían la Cámara (art. 45, §§ 1º a 5º, en la redacción propuesta). Es la regla que VotoBrasil simula, con la división fija en el 50%.",
+        "El texto presentado tiene una inconsistencia: el inciso I del art. 45 habla de dos tercios de las vacantes en distritos y un tercio por listas, mientras que el § 1º fija el 50%. El simulador sigue el § 1º, que detalla la regla; la redacción final puede cambiar durante la tramitación."
+      ]
+    }
+  },
+  "chamber": {
+    "seatsUnit": "escaños",
+    "official": "Resultado oficial",
+    "officialShort": "Ofic.",
+    "officialLower": "oficial",
+    "scenario": "Escenario simulado",
+    "scenarioShort": "Esc.",
+    "scenarioNamed": "Escenario: {system}",
+    "sameAsOfficial": "El sistema actual es el propio resultado oficial: no hay diferencia que comparar.",
+    "noChange": "Ningún escaño cambia de partido respecto del resultado oficial.",
+    "changed": "{count} de {total} escaños cambian de partido respecto del resultado oficial.",
+    "overhang": "Con los escaños excedentes previstos en la PEC 2/2025 (art. 45, § 4º), la cámara tendría {total} escaños: los {official} actuales más {extra}.",
+    "showTop": "Mostrar solo los partidos más grandes",
+    "showAll": "Mostrar los {count} partidos",
+    "others": "Otros ({count})",
+    "viewTable": "Ver tabla",
+    "tableLabel": "Votos y escaños por partido",
+    "party": "Partido",
+    "votes": "Votos",
+    "voteShare": "% de los votos",
+    "metricsTitle": "Indicadores"
+  },
+  "metrics": {
+    "gallagher": {
+      "name": "Índice de Gallagher",
+      "hint": "Distancia entre el porcentaje de votos y el de escaños de los partidos, en puntos porcentuales. Cero es proporcionalidad perfecta; cuanto menor, más proporcional."
+    },
+    "effectiveParties": {
+      "name": "Número efectivo de partidos",
+      "hint": "Cuántos partidos de igual tamaño tendrían la misma fragmentación que la distribución de escaños (índice de Laakso–Taagepera)."
+    },
+    "partiesWithSeats": {
+      "name": "Partidos con escaños",
+      "hint": "Cantidad de partidos que eligieron al menos a un legislador."
+    },
+    "partiesForMajority": {
+      "name": "Partidos para la mayoría",
+      "hint": "Menor número de partidos, empezando por las bancadas más grandes, que suman la mayoría de los escaños."
+    },
+    "largestShare": {
+      "name": "Mayor bancada",
+      "hint": "Fracción de los escaños ocupada por el mayor partido."
+    },
+    "votesWithoutSeatPct": {
+      "name": "Votos sin representación",
+      "hint": "Porcentaje de los votos dados a partidos que no eligieron a ningún legislador."
+    },
+    "majority": {
+      "name": "Mayoría"
+    }
+  },
+  "map": {
+    "brazilTitle": "Mapa por unidad federativa",
+    "modeLabel": "Colorear el mapa por",
+    "brazilLabel": "Mapa de Brasil por UF. Selecciona una UF para abrir su página.",
+    "viewTable": "Ver tabla",
+    "tableLabel": "Resultado por UF",
+    "mode": {
+      "leader": "Mayor bancada",
+      "change": "Cambio"
+    },
+    "modeHint": {
+      "leader": "El color indica el partido con más escaños en cada UF en el escenario simulado. Selecciona una UF para ver los detalles.",
+      "change": "La intensidad indica la fracción de los escaños de la UF que cambian de partido respecto del resultado oficial."
+    },
+    "legend": {
+      "none": "Sin cambios",
+      "above": "Más de {value}",
+      "upTo": "Hasta {value}"
+    },
+    "ufDescription": "{name}: {seats} escaños; mayor bancada en el escenario: {leader}; {changed} escaños cambian de partido.",
+    "ufCount": "UF: {count}",
+    "col": {
+      "area": "UF",
+      "seats": "Escaños",
+      "leaderOfficial": "Mayor bancada (oficial)",
+      "leaderScenario": "Mayor bancada (escenario)",
+      "changed": "Escaños que cambian"
+    },
+    "pickLabel": "Mapa de Brasil: elija una UF",
+    "pickDescription": "{name}: {seats} escaños en la Asamblea"
+  },
+  "districtMap": {
+    "title": "Mapa de los distritos simulados",
+    "colorBy": "Colorear por",
+    "colorMode": {
+      "district": "Distrito",
+      "party": "Partido ganador"
+    },
+    "stateLabel": "Mapa con {count} distritos simulados del estado, coloreados por distrito.",
+    "cityLabel": "Mapa con {count} distritos simulados del municipio, coloreados por distrito.",
+    "stateLede": "{count} distritos hipotéticos, equilibrados por población estimada a partir del Censo 2022. El algoritmo conecta municipios vecinos y locales de votación; el mapa es una aproximación, no una delimitación oficial.",
+    "cityLede": "{count} distritos hipotéticos, formados por grupos de locales de votación. La población del Censo 2022 se reparte según el electorado de cada local: no es un recuento de habitantes por distrito.",
+    "stateNote": "Los distritos son hipotéticos: la enmienda deja el trazado a una ley futura. En los {split} municipios divididos, el área de cada local de votación se aproxima por la región más cercana a él (diagrama de Voronoi).",
+    "cityNote": "El área de cada uno de los {count} puntos de votación se aproxima por la región más cercana a él (diagrama de Voronoi), recortada por el contorno del municipio; no es la cobertura real del local. Los distritos son hipotéticos.",
+    "munDistrict": "{name}: distrito {district}",
+    "munPart": "{name}: parte en el distrito {district}",
+    "unnamed": "Distrito {n}",
+    "plusOne": "{name} y 1 municipio más",
+    "plusMany": "{name} y {count} municipios más",
+    "hint": "Pase el ratón o toque un distrito, en el mapa o en la lista, para destacarlo. Haga clic para acercar.",
+    "searchState": "Buscar municipio",
+    "searchCity": "Buscar barrio",
+    "listLabel": "Lista de distritos",
+    "rowPopulation": "{pop} hab. estimados · {dev}% frente a la media",
+    "rowVoters": "{voters} electores",
+    "margin": "margen {value} p.p.",
+    "noMatch": "Ningún distrito encontrado.",
+    "reset": "Ver todos los distritos"
+  },
+  "winners": {
+    "title": "Quién gana y quién pierde un escaño",
+    "gainedTitle": "Electos solo en el escenario",
+    "gainedHint": "Candidatos que ocuparían un escaño en el escenario, pero no resultaron electos oficialmente.",
+    "lostTitle": "Electos solo en el resultado oficial",
+    "lostHint": "Candidatos electos oficialmente que se quedarían sin escaño en el escenario.",
+    "none": "Ningún candidato en esta lista.",
+    "showLess": "Mostrar menos",
+    "showAll": "Mostrar todos ({count})",
+    "summary": "{kept} candidatos resultan electos en ambos casos; {gained} resultan electos solo en el escenario y {lost} solo en el resultado oficial.",
+    "votes": "{count} votos",
+    "tier": {
+      "oficial": "Electo (oficial)",
+      "qp": "Cociente partidario",
+      "sobra": "Restos",
+      "lista": "Lista",
+      "distrito": "Distrito",
+      "mais-votados": "Más votados"
+    }
+  },
+  "areas": {
+    "label": "Lista de áreas",
+    "name": "Área",
+    "uf": "UF",
+    "seats": "Escaños",
+    "electorate": "Electores"
+  },
+  "explorer": {
+    "shareText": "Simulación de escaños bajo distintos sistemas electorales, con datos oficiales del TSE.",
+    "federal": {
+      "title": "Cámara de Diputados",
+      "lede": "Suma de las 27 unidades federativas. Elige un sistema para ver cómo quedarían los escaños con los votos de 2026."
+    },
+    "state": {
+      "title": "Asambleas Legislativas estatales"
+    }
+  },
+  "house": {
+    "federal": {
+      "areasTitle": "Cámara de Diputados por unidad federativa",
+      "intro": [
+        "La Cámara de Diputados tiene 513 escaños distribuidos entre las 27 unidades federativas, de forma proporcional a la población, con un mínimo de 8 y un máximo de 70 por UF.",
+        "Cada UF es una circunscripción. Elige una para ver el resultado oficial y la simulación."
+      ]
+    },
+    "state": {
+      "areasTitle": "Asambleas Legislativas por unidad federativa",
+      "intro": [
+        "Las Asambleas Legislativas eligen diputados estatales en cada UF; en el Distrito Federal, el equivalente es la Cámara Legislativa, con diputados distritales. El número de escaños de cada cámara sigue la regla de la Constitución, con base en la bancada federal de la UF.",
+        "Cada Asamblea es una cámara independiente. Elija un estado para ver el resultado oficial y la simulación."
+      ],
+      "pickTitle": "Elija un estado",
+      "pickHint": "Cada Asamblea Legislativa se elige por separado, así que sumar las 27 cámaras dice poco. Haga clic en el mapa o en la lista para ver el resultado oficial y la simulación de una UF."
+    },
+    "municipal": {
+      "areasTitle": "Cámaras Municipales de las ciudades con 1 millón de electores o más",
+      "intro": [
+        "VotoBrasil cubre las Cámaras Municipales de todas las ciudades con 1 millón de electores o más: 11 en la elección de 2024, cuyos resultados se usan aquí.",
+        "En las ciudades, la unidad mínima de los distritos simulados es el local de votación."
+      ]
+    }
+  },
+  "area": {
+    "districtNoticeLabel": "Aviso sobre los distritos",
+    "switch": "Cambiar de área",
+    "unit": {
+      "zone": "zonas electorales",
+      "votingPlace": "locales de votación"
+    },
+    "facts": "{seats} escaños · {electorate} electores · elección de {year}",
+    "districtNotice": "En este escenario, los distritos son **hipotéticos**: el algoritmo usa {units} {level} y busca equilibrar la población estimada. Las fronteras son aproximadas; otro trazado podría elegir otros candidatos.",
+    "mixedSplit": "División de los escaños en este escenario: {district} en distritos y {list} por la lista.",
+    "deviation": "Mayor desviación de población de un distrito: {value}% respecto del promedio."
+  },
+  "home": {
+    "intro": {
+      "eyebrow": "PEC 2/2025 · en debate en el Congreso",
+      "title": "El Congreso está discutiendo un nuevo sistema político. ¿Sabe usted cómo funciona?",
+      "lede": "Una propuesta de reforma de la Constitución puede cambiar la forma en que usted elige a sus diputados y quién dirige el gobierno. Entenderla es el primer paso para tener una opinión sobre ella.",
+      "changesTitle": "Qué cambia, en pocas palabras",
+      "changes": {
+        "vote": {
+          "title": "Su voto",
+          "text": "Usted daría dos votos: uno a un candidato de su distrito — una región de su estado — y otro a un partido."
+        },
+        "chamber": {
+          "title": "La Cámara",
+          "text": "La mitad de los diputados se elegiría en los distritos y la otra mitad por las listas de los partidos. La Cámara podría superar los 513 diputados actuales."
+        },
+        "government": {
+          "title": "El gobierno",
+          "text": "El Presidente seguiría siendo elegido por voto directo, pero el gobierno del día a día quedaría a cargo de un Primer Ministro, que solo se mantiene en el cargo con el apoyo de la Cámara."
+        }
+      },
+      "alert": {
+        "title": "Por qué prestar atención",
+        "body": [
+          "Las reglas electorales deciden quién llega al poder y suelen valer por muchas elecciones. Cuando cambian sin que la población las entienda y participe del debate, el elector solo descubre los efectos al votar — y una enmienda constitucional solo puede deshacerse con otra enmienda, aprobada por 3/5 de la Cámara y del Senado en dos vueltas.",
+          "Los sistemas con Primer Ministro ya fueron sometidos al voto popular dos veces en Brasil, en 1963 y en 1993, y rechazados en ambas. Un cambio de este tamaño merece discutirse con la sociedad, y no solo dentro del Congreso."
+        ]
+      },
+      "act": {
+        "title": "Cómo participar",
+        "items": [
+          "**Entienda:** use el simulador de abajo para ver cómo los votos reales de la última elección se convertirían en escaños con la regla de la PEC.",
+          "**Siga:** la tramitación es pública en el [sitio de la Cámara](https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2483164) (en portugués).",
+          "**Opine:** responda a la [encuesta oficial de la Cámara](https://www.camara.leg.br/enquetes/2483164) y contacte a los diputados de su estado para decirles lo que piensa."
+        ]
+      },
+      "cta": {
+        "simulate": "Ver cómo quedaría la Cámara",
+        "mixed": "Cómo funciona el sistema mixto"
+      },
+      "neutral": "VotoBrasil es independiente: no defiende ni combate la propuesta."
+    },
+    "eyebrow": "Simulador de sistemas electorales",
+    "title": "Mira cómo sería la Cámara de Diputados con otro sistema electoral",
+    "lede": "Los mismos votos oficiales del TSE, recontados con otras reglas: el sistema mixto de la PEC, el distrital puro, el “distritão” y la lista cerrada. Compare con el resultado real, partido por partido.",
+    "disclaimer": "Simulación contrafactual con supuestos simplificadores: muestra lo que los mismos votos producirían bajo otra regla, no lo que ocurriría en una elección futura.",
+    "cta": {
+      "explore": "Explorar la simulación",
+      "systems": "Entender los sistemas"
+    },
+    "trust": {
+      "label": "En resumen",
+      "data": "Datos abiertos del TSE",
+      "open": "Código abierto",
+      "privacy": "Sin cookies · LGPD"
+    },
+    "hero": {
+      "caption": "Ilustración con escaños genéricos, sin datos reales"
+    },
+    "stats": {
+      "label": "VotoBrasil en cifras",
+      "seats": "escaños en la Cámara de Diputados",
+      "states": "unidades de la federación",
+      "cities": "ciudades con 1 millón de electores o más",
+      "systems": "sistemas electorales comparados"
+    },
+    "how": {
+      "eyebrow": "Cómo funciona",
+      "title": "Tres pasos, siempre con los mismos votos",
+      "lede": "Solo cambia la regla que convierte votos en escaños.",
+      "step1": {
+        "title": "Votos reales",
+        "text": "Partimos de los votos oficiales publicados por el TSE: candidatos, partidos y votación de cada zona electoral."
+      },
+      "step2": {
+        "title": "Otra regla",
+        "text": "Eliges un sistema (lista cerrada, distrital o mixto) y los mismos votos se recuentan. Candidatos, partidos y votos quedan fijos."
+      },
+      "step3": {
+        "title": "Comparación",
+        "text": "El hemiciclo, las bancadas, quién gana o pierde escaños y las métricas de proporcionalidad aparecen junto al resultado oficial."
+      }
+    },
+    "explorer": {
+      "eyebrow": "Simulador"
+    },
+    "debate": {
+      "eyebrow": "Para pensar",
+      "title": "¿Y sería bueno para el país?",
+      "lede": "No hay una única respuesta técnica: depende de lo que usted considere más importante. Estos son los argumentos más escuchados de cada lado.",
+      "prosTitle": "Quienes la defienden dicen que…",
+      "pros": [
+        "Cada región tendría un diputado conocido, más fácil de fiscalizar.",
+        "Las campañas en distritos más pequeños tenderían a ser más baratas.",
+        "El voto al partido mantendría la Cámara proporcional a la votación de cada partido.",
+        "Con un Primer Ministro, las crisis de gobierno podrían resolverse cambiando el gobierno, sin juicio político."
+      ],
+      "consTitle": "Quienes la critican dicen que…",
+      "cons": [
+        "El sistema se vuelve más complicado: dos votos, dos tipos de diputado y una Cámara que puede cambiar de tamaño.",
+        "El orden de los candidatos en las listas quedaría en manos de las direcciones de los partidos.",
+        "El trazado de los distritos puede manipularse y debe rehacerse cada cierto tiempo.",
+        "Cambiar al mismo tiempo el sistema de gobierno y el sistema electoral aumenta la incertidumbre sobre los efectos."
+      ],
+      "opinionTitle": "Forme su propia opinión",
+      "opinion": [
+        "VotoBrasil no dice qué sistema es mejor. Tomamos los votos reales de la última elección, publicados por el TSE, y recalculamos quién sería elegido con cada regla, para que usted compare con sus propios ojos.",
+        "Son simulaciones con supuestos simplificadores, explicadas en la [Metodología](/metodologia): sirven para comparar reglas, no para predecir elecciones."
+      ],
+      "semi": "Entender el semipresidencialismo",
+      "systems": "Comparar todos los sistemas"
+    },
+    "reading": {
+      "eyebrow": "Antes de interpretar",
+      "title": "Cómo leer los resultados",
+      "body": [
+        "El resultado “oficial” es el publicado por el TSE, obtenido con el sistema proporcional de lista abierta. El “escenario” usa exactamente los mismos votos; solo cambia la regla que los convierte en escaños.",
+        "Candidatos, partidos y votos permanecen fijos: no se simulan cambios en el comportamiento del elector, en la estrategia de los partidos ni en las coaliciones.",
+        "En los sistemas con distritos, los distritos se trazan mediante un algoritmo y no corresponden a distritos reales. Consulta los detalles y los límites en la [Metodología](/metodologia)."
+      ]
+    },
+    "more": {
+      "title": "Explora más",
+      "state": {
+        "title": "Asambleas Legislativas",
+        "text": "Elija un estado y vea cómo quedaría la Asamblea Legislativa con cada sistema."
+      },
+      "municipal": {
+        "title": "Cámaras Municipales",
+        "text": "Explore las ciudades con 1 millón de electores o más, con distritos trazados a partir de los locales de votación."
+      },
+      "systems": {
+        "title": "Sistemas electorales",
+        "text": "Cómo cada sistema convierte votos en escaños, con ejemplos numéricos."
+      },
+      "methodology": {
+        "title": "Metodología",
+        "text": "Fuentes, supuestos, fórmulas y validación del motor frente al resultado oficial."
+      },
+      "semi": {
+        "title": "Semipresidencialismo",
+        "text": "Qué propone la PEC 2/2025 y cuántos partidos harían falta para una mayoría."
+      }
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "VotoBrasil — Simulador de sistemas electorales con datos del TSE",
+      "description": "Simula cómo quedarían los escaños de la Cámara de Diputados, de las asambleas y de las cámaras municipales bajo otros sistemas electorales, con datos oficiales del TSE. Simulación contrafactual, no pronóstico."
+    },
+    "systems": {
+      "title": "Sistemas electorales — VotoBrasil",
+      "description": "Cómo cada sistema convierte votos en escaños: proporcional actual, lista cerrada, distritão, voto distrital y modelos mixtos, con argumentos, críticas y ejemplos numéricos."
+    },
+    "methodology": {
+      "title": "Metodología — VotoBrasil",
+      "description": "Fuentes oficiales, supuestos, límites y fórmulas de la simulación, con la validación del motor frente a los resultados del TSE."
+    },
+    "semi": {
+      "title": "Semipresidencialismo y gobernabilidad — VotoBrasil",
+      "description": "Qué propone la PEC 2/2025 y cuántos partidos harían falta para formar mayoría en la Cámara de Diputados en cada escenario electoral."
+    },
+    "about": {
+      "title": "Acerca de — VotoBrasil",
+      "description": "Proyecto independiente y de código abierto que usa datos abiertos del TSE y del IBGE. Sin cookies."
+    },
+    "notFound": {
+      "title": "Página no encontrada — VotoBrasil",
+      "description": "La página que buscas no existe."
+    },
+    "house": {
+      "federal": {
+        "title": "Cámara de Diputados — VotoBrasil",
+        "description": "Resultado oficial y simulación de sistemas electorales alternativos para la Cámara de Diputados, por unidad federativa."
+      },
+      "state": {
+        "title": "Asambleas Legislativas — VotoBrasil",
+        "description": "Resultado oficial y simulación de sistemas electorales alternativos para las Asambleas Legislativas y la Cámara Legislativa del Distrito Federal."
+      },
+      "municipal": {
+        "title": "Cámaras Municipales — VotoBrasil",
+        "description": "Resultado oficial y simulación de sistemas electorales alternativos para las Cámaras Municipales de las ciudades con 1 millón de electores o más."
+      }
+    },
+    "area": {
+      "title": "{name} · {house} — VotoBrasil",
+      "description": "Resultado oficial y simulación de sistemas electorales alternativos para {house}: {name}, con datos del TSE."
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "body": "La dirección no existe o fue movida.",
+    "cta": "Volver al inicio"
+  },
+  "about": {
+    "title": "Acerca de VotoBrasil",
+    "lede": "Un proyecto abierto e independiente para comparar sistemas electorales con datos oficiales.",
+    "project": {
+      "title": "El proyecto",
+      "body": [
+        "VotoBrasil es un sitio público y de código abierto que vuelve a aplicar los votos reales de las elecciones brasileñas a sistemas electorales alternativos, para mostrar cómo cambiarían las bancadas de la Cámara de Diputados, de las asambleas legislativas y de las cámaras municipales.",
+        "El objetivo es ofrecer un análisis de datos verificable a un debate público relevante. Por tratarse de un tema en disputa política, el proyecto publica datos, supuestos y código, para que cualquier persona pueda comprobarlos y criticarlos."
+      ]
+    },
+    "sources": {
+      "title": "Fuentes de datos",
+      "body": [
+        "Resultados electorales: Tribunal Superior Electoral (TSE), datos abiertos — [dadosabertos.tse.jus.br](https://dadosabertos.tse.jus.br). Mallas territoriales: Instituto Brasileiro de Geografia e Estatística (IBGE) — [ibge.gov.br](https://www.ibge.gov.br/geociencias/organizacao-do-territorio/malhas-territoriais.html).",
+        "La lista completa de archivos, con tamaño, fecha de obtención y SHA-256, está en la página de [Metodología](/metodologia)."
+      ]
+    },
+    "independence": {
+      "title": "Independencia",
+      "body": [
+        "VotoBrasil **no es un servicio del TSE, del IBGE ni de ningún órgano del gobierno**, partido o campaña. Los datos usados son públicos; la interpretación y los eventuales errores son responsabilidad del proyecto.",
+        "Las simulaciones son contrafactuales: responden “¿qué ocurriría con estos votos bajo esta regla?”, y no “¿qué ocurriría en una elección futura?”."
+      ]
+    },
+    "privacy": {
+      "title": "Privacidad y LGPD",
+      "body": [
+        "VotoBrasil no usa cookies, no pide registro y no crea perfiles de visitantes. El tratamiento de datos personales sigue la Ley General de Protección de Datos Personales de Brasil (LGPD, Ley 13.709/2018).",
+        "**Estadísticas de uso.** Cuando está habilitado, el sitio usa Umami, un servicio de estadísticas sin cookies, para contar visitas, páginas e interacciones (como el cambio de sistema o de idioma). El servicio recibe datos técnicos de la conexión —como dirección IP, navegador, tipo de dispositivo e idioma— usados solo para generar recuentos agregados; los eventos registran acciones de uso, sin identificar personas.",
+        "**Base legal y elección.** Las estadísticas solo se activan después de que usted acepta el aviso de privacidad (consentimiento, art. 7º, I, de la LGPD). Si lo rechaza, no se envía nada. Puede dar o revocar el consentimiento en cualquier momento en “Preferencias de privacidad”, en el pie de página. Si el navegador envía la señal “Do Not Track” o Global Privacy Control, las estadísticas quedan desactivadas y el aviso ni siquiera se muestra.",
+        "**Almacenamiento local.** El sitio guarda en su navegador (localStorage) solo su elección sobre las estadísticas. Las elecciones hechas en el simulador quedan en la dirección de la página, para facilitar compartirlas.",
+        "**Sus derechos.** Puede solicitar información, corrección o eliminación de datos (art. 18 de la LGPD) por los canales del repositorio del proyecto, indicados en “Cómo contribuir”."
+      ]
+    },
+    "contribute": {
+      "title": "Cómo contribuir",
+      "body": [
+        "Las sugerencias, correcciones y contribuciones son bienvenidas mediante issues y pull requests en el repositorio. Los reportes de errores en los datos o en las descripciones de los sistemas son especialmente útiles.",
+        "Para reproducir los números localmente, sigue las instrucciones de la página de [Metodología](/metodologia)."
+      ],
+      "repoLink": "Ver el repositorio",
+      "noRepo": "La dirección del repositorio aún no fue configurada en esta instalación (variable `VITE_REPO_URL`)."
+    },
+    "credits": {
+      "title": "Créditos",
+      "body": [
+        "Datos: TSE e IBGE. Interfaz construida con React y Vite; mapas con D3 (d3-geo, d3-delaunay) y TopoJSON. Todas las bibliotecas son de código abierto."
+      ]
+    }
+  },
+  "methodology": {
+    "title": "Metodología",
+    "lede": "Cómo se producen los números, qué supone la simulación y dónde deja de ser válida.",
+    "sources": {
+      "title": "Fuentes y versión de los datos",
+      "body": [
+        "Los votos, los candidatos y los resultados oficiales provienen de los datos abiertos del TSE, con votación detallada por zona electoral y por local de votación. Los límites territoriales y los códigos de municipio provienen de las mallas del IBGE.",
+        "Cada archivo de origen se registra con URL, tamaño, fecha de obtención y hash SHA-256, para que sea posible comprobar que se usaron los mismos datos."
+      ],
+      "version": "Versión de los datos: {version} · generada el {date}",
+      "name": "Archivo",
+      "size": "Tamaño",
+      "date": "Obtenido el",
+      "empty": "No hay fuentes registradas."
+    },
+    "validation": {
+      "title": "Validación del motor",
+      "body": [
+        "El motor aplica las reglas de la lista abierta a los votos de cada área y compara el conjunto de electos con el resultado oficial del TSE. Como el “sistema actual” mostrado en el sitio es el propio resultado oficial, esta comprobación sirve para confirmar que el motor y los datos son correctos antes de aplicar el motor a otros sistemas.",
+        "Las eventuales divergencias se listan a continuación."
+      ],
+      "exact": "áreas en las que el motor reproduce exactamente los electos oficiales",
+      "rules": "Reglas de referencia:",
+      "inexact": "{count} áreas con divergencias",
+      "inexactLabel": "Áreas con divergencias",
+      "area": "Área",
+      "seats": "Escaños",
+      "missing": "Electos oficiales no reproducidos",
+      "allExact": "Todas las áreas fueron reproducidas exactamente."
+    },
+    "assumptions": {
+      "title": "Supuestos de la simulación",
+      "body": [
+        "**Un voto como aproximación de los dos votos.** La PEC 2/2025 prevé dos votos desvinculados (distrito y partido). Los datos disponibles tienen un voto por elector (a un candidato o a la sigla); la simulación usa ese mismo voto en los dos componentes. En una elección real, los electores podrían dividir sus votos.",
+        "**Comportamiento fijo.** Candidatos, partidos y votos permanecen iguales. No se simulan cambios en el comportamiento del elector (como el voto estratégico), en la estrategia de los partidos (presentación de candidaturas, alianzas) ni en la oferta de candidaturas, que bajo otras reglas sería diferente.",
+        "**Sin coaliciones.** Las coaliciones en elecciones proporcionales no existen desde 2020. Las federaciones partidarias se tratan como una única entidad en la distribución de escaños; luego los escaños se atribuyen al partido de cada candidato electo.",
+        "**Tamaño de las cámaras.** El número de escaños de cada circunscripción es el oficial. La excepción es el mixto distrital: como prevé la PEC 2/2025, las victorias distritales que superan el derecho proporcional de un partido se convierten en escaños excedentes, y la cámara crece."
+      ]
+    },
+    "districts": {
+      "title": "Cómo se dibujan los distritos",
+      "body": [
+        "Los distritos son **hipotéticos**, no una propuesta de mapa electoral. El algoritmo determinista se inspira en el PLS 86/2017 y la PEC 2/2025: equilibrio poblacional, conectividad, compacidad y preservación de municipios y regiones. No certifica el cumplimiento de esos proyectos.",
+        "**Población.** Usamos totales municipales del Censo 2022 (IBGE). Dentro de cada municipio, se estima la población por local de votación en proporción a su electorado, sin sectores censales. Esto también vale para municipios divididos en mapas estatales. Municipios ausentes del Censo, como Boa Esperança do Norte (MT), reciben una estimación por la razón población/electorado del área; los cambios de límites municipales son una limitación. La meta es ±5% y el procesamiento rechaza desviaciones superiores a ±10%. El PLS permite la excepción del 10% solo en un distrito o en el 10% de ellos, lo que sea mayor; el simulador aún no impone ese límite de cantidad.",
+        "**Municipios y vecindad.** Los municipios de hasta media cuota son inicialmente indivisibles; si el equilibrio lo exige, nuevos intentos permiten dividir los que superan 1/4 y 1/10 de la cuota. Las conexiones usan fronteras del IBGE y triangulación entre locales de votación. Componentes aislados, como islas, se conectan al punto más cercano. Descartar conexiones largas es una heurística, no detecta barreras naturales. Se verifica la conectividad de cada distrito en ese grafo; no garantiza la continuidad exacta de las aproximaciones de Voronoi en el mapa.",
+        "**Algoritmo.** Bisección por árboles generadores, recombinación de distritos vecinos y ajustes locales, inspirados en técnicas como las de GerryChain/MGGG. El objetivo considera población, compacidad y divisiones de municipios, regiones inmediatas y barrios. Los sorteos tienen semilla fija. Votos y partidos no influyen en las fronteras; la optimización produce un escenario, no una muestra estadística de todos los mapas posibles.",
+        "**Resultado.** Se reprodujeron los 130 trazados (puro y mixto para 65 cámaras) a partir de las fuentes: ningún distrito supera ±10% de la población estimada. La mayor desviación es 8,2% (Río de Janeiro, 51 distritos); 61 trazados quedan íntegramente dentro de ±5%. En los estados usamos votos agregados por municipio y zona electoral: al dividir una zona, se reparten sus votos por el electorado de los locales. Para las cámaras municipales usamos la distribución por sección y local.",
+        "**Otras simulaciones.** [HubPolítico](https://hubpolitico.com.br/distrital) usa el Censo 2022 y compara varios mapas bajo las reglas del PLS. [Radar do Voto](https://radardovoto.com/voto-distrital) usa electores y regiones del IBGE, con márgenes seleccionables del 10%, 15% o 25%. [Ranking dos Políticos](https://ranking.org.br/artigos/simulacao-voto-distrital-misto-congresso-2026) usa electores y conserva municipios pequeños, sin detallar su algoritmo. Métodos y reglas de escaños difieren: resultados parecidos no validan un mapa. Otras fronteras pueden elegir otros candidatos."
+      ]
+    },
+    "rules": {
+      "title": "Reglas de cálculo",
+      "body": [
+        "**Sistema actual.** Es el resultado oficial publicado por el TSE. El motor reproduce las reglas de la lista abierta (Código Electoral, arts. 106 a 111, con la redacción de la Ley 14.211/2021): cociente electoral = votos válidos ÷ escaños, con la fracción igual o inferior a 0,5 despreciada y la fracción superior a 0,5 redondeada hacia arriba; cociente partidario = parte entera de (votos del partido o federación ÷ CE); restos por el método de las mayores medias (D'Hondt).",
+        "En la validación, el motor adopta la interpretación del STF de 2024 (ADI 7228, 7263 y 7325): todos los partidos y candidatos disputan los restos, manteniéndose la votación mínima individual del 10% del CE.",
+        "**Lista cerrada.** D'Hondt sobre el total de votos (nominales más sigla) de cada partido o federación. El orden de la lista se aproxima por la votación nominal, porque los partidos no definieron listas ordenadas.",
+        "**Distritão.** Los candidatos más votados de la circunscripción ocupan los escaños.",
+        "**Distrital puro y mixto.** Cada candidato compite en un solo distrito —aquel en que obtuvo su mayor votación— y en cada distrito gana el candidato más votado entre quienes lo disputan (si ningún candidato tiene allí su mayor votación, gana el más votado del distrito aún no electo). Los votos de legenda cuentan solo para la lista. En el mixto hay ⌈escaños ÷ 2⌉ distritos; el D'Hondt sobre el total de escaños, con los votos nominales más los de legenda, define el derecho de cada partido o federación; la lista completa la diferencia respecto de las victorias distritales, en el orden de la votación nominal; las victorias por encima del derecho proporcional generan escaños excedentes.",
+        "Los empates se resuelven de forma determinista (mayor votación y, después, orden del registro), de modo que los resultados son reproducibles."
+      ]
+    },
+    "comparison": {
+      "title": "Comparación con otras simulaciones",
+      "body": [
+        "Comparamos los resultados de VotoBrasil con simulaciones independientes del sistema mixto hechas con los mismos votos: la de [Ranking dos Políticos](https://ranking.org.br/artigos/simulacao-voto-distrital-misto-congresso-2026), la de [Radar do Voto](https://radardovoto.com/voto-distrital), la de HubPolítico y la nota técnica del DIAP.",
+        "Una versión anterior de VotoBrasil asignaba cada distrito al **partido** con más votos sumados allí (todos sus candidatos más la legenda). Esa regla favorece sistemáticamente al partido más grande, que suma votos de muchos candidatos en todos los distritos: producía ganancias exageradas para él y pérdidas para partidos de centro con candidatos regionalmente fuertes. Las simulaciones de referencia —y la lógica del voto distrital, en la que el elector elige a una persona— dan el distrito al **candidato** más votado, y cada candidato compite en un solo distrito. VotoBrasil pasó a seguir esa regla.",
+        "Con la regla corregida, los resultados convergen. En la Cámara de Diputados, Ranking dos Políticos estima que el PL pasaría de 121 a 125 escaños en el mixto compensatorio y que 449 de los 513 electos se mantendrían; VotoBrasil obtiene 128 escaños para el PL (en una cámara de 531, con 18 excedentes) y 450 electos mantenidos. Las diferencias restantes provienen sobre todo del trazado de los distritos (cada simulación dibuja los suyos) y de los escaños excedentes, que VotoBrasil suma a la cámara como manda la PEC.",
+        "La nota del DIAP simula variantes sin distritos (“distritão mixto”), por lo que no es directamente comparable. Ninguna de estas simulaciones es oficial: todas dependen de supuestos sobre los distritos y del uso de un único voto como aproximación de los dos votos previstos en la PEC."
+      ]
+    },
+    "metrics": {
+      "title": "Indicadores",
+      "body": [
+        "Los indicadores comparan el resultado oficial y el escenario con los mismos votos por partido (nominales más sigla). En los indicadores, los partidos de una federación se cuentan individualmente, según el partido de cada candidato electo."
+      ],
+      "formula": {
+        "gallagher": "G = √( ½ · Σ (vᵢ − sᵢ)² )",
+        "effectiveParties": "N = 1 / Σ pᵢ²",
+        "majority": "M = ⌊S / 2⌋ + 1",
+        "partiesForMajority": "k = menor k tal que b₁ + … + bₖ ≥ M",
+        "votesWithoutSeatPct": "100 · Σ votos de los partidos sin escaños ÷ Σ votos de todos los partidos"
+      },
+      "explain": {
+        "gallagher": "vᵢ y sᵢ son los porcentajes de votos y de escaños del partido i. Cero indica escaños exactamente proporcionales a los votos.",
+        "effectiveParties": "pᵢ es la fracción de los escaños del partido i, considerando solo los partidos con escaños (índice de Laakso–Taagepera aplicado a los escaños).",
+        "majority": "S es el total de escaños; M es la menor cantidad de escaños que supera la mitad. Para 513 escaños, M = 257.",
+        "partiesForMajority": "bᵢ son las bancadas en orden decreciente. Es el menor número de partidos, empezando por los mayores, que alcanza la mayoría. Es un indicador aritmético, no un pronóstico de coaliciones.",
+        "votesWithoutSeatPct": "Porcentaje de los votos recibidos por partidos que no eligieron a ningún legislador."
+      }
+    },
+    "limits": {
+      "title": "Límites",
+      "body": [
+        "**Contrafactual, no pronóstico.** La simulación muestra lo que producirían los votos de una elección específica bajo otra regla. Un cambio real de sistema alteraría candidaturas, alianzas, campañas y el comportamiento de los electores, y los resultados probablemente serían diferentes.",
+        "**Distritos hipotéticos.** Los resultados de los escenarios distritales dependen del trazado de los distritos; otro diseño, con los mismos votos, podría elegir a otros candidatos.",
+        "**Aproximaciones locales.** Los votos se publican por zona electoral (en los estados) y por sección (en las ciudades). Cuando una zona se divide entre distritos, la parte de cada uno se estima por los electores de los locales de votación; en el mapa, el área de cada local es una aproximación.",
+        "**Posibles errores.** Los datos oficiales pueden ser rectificados y el código puede contener fallos. Si encuentras una divergencia, regístrala en el repositorio del proyecto."
+      ]
+    },
+    "reproduce": {
+      "title": "Código abierto y reproducción",
+      "body": [
+        "Todo el código —extracción de datos, motor de simulación, API y este sitio— es abierto. El procesamiento es determinista: con los mismos archivos de origen (comprobados por los hashes anteriores), produce los mismos resultados.",
+        "Para reproducirlo localmente (requiere Node.js):"
+      ],
+      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
+      "repo": "Abrir el repositorio"
+    }
+  },
+  "semi": {
+    "title": "Semipresidencialismo y gobernabilidad",
+    "lede": "Qué propone la PEC 2/2025 y qué muestran los datos de votación sobre la formación de mayorías en la Cámara de Diputados.",
+    "what": {
+      "title": "Qué es el semipresidencialismo",
+      "body": [
+        "En el semipresidencialismo, el jefe de Estado (en general, un presidente) y el jefe de gobierno (un primer ministro) son cargos distintos. El primer ministro depende de la confianza del Legislativo y puede ser destituido por este; el presidente suele tener funciones de representación y de arbitraje.",
+        "Hay mucha variación entre los países que adoptan el modelo (como Francia, Portugal y Polonia) en cuanto a los poderes de cada cargo y a la forma de nombrar al gobierno. No existe un modelo único."
+      ]
+    },
+    "pec": {
+      "title": "Qué propone la PEC 2/2025",
+      "intro": [
+        "La Propuesta de Enmienda a la Constitución n.º 2/2025, presentada en la Cámara de Diputados por iniciativa del diputado Luiz Carlos Hauly y de otros parlamentarios, propone cambiar el sistema de gobierno y el sistema electoral de la Cámara. En líneas generales:"
+      ],
+      "points": [
+        "El Presidente de la República sería el jefe de Estado y comandante de las Fuerzas Armadas.",
+        "El Presidente nombraría a un Primer Ministro tras escuchar a los partidos con mayor representación en la Cámara de Diputados; la persona elegida sería un miembro del Congreso Nacional de 35 años o más.",
+        "El Primer Ministro y el consejo de ministros encabezarían el gobierno, presentarían un programa y dependerían del apoyo de la Cámara de Diputados.",
+        "La Cámara podría destituir al gobierno mediante una moción de censura.",
+        "No habría Vicepresidente de la República; la propuesta prevé reglas propias de sucesión y de nueva elección.",
+        "Para la Cámara de Diputados, la propuesta prevé el voto distrital mixto, con dos votos desvinculados: uno por un candidato del distrito y otro por un partido."
+      ],
+      "caveat": "Descripción conforme a la proposición; consulta el texto oficial en [camara.leg.br](https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2483164). La redacción y la tramitación pueden cambiar, y este sitio no hace seguimiento de las enmiendas."
+    },
+    "debate": {
+      "title": "Argumentos en el debate",
+      "prosTitle": "Argumentos a favor",
+      "consTitle": "Críticas",
+      "intro": [
+        "Hay argumentos de ambos lados en la ciencia política y en el debate público. Los puntos siguientes resumen los más citados, sin respaldarlos."
+      ],
+      "pros": [
+        "Facilita la sustitución de un gobierno que pierde el apoyo del Parlamento, sin recurrir a un proceso de destitución (impeachment).",
+        "Separa las funciones de jefe de Estado y de jefe de gobierno.",
+        "Estimula la formación de coaliciones en torno a un programa y hace al gobierno responsable ante el Parlamento."
+      ],
+      "cons": [
+        "Puede generar conflictos entre presidente y primer ministro, sobre todo cuando tienen bases políticas distintas.",
+        "El jefe de gobierno deja de ser elegido directamente por voto popular y pasa a ser designado.",
+        "En sistemas de partidos fragmentados, puede haber inestabilidad, con cambios frecuentes de gobierno."
+      ]
+    },
+    "gov": {
+      "title": "Gobernabilidad en números",
+      "body": [
+        "En cualquier sistema con un gobierno que depende del Parlamento, importa el número de partidos necesarios para sumar una mayoría. A continuación, con base en la Cámara de Diputados, mostramos cuántos partidos, empezando por las bancadas más grandes, hacen falta para la mayoría en el resultado oficial y en el escenario elegido.",
+        "El indicador es aritmético: no considera afinidad ideológica, alianzas reales ni disciplina de bancada."
+      ],
+      "majorityTitle": "Mayoría en la Cámara de Diputados",
+      "majorityLede": "La mayoría es de {majority} de los {seats} escaños: la mitad, redondeada hacia abajo, más uno.",
+      "partiesNeeded": "mayores bancadas necesarias para la mayoría",
+      "cumulative": "suma: {total}"
+    },
+    "coalition": {
+      "title": "Armador de coaliciones",
+      "lede": "Activa y desactiva partidos para ver si la suma de sus escaños alcanza la mayoría en el resultado oficial y en el escenario.",
+      "groupLabel": "Partidos de la coalición",
+      "clear": "Borrar selección",
+      "caveat": "Ejercicio aritmético: las bancadas son las del resultado oficial y de la simulación, y no indican que esos partidos formarían de hecho una coalición.",
+      "reached": "Mayoría alcanzada: {surplus} escaños por encima del mínimo de {majority}.",
+      "missing": "Faltan {missing} escaños para la mayoría ({majority})."
+    },
+    "future": {
+      "title": "Próximas etapas",
+      "body": [
+        "El análisis de votaciones nominales —por ejemplo, cuán cohesionadas votan las bancadas en las votaciones del pleno— es una fase futura del proyecto y todavía no está incluido aquí."
+      ]
+    }
+  }
+}

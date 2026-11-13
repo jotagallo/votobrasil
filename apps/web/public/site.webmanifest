@@ -1,0 +1,12 @@
+{
+  "name": "VotoBrasil",
+  "short_name": "VotoBrasil",
+  "description": "Simulador de sistemas eleitorais com dados oficiais do TSE",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "theme_color": "#002776",
+  "background_color": "#FFFFFF",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

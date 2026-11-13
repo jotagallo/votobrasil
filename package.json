@@ -1,0 +1,40 @@
+{
+  "name": "votobr",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VotoBrasil — simulador visual de sistemas eleitorais com dados oficiais do TSE",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:api dev:web",
+    "dev:api": "npm run dev -w @votobr/api",
+    "dev:web": "npm run dev -w @votobr/web",
+    "build": "npm run build -w @votobr/shared && npm run build -w @votobr/web && npm run build -w @votobr/api",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "data:build": "npm run build -w @votobr/etl",
+    "data:validate": "npm run validate -w @votobr/etl",
+    "bundle": "node scripts/bundle.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^20.19.43",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.14.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.9.10",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^4.1.12"
+  }
+}

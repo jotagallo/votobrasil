@@ -1,0 +1,87 @@
+# Requires Docker Compose >= 2.24 (optional env_file).
+#
+#   docker compose up --build app                 prod-like image on :8080 (datasets mounted from the host)
+#   docker compose --profile etl run --rm etl     build datasets into ./data/processed (downloads 1-6 GB)
+#   docker compose --profile dev up dev           hot-reload API on :8080 and web on :5173
+#
+# Name the service explicitly: `app` and `dev` both publish :8080 and must not run together.
+# The dev profile expects the web dev server to bind 0.0.0.0 inside the container
+# (Vite `server.host`), otherwise :5173 is unreachable from the host.
+name: votobr
+
+x-node-dev: &node-dev
+  image: votobr-dev:local
+  build:
+    context: .
+    target: dev
+  init: true
+  working_dir: /repo
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    HOST: 0.0.0.0
+    PORT: '8080'
+    DATA_DIR: /repo/data/processed
+  volumes:
+    - .:/repo
+    - node_modules:/repo/node_modules
+  # node_modules lives in a named volume (Linux binaries must not mix with host ones);
+  # reinstall only when package-lock.json changed.
+  entrypoint:
+    - sh
+    - -c
+    - |
+      h=$$(sha256sum package-lock.json | cut -d' ' -f1)
+      if [ "$$(cat node_modules/.lock-hash 2>/dev/null)" != "$$h" ]; then
+        npm ci --no-audit --no-fund || exit 1
+        echo "$$h" > node_modules/.lock-hash
+      fi
+      exec "$$@"
+    - --
+
+services:
+  app:
+    image: votobr:local
+    build:
+      context: .
+      target: runtime
+      args:
+        VITE_UMAMI_WEBSITE_ID: ${VITE_UMAMI_WEBSITE_ID:-}
+        VITE_UMAMI_SRC: ${VITE_UMAMI_SRC:-https://cloud.umami.is/script.js}
+        VITE_SITE_URL: ${VITE_SITE_URL:-}
+    ports:
+      - '8080:8080'
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: '8080'
+      DATA_DIR: /app/data
+      WEB_DIR: /app/web
+    volumes:
+      - ./data/processed:/app/data:ro
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  dev:
+    <<: *node-dev
+    profiles: [dev]
+    command: ['npm', 'run', 'dev']
+    ports:
+      - '8080:8080'
+      - '5173:5173'
+
+  etl:
+    <<: *node-dev
+    profiles: [etl]
+    command: ['npm', 'run', 'data:build']
+    restart: 'no'
+
+volumes:
+  node_modules:
