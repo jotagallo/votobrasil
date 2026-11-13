@@ -14,7 +14,7 @@
     "@fastify/compress": "^9.3.0",
     "@fastify/helmet": "^13.2.0",
     "@fastify/rate-limit": "^11.2.2",
-    "@fastify/static": "^10.1.8",
+    "@fastify/static": "^10.1.10",
     "@votobr/shared": "*",
     "fastify": "^5.12.8",
     "lru-cache": "^11.5.3"
