@@ -1,0 +1,11 @@
+title = "VotoBrasil"
+
+[extend]
+useDefault = true
+
+# Chaves de dataset (ex.: 2024-municipal-3550308) são identificadores públicos, mas a regra
+# generic-api-key as confunde com tokens quando aparecem em atribuições `key: '...'`.
+# Usa [allowlist] porque o gitleaks 8.24.3 (versão fixada no CI) ignora o formato [[allowlists]].
+[allowlist]
+description = "Chaves de dataset"
+regexes = ['''^\d{4}-(federal|state|municipal)-[A-Za-z0-9]+$''']
