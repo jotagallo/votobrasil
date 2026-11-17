@@ -37,7 +37,7 @@
   gap: 0.5rem;
   min-height: var(--touch);
   padding: 0 1.25rem;
-  background: var(--blue-900);
+  background: var(--brand-900);
   border: 1px solid transparent;
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-xs);
@@ -55,7 +55,7 @@
 }
 
 .btn:hover {
-  background: var(--blue-700);
+  background: var(--brand-700);
   box-shadow: var(--shadow-sm);
   color: #fff;
 }
@@ -74,16 +74,16 @@
 }
 
 .btn--ghost {
-  background: var(--blue-50);
-  border-color: var(--blue-100);
+  background: var(--brand-50);
+  border-color: var(--brand-100);
   box-shadow: none;
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 .btn--ghost:hover {
-  background: var(--blue-100);
+  background: var(--brand-100);
   box-shadow: none;
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 .btn--lg {
@@ -144,7 +144,7 @@
   padding: 0;
   background: none;
   border: 0;
-  color: var(--blue-700);
+  color: var(--brand-700);
   font-weight: 650;
   text-decoration: underline;
   text-decoration-thickness: 0.08em;
@@ -152,7 +152,7 @@
 }
 
 .link-button:hover {
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 .share {
@@ -194,7 +194,7 @@
 }
 
 .select:hover {
-  border-color: var(--blue-700);
+  border-color: var(--brand-700);
 }
 
 /* Estados */
@@ -356,19 +356,19 @@ button.chip {
 }
 
 .chip:hover {
-  background: var(--blue-50);
-  border-color: var(--blue-700);
+  background: var(--brand-50);
+  border-color: var(--brand-700);
 }
 
 .chip:focus-within,
 .chip:focus-visible {
-  outline: 3px solid var(--blue-700);
+  outline: 3px solid var(--brand-700);
   outline-offset: 3px;
 }
 
 .chip.is-selected {
-  background: var(--blue-900);
-  border-color: var(--blue-900);
+  background: var(--brand-900);
+  border-color: var(--brand-900);
   box-shadow: var(--shadow-sm);
   color: #fff;
 }
@@ -379,8 +379,8 @@ button.chip {
 }
 
 .chip.is-selected:hover {
-  background: var(--blue-700);
-  border-color: var(--blue-700);
+  background: var(--brand-700);
+  border-color: var(--brand-700);
 }
 
 .chip small {
@@ -427,7 +427,7 @@ button.chip {
   width: 100%;
   min-height: var(--touch);
   margin: 0;
-  accent-color: var(--blue-700);
+  accent-color: var(--brand-700);
 }
 
 .slider__value {
@@ -619,7 +619,7 @@ button.chip {
   height: 0.8rem;
   margin-right: 0.5rem;
   border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgb(10 27 61 / 0.2);
+  box-shadow: inset 0 0 0 1px rgb(36 10 61 / 0.2);
   vertical-align: -0.05em;
 }
 
@@ -737,7 +737,7 @@ button.chip {
   display: inline-flex;
   align-items: center;
   min-height: var(--touch);
-  color: var(--blue-700);
+  color: var(--brand-700);
   font-weight: 650;
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -894,7 +894,7 @@ button.chip {
 }
 
 .map--picker .map__area path {
-  fill: #c9d7ee;
+  fill: #dac9ee;
   transition:
     fill var(--duration) var(--ease),
     stroke var(--duration) var(--ease),
@@ -902,12 +902,12 @@ button.chip {
 }
 
 .map--picker .map__area text {
-  fill: var(--blue-900);
+  fill: var(--brand-900);
 }
 
 .map--picker .map__area:hover path,
 .map--picker .map__area:focus-visible path {
-  fill: var(--blue-700);
+  fill: var(--brand-700);
 }
 
 .map--picker .map__area:hover text,
@@ -980,7 +980,7 @@ button.chip {
 
 .district-badge circle {
   stroke: #fff;
-  filter: drop-shadow(0 0.5px 0.6px rgb(10 27 61 / 0.35));
+  filter: drop-shadow(0 0.5px 0.6px rgb(36 10 61 / 0.35));
 }
 
 .district-badge.is-active circle {
@@ -1066,12 +1066,12 @@ button.chip {
 
 .district-list__item:hover,
 .district-list__item.is-active {
-  background: var(--blue-50);
+  background: var(--brand-50);
 }
 
 .district-list__item[aria-pressed='true'] {
-  background: var(--blue-100);
-  box-shadow: inset 3px 0 0 var(--blue-900);
+  background: var(--brand-100);
+  box-shadow: inset 3px 0 0 var(--brand-900);
 }
 
 .district-list__item:focus-visible {
@@ -1085,7 +1085,7 @@ button.chip {
   height: 1.75rem;
   padding: 0 0.3rem;
   border-radius: var(--radius-pill);
-  box-shadow: inset 0 0 0 1px rgb(10 27 61 / 0.18);
+  box-shadow: inset 0 0 0 1px rgb(36 10 61 / 0.18);
   font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
   font-weight: 750;
@@ -1194,12 +1194,12 @@ button.chip {
 }
 
 .segmented__btn:hover {
-  background: var(--blue-100);
-  color: var(--blue-900);
+  background: var(--brand-100);
+  color: var(--brand-900);
 }
 
 .segmented__btn.is-active {
-  background: var(--blue-900);
+  background: var(--brand-900);
   color: #fff;
 }
 

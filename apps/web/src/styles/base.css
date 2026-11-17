@@ -49,14 +49,14 @@ svg {
 }
 
 a {
-  color: var(--blue-700);
+  color: var(--brand-700);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.2em;
   transition: color var(--duration) var(--ease);
 }
 
 a:hover {
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 button,
@@ -85,7 +85,7 @@ summary {
 }
 
 :focus-visible {
-  outline: 3px solid var(--blue-700);
+  outline: 3px solid var(--brand-700);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -116,7 +116,7 @@ svg a:focus-visible {
   top: -4rem;
   z-index: 50;
   padding: var(--space-3) var(--space-5);
-  background: var(--blue-900);
+  background: var(--brand-900);
   border-radius: var(--radius-pill);
   color: #fff;
   font-weight: 700;
@@ -231,7 +231,7 @@ svg a:focus-visible {
 }
 
 .menu-toggle:hover {
-  background: var(--blue-100);
+  background: var(--brand-100);
 }
 
 .menu-toggle__icon,
@@ -317,13 +317,13 @@ svg a:focus-visible {
 }
 
 .nav__link:hover {
-  background: var(--blue-50);
-  color: var(--blue-900);
+  background: var(--brand-50);
+  color: var(--brand-900);
 }
 
 .nav__link.is-active {
-  background: var(--blue-100);
-  color: var(--blue-900);
+  background: var(--brand-100);
+  color: var(--brand-900);
   font-weight: 700;
 }
 
@@ -355,12 +355,12 @@ svg a:focus-visible {
 }
 
 .lang__link:hover {
-  background: var(--blue-100);
-  color: var(--blue-900);
+  background: var(--brand-100);
+  color: var(--brand-900);
 }
 
 .lang__link.is-active {
-  background: var(--blue-900);
+  background: var(--brand-900);
   color: #fff;
 }
 
@@ -443,7 +443,8 @@ svg a:focus-visible {
   overflow: hidden;
   background:
     radial-gradient(40rem 18rem at 100% 0%, rgb(0 156 59 / 0.18), transparent 70%),
-    radial-gradient(36rem 18rem at 0% 100%, rgb(11 77 162 / 0.35), transparent 70%), var(--blue-950);
+    radial-gradient(36rem 18rem at 0% 100%, rgb(71 11 162 / 0.35), transparent 70%),
+    var(--brand-950);
   color: var(--on-dark-soft);
   font-size: var(--text-small);
   text-align: center;
@@ -490,7 +491,7 @@ svg a:focus-visible {
   max-width: 34rem;
   margin-inline: auto;
   margin-bottom: var(--space-3);
-  color: #aeb9d6;
+  color: #c4aed6;
 }
 
 .site-footer__links li a {
@@ -625,7 +626,7 @@ svg a:focus-visible {
 
 .lang-footer .lang__link.is-active {
   background: #fff;
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 .lang-footer + .site-footer__note {

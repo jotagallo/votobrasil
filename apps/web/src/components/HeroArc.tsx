@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 import { assignSeatBlocks, hemicycleLayout } from '../lib/hemicycle';
 
 const DEMO_BLOCKS = [
-  { id: 'a', seats: 44, color: '#002776' },
-  { id: 'b', seats: 34, color: '#0b4da2' },
-  { id: 'c', seats: 26, color: '#3e92d8' },
+  { id: 'a', seats: 44, color: '#3b0076' },
+  { id: 'b', seats: 34, color: '#470ba2' },
+  { id: 'c', seats: 26, color: '#6a3ed8' },
   { id: 'd', seats: 22, color: '#009c3b' },
   { id: 'e', seats: 14, color: '#f2c300' },
-  { id: 'f', seats: 10, color: '#b9c6dc' },
+  { id: 'f', seats: 10, color: '#c9b9dc' },
 ] as const;
 
 const TOTAL = DEMO_BLOCKS.reduce((sum, block) => sum + block.seats, 0);
@@ -18,7 +18,7 @@ export function HeroArc() {
     const base = hemicycleLayout(TOTAL, { width: 400 });
     const assignments = assignSeatBlocks(DEMO_BLOCKS);
     const items = assignments.flatMap((assignment) => {
-      const color = DEMO_BLOCKS.find((block) => block.id === assignment.id)?.color ?? '#b9c6dc';
+      const color = DEMO_BLOCKS.find((block) => block.id === assignment.id)?.color ?? '#c9b9dc';
       return base.seats.slice(assignment.from, assignment.to).map((seat, i) => ({
         key: `${assignment.id}-${i}`,
         x: seat.x,

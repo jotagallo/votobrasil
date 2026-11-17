@@ -84,16 +84,16 @@ function Meter({
   const mark = seatsTotal > 0 ? (majority / seatsTotal) * 100 : 50;
   return (
     <svg className="meter" width="100%" height="28" aria-hidden="true" focusable="false">
-      <rect x="0" y="6" width="100%" height="16" rx="8" fill="#E4EAF3" />
+      <rect x="0" y="6" width="100%" height="16" rx="8" fill="#EBE4F3" />
       <rect
         x="0"
         y="6"
         width={`${width}%`}
         height="16"
         rx="8"
-        fill={reached ? '#007A33' : '#0B4DA2'}
+        fill={reached ? '#007A33' : '#470BA2'}
       />
-      <rect x={`${mark}%`} y="0" width="2" height="28" rx="1" fill="#0A1B3D" />
+      <rect x={`${mark}%`} y="0" width="2" height="28" rx="1" fill="#240A3D" />
     </svg>
   );
 }

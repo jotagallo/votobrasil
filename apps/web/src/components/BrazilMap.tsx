@@ -18,11 +18,11 @@ const HEIGHT = 430;
 
 /** Faixas da fração de cadeiras que mudam de partido (modo "mudança"). */
 const CHANGE_BINS = [
-  { max: 0, color: '#E4EAF3' },
-  { max: 0.1, color: '#C3D2EA' },
-  { max: 0.2, color: '#86A8D6' },
-  { max: 0.3, color: '#3F74BE' },
-  { max: Infinity, color: '#0B3D91' },
+  { max: 0, color: '#EBE4F3' },
+  { max: 0.1, color: '#D4C3EA' },
+  { max: 0.2, color: '#A786D6' },
+  { max: 0.3, color: '#743FBE' },
+  { max: Infinity, color: '#490B91' },
 ] as const;
 
 function changeBin(fraction: number): (typeof CHANGE_BINS)[number] {
@@ -126,7 +126,7 @@ export function BrazilMap({ office, rows, colors, mode, onMode, query }: Props) 
             const leader = entry?.leaderScen ?? null;
             const fraction = entry && entry.row.seats > 0 ? entry.changed / entry.row.seats : 0;
             const fill = !entry
-              ? '#E4EAF3'
+              ? '#EBE4F3'
               : mode === 'leader'
                 ? leader
                   ? (colors[leader] ?? OTHERS_COLOR)

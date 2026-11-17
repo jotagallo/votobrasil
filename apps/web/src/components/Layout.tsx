@@ -17,7 +17,7 @@ const AUTHOR_LINKS = [
 function BrandMark() {
   return (
     <svg className="brand__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <rect width="32" height="32" rx="9" fill="#002776" />
+      <rect width="32" height="32" rx="9" fill="#3b0076" />
       <g fill="none" strokeWidth="2.6" strokeLinecap="round">
         <path d="M5.5 23.5a10.5 10.5 0 0 1 21 0" stroke="#fff" />
         <path d="M10 23.5a6 6 0 0 1 12 0" stroke="#19b35a" />

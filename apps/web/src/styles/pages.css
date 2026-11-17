@@ -8,7 +8,7 @@
   align-items: center;
   gap: 0.6rem;
   margin-bottom: var(--space-3);
-  color: var(--blue-700);
+  color: var(--brand-700);
   font-size: var(--text-xs);
   font-weight: 750;
   letter-spacing: 0.08em;
@@ -70,7 +70,7 @@
 .section--soft {
   background:
     radial-gradient(40rem 20rem at 100% 0%, rgb(0 156 59 / 0.07), transparent 60%),
-    radial-gradient(36rem 20rem at 0% 100%, rgb(11 77 162 / 0.07), transparent 60%), var(--bg-soft);
+    radial-gradient(36rem 20rem at 0% 100%, rgb(71 11 162 / 0.07), transparent 60%), var(--bg-soft);
   border-block: 1px solid var(--line);
 }
 
@@ -87,13 +87,13 @@
   margin-bottom: 0;
 }
 
-/* Hero da Home: malha suave verde → azul com toque de amarelo, só CSS */
+/* Hero da Home: malha suave verde → roxo com toque de amarelo, só CSS */
 .hero {
   position: relative;
   overflow: hidden;
   background:
     radial-gradient(46rem 30rem at 92% -8%, rgb(0 156 59 / 0.18), transparent 62%),
-    radial-gradient(40rem 28rem at -6% 0%, rgb(11 77 162 / 0.16), transparent 62%),
+    radial-gradient(40rem 28rem at -6% 0%, rgb(71 11 162 / 0.16), transparent 62%),
     radial-gradient(26rem 18rem at 62% 104%, rgb(255 223 0 / 0.26), transparent 64%), var(--bg);
   border-bottom: 1px solid var(--line);
 }
@@ -121,7 +121,7 @@
 
 .hero__title em {
   font-style: normal;
-  color: var(--blue-700);
+  color: var(--brand-700);
 }
 
 .hero__lede {
@@ -208,7 +208,7 @@
   inset: -14% -10%;
   z-index: -1;
   background:
-    radial-gradient(closest-side at 30% 40%, rgb(11 77 162 / 0.28), transparent),
+    radial-gradient(closest-side at 30% 40%, rgb(71 11 162 / 0.28), transparent),
     radial-gradient(closest-side at 75% 60%, rgb(0 156 59 / 0.26), transparent),
     radial-gradient(closest-side at 55% 95%, rgb(255 223 0 / 0.3), transparent);
   filter: blur(24px);
@@ -355,7 +355,7 @@
   .pec-intro__title,
   .page-hero--dark .page-hero__title,
   .cta-panel__title {
-    background: linear-gradient(180deg, #fff 35%, #c9d6f2);
+    background: linear-gradient(180deg, #fff 35%, #dec9f2);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -409,7 +409,7 @@
   position: absolute;
   inset: auto var(--space-5) -1px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--blue-100), transparent);
+  background: linear-gradient(90deg, transparent, var(--brand-100), transparent);
   opacity: 0.6;
 }
 
@@ -427,7 +427,7 @@
   width: 2.5rem;
   height: 2.5rem;
   margin-bottom: var(--space-4);
-  background: var(--blue-700);
+  background: var(--brand-700);
   border-radius: 12px;
   color: #fff;
   font-size: 0.85rem;
@@ -532,8 +532,8 @@
   padding: var(--card-pad);
   background:
     radial-gradient(30rem 16rem at 100% 0%, rgb(0 156 59 / 0.12), transparent 70%),
-    radial-gradient(30rem 16rem at 0% 100%, rgb(255 223 0 / 0.16), transparent 70%), var(--blue-50);
-  border: 1px solid var(--blue-100);
+    radial-gradient(30rem 16rem at 0% 100%, rgb(255 223 0 / 0.16), transparent 70%), var(--brand-50);
+  border: 1px solid var(--brand-100);
   border-radius: var(--radius-xl);
 }
 
@@ -558,7 +558,8 @@
   overflow: hidden;
   background:
     radial-gradient(36rem 18rem at 85% 120%, rgb(0 156 59 / 0.35), transparent 65%),
-    radial-gradient(30rem 16rem at 10% -30%, rgb(11 77 162 / 0.6), transparent 65%), var(--blue-950);
+    radial-gradient(30rem 16rem at 10% -30%, rgb(71 11 162 / 0.6), transparent 65%),
+    var(--brand-950);
 }
 
 .stat-band::before {
@@ -648,7 +649,7 @@
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: var(--blue-900);
+  background: var(--brand-900);
 }
 
 .step:nth-child(2)::before {
@@ -666,9 +667,9 @@
   width: 3rem;
   height: 3rem;
   margin-bottom: var(--space-5);
-  background: var(--blue-900);
+  background: var(--brand-900);
   border-radius: 14px;
-  box-shadow: 0 8px 20px -8px rgb(0 39 118 / 0.6);
+  box-shadow: 0 8px 20px -8px rgb(59 0 118 / 0.6);
   color: #fff;
   font-size: 1.125rem;
   font-weight: 800;
@@ -746,9 +747,9 @@
   place-items: center;
   width: 1.75rem;
   height: 1.75rem;
-  background: var(--blue-100);
+  background: var(--brand-100);
   border-radius: 8px;
-  color: var(--blue-900);
+  color: var(--brand-900);
   font-size: 0.85rem;
   font-weight: 800;
   line-height: 1;
@@ -1229,9 +1230,9 @@
   margin: 0;
   padding: var(--space-4);
   overflow-x: auto;
-  background: var(--blue-950);
+  background: var(--brand-950);
   border-radius: var(--radius);
-  color: #e8eefc;
+  color: #f3e8fc;
   font-family: var(--font-mono);
   font-size: 0.875rem;
   line-height: 1.6;
