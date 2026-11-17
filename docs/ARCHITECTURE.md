@@ -39,7 +39,7 @@ A cache interna exigida é feita em duas camadas: arquivos Brotli no disco da in
 ## Unidades geográficas
 
 - **Estados (Câmara dos Deputados e Assembleias):** a unidade mínima é a **zona eleitoral dentro do município**, posicionada pela média das coordenadas dos locais de votação ponderada pelo eleitorado (com fallback para a zona, o município e o centroide do polígono). O TSE publica coordenadas por local de votação, mas a votação por candidato só por município-zona. Os distritos (população do Censo 2022, ±5%, municípios inteiros salvo os grandes; ver [METHODOLOGY.md](METHODOLOGY.md#5-desenho-dos-distritos)) dividem os municípios grandes pelos locais de votação, e os votos de uma zona repartida entre distritos são divididos na proporção dos eleitores de cada parte.
-- **Câmaras Municipais (2024, cidades com 1 milhão de eleitores ou mais):** a unidade é o **local de votação**. A votação por seção apenas reparte o total de cada zona entre os locais da zona (método do maior resto), de modo que os totais coincidem exatamente com a apuração oficial.
+- **Câmaras Municipais (2024, capitais estaduais e cidades não capitais com mais de 1 milhão de habitantes no Censo 2022):** a unidade é o **local de votação**. A votação por seção apenas reparte o total de cada zona entre os locais da zona (método do maior resto), de modo que os totais coincidem exatamente com a apuração oficial.
 
 ## Formato dos dados (`data/processed`)
 

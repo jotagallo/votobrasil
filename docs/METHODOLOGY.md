@@ -112,7 +112,7 @@ Municípios ausentes do Censo 2022 usam uma estimativa pela razão população/e
 
 1. **Átomos.** Nos estados, cada município até meia cota é um átomo; os maiores viram um átomo por coordenada de local de votação. Nas cidades, cada local de votação é um átomo.
 2. **Arestas.** Uma única triangulação de Delaunay de todos os átomos. Entre municípios diferentes, a aresta é aceita quando são vizinhos na malha do IBGE (vizinhos que a triangulação não liga recebem a aresta entre o par de átomos mais próximo). Dentro do município, descartam-se arestas maiores que 6× a mediana; a distância é apenas uma heurística, não detecta baías, serras ou represas. Locais isolados voltam a se ligar ao próprio município pelo par mais próximo. Componentes ainda separados, como ilhas, também recebem ligações de proximidade. A conectividade vale para esse grafo aumentado, não para todos os recortes geográficos possíveis.
-3. **Coordenadas dos locais.** Locais sem coordenada recebem a do mesmo local na eleição de referência (2026), depois o centro do bairro e, por último, o da zona. Coordenadas genéricas (o mesmo ponto para locais de bairros diferentes, marcador do cadastro do TSE) e coordenadas fora do polígono do município são descartadas.
+3. **Coordenadas dos locais.** Locais sem coordenada recebem a do mesmo local na eleição de referência (2026), depois o centro do bairro e, por último, o da zona. Coordenadas genéricas (o mesmo ponto — ou pontos a poucos metros uns dos outros — para locais de 3 ou mais bairros, marcador do cadastro do TSE) e coordenadas fora do polígono do município são descartadas.
 
 ### 5.3 Partição
 
@@ -170,4 +170,4 @@ Além disso, o ETL confere, para cada uma dessas 64 áreas, que a soma de votos 
 - **Candidaturas e coligações:** em sistemas distritais, o número de candidatos e as alianças mudariam. A simulação mantém as candidaturas de 2026/2024.
 - **Cadeiras fixas, exceto excedentes:** a quantidade de cadeiras por circunscrição é a real (513 na Câmara dos Deputados); no distrital misto, as cadeiras excedentes da PEC podem ampliá-la.
 - **Distritos hipotéticos:** o desenho segue critérios objetivos (5.1), mas é um entre muitos possíveis; em distritos disputados, outro traçado pode mudar o vencedor.
-- **Câmaras municipais:** apenas as cidades com 1 milhão de eleitores ou mais (11 em 2024); Brasília não tem eleição municipal.
+- **Câmaras municipais:** capitais estaduais e cidades não capitais com mais de 1 milhão de habitantes no Censo 2022 (28 cidades, com os resultados da eleição de 2024); Brasília não tem eleição municipal.

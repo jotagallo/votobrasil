@@ -415,9 +415,9 @@
       "pickHint": "Cada Assembleia Legislativa é eleita separadamente, então somar as 27 casas não diz muito. Clique no mapa ou na lista para ver o resultado oficial e a simulação de uma UF."
     },
     "municipal": {
-      "areasTitle": "Câmaras Municipais das cidades com 1 milhão de eleitores ou mais",
+      "areasTitle": "Câmaras Municipais das capitais estaduais e cidades com mais de 1 milhão de habitantes",
       "intro": [
-        "O VotoBrasil cobre as Câmaras Municipais de todas as cidades com 1 milhão de eleitores ou mais — 11 na eleição de 2024, cujos resultados são usados aqui.",
+        "O VotoBrasil cobre as Câmaras Municipais das 26 capitais estaduais e das demais cidades com mais de 1 milhão de habitantes no Censo 2022 do IBGE — 28 cidades no total. Brasília não tem eleição municipal. Os resultados usados aqui são os da eleição de 2024.",
         "Nas cidades, a unidade mínima dos distritos simulados é o local de votação."
       ]
     }
@@ -496,7 +496,7 @@
       "label": "O VotoBrasil em números",
       "seats": "cadeiras na Câmara dos Deputados",
       "states": "unidades da federação",
-      "cities": "cidades com 1 milhão de eleitores ou mais",
+      "cities": "capitais estaduais e cidades com mais de 1 milhão de habitantes",
       "systems": "sistemas eleitorais comparados"
     },
     "how": {
@@ -566,7 +566,7 @@
       },
       "municipal": {
         "title": "Câmaras Municipais",
-        "text": "Explore as cidades com 1 milhão de eleitores ou mais, com distritos desenhados a partir dos locais de votação."
+        "text": "Explore as capitais estaduais e cidades com mais de 1 milhão de habitantes, com distritos desenhados a partir dos locais de votação."
       },
       "systems": {
         "title": "Sistemas eleitorais",
@@ -618,7 +618,7 @@
       },
       "municipal": {
         "title": "Câmaras Municipais — VotoBrasil",
-        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para as Câmaras Municipais das cidades com 1 milhão de eleitores ou mais."
+        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para as Câmaras Municipais das capitais estaduais e cidades com mais de 1 milhão de habitantes."
       }
     },
     "area": {

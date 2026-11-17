@@ -200,9 +200,10 @@ svg a:focus-visible {
 }
 
 .brand__mark {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 2.25rem;
   flex: none;
+  color: var(--brand-900);
 }
 
 .brand__name {
@@ -211,8 +212,30 @@ svg a:focus-visible {
   letter-spacing: -0.035em;
 }
 
-.brand__name span {
-  color: var(--green-700);
+.wordmark {
+  --wordmark-green: var(--green-700);
+  --wordmark-yellow: var(--yellow-700);
+  color: var(--brand-900);
+  white-space: nowrap;
+}
+
+/* Um único corte diagonal divide as cores dentro dos glifos. */
+.wordmark > span {
+  background-image: linear-gradient(
+    168deg,
+    var(--wordmark-green) 57.5%,
+    var(--wordmark-yellow) 57.5%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (forced-colors: active) {
+  .wordmark > span {
+    background-image: none;
+    color: CanvasText;
+  }
 }
 
 .menu-toggle {
@@ -477,14 +500,26 @@ svg a:focus-visible {
 
 .site-footer__brand {
   margin-bottom: var(--space-3);
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.035em;
 }
 
-.site-footer__brand span {
-  color: var(--yellow);
+.site-footer__mark {
+  width: 3.25rem;
+  height: 2.375rem;
+  flex: none;
+  color: #fff;
+}
+
+.site-footer .wordmark {
+  --wordmark-green: var(--green-glow);
+  --wordmark-yellow: var(--yellow);
+  color: var(--on-dark);
 }
 
 .site-footer__note {

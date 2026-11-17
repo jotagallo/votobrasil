@@ -83,6 +83,66 @@ interface RawMunicipality {
 export const validCoord = (lat: number, lon: number): boolean =>
   Number.isFinite(lat) && Number.isFinite(lon) && lat > -34 && lat < 6 && lon > -74 && lon < -32;
 
+/** Locais a até ~11 m um do outro contam como o mesmo ponto na busca por coordenadas genéricas. */
+const SAME_POINT_DEG = 1e-4;
+
+/**
+ * Coordenada genérica: o mesmo ponto para locais de 3 ou mais bairros (ex.: 15 locais de Salvador,
+ * de Itapuã a São Cristóvão) é um marcador do cadastro, não a posição do local. O cadastro às vezes
+ * desloca cada local alguns metros (18 locais de 10 bairros de São Luís em 2024), por isso pontos
+ * do mesmo município a menos de ~11 m entre si, ligados em cadeia, contam como um só.
+ * Devolve as chaves dos locais com coordenada genérica.
+ */
+export function genericCoordinates(
+  points: Iterable<[string, { tse: string; lat: number; lon: number; hood: string }]>,
+): Set<string> {
+  const keys: string[] = [];
+  const items: { tse: string; lat: number; lon: number; hood: string }[] = [];
+  const cell = (tse: string, y: number, x: number) => `${tse}:${y}:${x}`;
+  const grid = new Map<string, number[]>();
+  for (const [key, p] of points) {
+    if (!validCoord(p.lat, p.lon)) continue;
+    const c = cell(p.tse, Math.floor(p.lat / SAME_POINT_DEG), Math.floor(p.lon / SAME_POINT_DEG));
+    const list = grid.get(c) ?? [];
+    list.push(items.length);
+    grid.set(c, list);
+    keys.push(key);
+    items.push(p);
+  }
+  const parent = items.map((_, i) => i);
+  const find = (i: number): number => {
+    while (parent[i] !== i) {
+      parent[i] = parent[parent[i] as number] as number;
+      i = parent[i] as number;
+    }
+    return i;
+  };
+  items.forEach((p, i) => {
+    const y = Math.floor(p.lat / SAME_POINT_DEG);
+    const x = Math.floor(p.lon / SAME_POINT_DEG);
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (const j of grid.get(cell(p.tse, y + dy, x + dx)) ?? []) {
+          const q = items[j] as (typeof items)[number];
+          if (
+            j > i &&
+            Math.abs(p.lat - q.lat) <= SAME_POINT_DEG &&
+            Math.abs(p.lon - q.lon) <= SAME_POINT_DEG
+          ) {
+            parent[find(i)] = find(j);
+          }
+        }
+      }
+    }
+  });
+  const hoods = new Map<number, Set<string>>();
+  items.forEach((p, i) => {
+    const root = find(i);
+    hoods.set(root, (hoods.get(root) ?? new Set()).add(normalizeName(p.hood)));
+  });
+  return new Set(keys.filter((_, i) => (hoods.get(find(i))?.size ?? 0) >= 3));
+}
+
 function weightedMean(items: { lat: number; lon: number; w: number }[]): {
   lat: number;
   lon: number;
@@ -167,18 +227,9 @@ export async function loadLocations(
   }
   for (const r of raws.values()) if (r.voters === 0) r.voters = r.altVoters;
 
-  // Coordenada genérica: a mesma para locais de bairros diferentes (ex.: 15 locais de Salvador, de
-  // Itapuã a São Cristóvão, num ponto só) — é um marcador do cadastro, não a posição do local.
-  const hoodsAt = new Map<string, Set<string>>();
-  for (const r of raws.values()) {
-    if (!validCoord(r.lat, r.lon)) continue;
-    const ck = `${r.tse}:${r.lat.toFixed(5)}:${r.lon.toFixed(5)}`;
-    hoodsAt.set(ck, (hoodsAt.get(ck) ?? new Set()).add(normalizeName(r.hood)));
-  }
   let placeholders = 0;
-  for (const r of raws.values()) {
-    if (!validCoord(r.lat, r.lon)) continue;
-    if ((hoodsAt.get(`${r.tse}:${r.lat.toFixed(5)}:${r.lon.toFixed(5)}`)?.size ?? 0) < 3) continue;
+  for (const key of genericCoordinates(raws)) {
+    const r = raws.get(key) as RawLocal;
     r.lat = Number.NaN;
     r.lon = Number.NaN;
     placeholders++;

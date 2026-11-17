@@ -13,16 +13,23 @@ const AUTHOR_LINKS = [
   { href: 'https://jotagallo.dev', label: 'JOTAGALLO' },
 ] as const;
 
-/** Marca: três arcos concêntricos (um hemiciclo) sobre um quadrado arredondado. */
-function BrandMark() {
+function BrandMark({ className = 'brand__mark' }: { className?: string }) {
   return (
-    <svg className="brand__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <rect width="32" height="32" rx="9" fill="#3b0076" />
-      <g fill="none" strokeWidth="2.6" strokeLinecap="round">
-        <path d="M5.5 23.5a10.5 10.5 0 0 1 21 0" stroke="#fff" />
-        <path d="M10 23.5a6 6 0 0 1 12 0" stroke="#19b35a" />
-      </g>
-      <circle cx="16" cy="23.5" r="1.9" fill="#ffdf00" />
+    <svg
+      className={className}
+      viewBox="0 0 72 52"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="m5 26.5 8.8-16.4q.8-1.5 2.6-2l8.6-2.4q1.5-.4 3.1-.1l37.6 6q2.4.4 2.1 2.9l-2.1 15q-.2 1.8-1.5 3.2L51.4 45.5q-2 2-4.6 1L6.1 31.2q-2.8-1.1-1.1-4.7Z" />
+      <path d="m15 8.5 43.8 8.4q2.9.6 1.8 3.2L49 46.9M61.2 18l6.1-5.3" />
+      <path d="m20 14.2 13.6 2.9q2.5.5 1.3 2.9l-6.4 12.7q-1.1 2.3-3.4 1.4l-12.7-4.9q-2.3-.9-1.1-3.2l5.4-10.2q1-2.1 3.3-1.6Z" />
+      <path d="m37 28 3 5 10-10" />
     </svg>
   );
 }
@@ -115,7 +122,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="container site-header__row">
           <Link href={PATHS.home} className="brand" aria-label={t('app.homeLabel')}>
             <BrandMark />
-            <span className="brand__name" aria-hidden="true">
+            <span className="brand__name wordmark" aria-hidden="true">
               Voto<span>Brasil</span>
             </span>
           </Link>
@@ -161,7 +168,10 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="container site-footer__grid">
           <div>
             <p className="site-footer__brand">
-              Voto<span>Brasil</span>
+              <BrandMark className="site-footer__mark" />
+              <span className="wordmark">
+                Voto<span>Brasil</span>
+              </span>
             </p>
             <p className="site-footer__note">{t('footer.disclaimer')}</p>
           </div>

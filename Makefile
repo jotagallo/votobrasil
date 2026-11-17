@@ -4,7 +4,7 @@
 # Variáveis úteis (linha de comando ou ambiente):
 #   CONFIRM=1            pula as confirmações dos alvos destrutivos (flush-raw, flush-all, flush-cdn…)
 #   VOTOBR_UFS=SP,RJ     restringe o ETL a algumas UFs (repassada ao `npm run data:build`)
-#   VOTOBR_MIN_MUNICIPAL_VOTERS=1000000   corte de eleitores das Câmaras Municipais (0 desliga)
+#   VOTOBR_MIN_MUNICIPAL_POPULATION=1000000   corte de habitantes para incluir cidades além das capitais (0 desliga)
 #   VOTOBR_MAX_MUNICIPALITIES=2           limita o número de cidades (builds de desenvolvimento)
 #   VOTOBR_RAW_DIR / VOTOBR_OUT_DIR   diretórios do ETL; os alvos de flush respeitam os mesmos valores
 #   CLOUDFRONT_DISTRIBUTION_ID        usado por flush-cdn (senão vem do `terraform output`)

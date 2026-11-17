@@ -415,9 +415,9 @@
       "pickHint": "Each Legislative Assembly is elected separately, so adding up the 27 houses says little. Click the map or the list to see the official result and the simulation for one state."
     },
     "municipal": {
-      "areasTitle": "City Councils of cities with 1 million voters or more",
+      "areasTitle": "City Councils of state capitals and cities over 1 million inhabitants",
       "intro": [
-        "VotoBrasil covers the City Councils of every city with 1 million voters or more — 11 in the 2024 election, whose results are used here.",
+        "VotoBrasil covers the City Councils of all 26 state capitals and other cities with over 1 million inhabitants in IBGE's 2022 Census — 28 cities in total. Brasília has no municipal election. The results used here are from the 2024 election.",
         "In cities, the smallest building block of the simulated districts is the polling place."
       ]
     }
@@ -496,7 +496,7 @@
       "label": "VotoBrasil in numbers",
       "seats": "seats in the Chamber of Deputies",
       "states": "federation units",
-      "cities": "cities with 1 million voters or more",
+      "cities": "state capitals and cities over 1 million inhabitants",
       "systems": "electoral systems compared"
     },
     "how": {
@@ -566,7 +566,7 @@
       },
       "municipal": {
         "title": "City Councils",
-        "text": "Explore the cities with 1 million voters or more, with districts drawn from polling places."
+        "text": "Explore state capitals and cities over 1 million inhabitants, with districts drawn from polling places."
       },
       "systems": {
         "title": "Electoral systems",
@@ -618,7 +618,7 @@
       },
       "municipal": {
         "title": "City Councils — VotoBrasil",
-        "description": "Official result and simulation of alternative electoral systems for the City Councils of cities with 1 million voters or more."
+        "description": "Official result and simulation of alternative electoral systems for the City Councils of state capitals and cities over 1 million inhabitants."
       }
     },
     "area": {

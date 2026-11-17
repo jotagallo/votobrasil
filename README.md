@@ -4,7 +4,7 @@ Simulador público e de código aberto que mostra, com **dados oficiais do TSE**
 
 - **Câmara dos Deputados** e **Assembleias Legislativas** (incluindo a Câmara Legislativa do DF): eleições gerais de 2026, uma simulação por estado.
 - **Senado**: fora do escopo (eleição majoritária; não há o que simular entre sistemas proporcionais).
-- **Câmaras Municipais**: eleições de 2024 de todas as cidades com 1 milhão de eleitores ou mais (11 cidades; limiar ajustável em `VOTOBR_MIN_MUNICIPAL_VOTERS`).
+- **Câmaras Municipais**: eleições de 2024 das 26 capitais estaduais e das demais cidades com mais de 1 milhão de habitantes no Censo 2022 (28 cidades no total; Brasília não tem eleição municipal; corte ajustável em `VOTOBR_MIN_MUNICIPAL_POPULATION`).
 - **Sistemas comparados**: o atual (proporcional de lista aberta), lista fechada, distritão, distrital puro e o distrital misto da PEC 2/2025 (metade das cadeiras em distritos, total proporcional ao voto no partido e cadeiras excedentes).
 - Mapa interativo, gráficos, indicadores de proporcionalidade e uma página de metodologia. Há ainda uma página de subprioridade sobre semipresidencialismo.
 - Interface em português (padrão), inglês e espanhol.
