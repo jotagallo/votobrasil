@@ -63,40 +63,45 @@ export default function HomePage() {
           </h1>
           <p className="pec-intro__lede">{t('home.intro.lede')}</p>
 
+          <div className="hero__actions pec-intro__actions">
+            <a href={`#${EXPLORER_ID}`} className="btn btn--lg btn--yellow">
+              {t('home.intro.cta.simulate')}
+            </a>
+            <Link href={`${PATHS.systems}#distrital-misto`} className="btn btn--lg btn--glass">
+              {t('home.intro.cta.mixed')}
+            </Link>
+          </div>
+          <p className="pec-intro__neutral">{t('home.intro.neutral')}</p>
+
           <h2 className="sr-only">{t('home.intro.changesTitle')}</h2>
           <ul className="change-cards">
-            {CHANGES.map((key) => (
+            {CHANGES.map((key, index) => (
               <li key={key} className={`change-card change-card--${key}`}>
+                <span className="change-card__index" aria-hidden="true">
+                  {`0${index + 1}`}
+                </span>
                 <h3 className="change-card__title">{t(`home.intro.changes.${key}.title`)}</h3>
                 <p className="change-card__text">{t(`home.intro.changes.${key}.text`)}</p>
               </li>
             ))}
           </ul>
-
-          <div className="pec-intro__columns">
-            <aside className="pec-alert" aria-labelledby="pec-alert-title">
-              <h2 id="pec-alert-title" className="pec-alert__title">
-                {t('home.intro.alert.title')}
-              </h2>
-              <Paragraphs items={tl('home.intro.alert.body')} />
-            </aside>
-            <div className="pec-act">
-              <h2 className="pec-act__title">{t('home.intro.act.title')}</h2>
-              <BulletList items={tl('home.intro.act.items')} />
-            </div>
-          </div>
-
-          <div className="hero__actions pec-intro__actions">
-            <a href={`#${EXPLORER_ID}`} className="btn btn--lg">
-              {t('home.intro.cta.simulate')}
-            </a>
-            <Link href={`${PATHS.systems}#distrital-misto`} className="btn btn--lg btn--ghost">
-              {t('home.intro.cta.mixed')}
-            </Link>
-          </div>
-          <p className="pec-intro__neutral">{t('home.intro.neutral')}</p>
         </div>
       </section>
+
+      <div className="pec-context">
+        <div className="container pec-intro__columns">
+          <aside className="pec-alert" aria-labelledby="pec-alert-title">
+            <h2 id="pec-alert-title" className="pec-alert__title">
+              {t('home.intro.alert.title')}
+            </h2>
+            <Paragraphs items={tl('home.intro.alert.body')} />
+          </aside>
+          <div className="pec-act">
+            <h2 className="pec-act__title">{t('home.intro.act.title')}</h2>
+            <BulletList items={tl('home.intro.act.items')} />
+          </div>
+        </div>
+      </div>
 
       <section className="hero hero--plain" aria-labelledby="hero-title">
         <div className="container hero__grid">
@@ -209,8 +214,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="reading-title">
-        <div className="container">
+      <section className="section section--soft" aria-labelledby="reading-title">
+        <div className="container split">
           <div className="section__head">
             <p className="eyebrow">{t('home.reading.eyebrow')}</p>
             <h2 id="reading-title" className="section-title">
@@ -223,7 +228,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section section--flush" aria-labelledby="more-title">
+      <section className="section" aria-labelledby="more-title">
         <div className="container">
           <div className="section__head">
             <h2 id="more-title" className="section-title">
@@ -240,6 +245,25 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="section section--flush" aria-labelledby="final-title">
+        <div className="container">
+          <div className="cta-panel">
+            <h2 id="final-title" className="cta-panel__title">
+              {t('home.final.title')}
+            </h2>
+            <p className="cta-panel__text">{t('home.final.text')}</p>
+            <div className="hero__actions cta-panel__actions">
+              <a href={`#${EXPLORER_ID}`} className="btn btn--lg btn--yellow">
+                {t('home.cta.explore')}
+              </a>
+              <Link href={PATHS.systems} className="btn btn--lg btn--glass">
+                {t('home.cta.systems')}
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>

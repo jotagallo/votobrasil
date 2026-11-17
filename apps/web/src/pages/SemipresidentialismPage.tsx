@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { ChamberResponse } from '@votobr/shared';
 import { trackEvent } from '../analytics';
+import { PageHero } from '../components/PageHero';
 import { Paragraphs, Rich } from '../components/Rich';
 import { SystemSelector } from '../components/SystemSelector';
 import { ErrorState, Skeleton } from '../components/states';
@@ -264,70 +265,73 @@ export default function SemipresidentialismPage() {
   });
 
   return (
-    <div className="container page">
-      <p className="eyebrow">{t('nav.semipresidentialism')}</p>
-      <h1 className="page-title">{t('semi.title')}</h1>
-      <p className="section-lede">{t('semi.lede')}</p>
+    <>
+      <PageHero
+        eyebrow={t('nav.semipresidentialism')}
+        title={t('semi.title')}
+        lede={t('semi.lede')}
+      />
+      <div className="container page page--reading">
+        <section className="prose-section" aria-labelledby="semi-what">
+          <h2 id="semi-what" className="section-title">
+            {t('semi.what.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('semi.what.body')} />
+          </div>
+        </section>
 
-      <section className="prose-section" aria-labelledby="semi-what">
-        <h2 id="semi-what" className="section-title">
-          {t('semi.what.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('semi.what.body')} />
-        </div>
-      </section>
+        <section className="prose-section" aria-labelledby="semi-pec">
+          <h2 id="semi-pec" className="section-title">
+            {t('semi.pec.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('semi.pec.intro')} />
+            <BulletList items={tl('semi.pec.points')} />
+            <p className="notice">
+              <Rich text={t('semi.pec.caveat')} />
+            </p>
+          </div>
+        </section>
 
-      <section className="prose-section" aria-labelledby="semi-pec">
-        <h2 id="semi-pec" className="section-title">
-          {t('semi.pec.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('semi.pec.intro')} />
-          <BulletList items={tl('semi.pec.points')} />
-          <p className="notice">
-            <Rich text={t('semi.pec.caveat')} />
-          </p>
-        </div>
-      </section>
-
-      <section className="prose-section" aria-labelledby="semi-debate">
-        <h2 id="semi-debate" className="section-title">
-          {t('semi.debate.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('semi.debate.intro')} />
-          <div className="pros-cons">
-            <div>
-              <h3 className="subhead">{t('semi.debate.prosTitle')}</h3>
-              <BulletList items={tl('semi.debate.pros')} />
-            </div>
-            <div>
-              <h3 className="subhead">{t('semi.debate.consTitle')}</h3>
-              <BulletList items={tl('semi.debate.cons')} />
+        <section className="prose-section" aria-labelledby="semi-debate">
+          <h2 id="semi-debate" className="section-title">
+            {t('semi.debate.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('semi.debate.intro')} />
+            <div className="pros-cons">
+              <div>
+                <h3 className="subhead">{t('semi.debate.prosTitle')}</h3>
+                <BulletList items={tl('semi.debate.pros')} />
+              </div>
+              <div>
+                <h3 className="subhead">{t('semi.debate.consTitle')}</h3>
+                <BulletList items={tl('semi.debate.cons')} />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="prose-section" aria-labelledby="semi-gov">
-        <h2 id="semi-gov" className="section-title">
-          {t('semi.gov.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('semi.gov.body')} />
-        </div>
-        <Governability />
-      </section>
+        <section className="prose-section" aria-labelledby="semi-gov">
+          <h2 id="semi-gov" className="section-title">
+            {t('semi.gov.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('semi.gov.body')} />
+          </div>
+          <Governability />
+        </section>
 
-      <section className="prose-section" aria-labelledby="semi-future">
-        <h2 id="semi-future" className="section-title">
-          {t('semi.future.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('semi.future.body')} />
-        </div>
-      </section>
-    </div>
+        <section className="prose-section" aria-labelledby="semi-future">
+          <h2 id="semi-future" className="section-title">
+            {t('semi.future.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('semi.future.body')} />
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

@@ -171,7 +171,7 @@ svg a:focus-visible {
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .site-header {
-    background: rgb(255 255 255 / 0.78);
+    background: rgb(255 255 255 / 0.86);
     -webkit-backdrop-filter: saturate(1.5) blur(16px);
     backdrop-filter: saturate(1.5) blur(16px);
   }
@@ -364,6 +364,16 @@ svg a:focus-visible {
   color: #fff;
 }
 
+.header-cta {
+  align-self: flex-start;
+}
+
+@media (min-width: 56rem) {
+  .header-cta {
+    align-self: center;
+  }
+}
+
 /* Casas legislativas: abas em pílula logo abaixo do cabeçalho */
 .houses-bar {
   background: var(--bg-soft);
@@ -429,10 +439,21 @@ svg a:focus-visible {
 
 /* Rodapé */
 .site-footer {
-  background: var(--blue-950);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  color: #c4cce2;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(40rem 18rem at 100% 0%, rgb(0 156 59 / 0.18), transparent 70%),
+    radial-gradient(36rem 18rem at 0% 100%, rgb(11 77 162 / 0.35), transparent 70%), var(--blue-950);
+  color: var(--on-dark-soft);
   font-size: var(--text-small);
+  text-align: center;
+}
+
+.site-footer::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: var(--grad-brand);
 }
 
 .site-footer a {
@@ -467,6 +488,7 @@ svg a:focus-visible {
 
 .site-footer__note {
   max-width: 34rem;
+  margin-inline: auto;
   margin-bottom: var(--space-3);
   color: #aeb9d6;
 }
@@ -497,6 +519,56 @@ svg a:focus-visible {
 }
 
 .site-footer__button:hover {
+  text-decoration: underline;
+}
+
+.site-footer__bar {
+  border-top: 1px solid var(--line-dark);
+}
+
+.site-footer__signature {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+}
+
+.site-footer__credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 var(--space-3);
+  color: var(--on-dark-muted);
+  font-size: 0.85rem;
+}
+
+.site-footer__credit > span:first-child {
+  flex-basis: 100%;
+}
+
+@media (min-width: 40rem) {
+  .site-footer__credit > span:first-child {
+    flex-basis: auto;
+  }
+}
+
+.site-footer__authors,
+.site-footer__credit-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.site-footer__credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-footer__credit a:hover {
   text-decoration: underline;
 }
 
@@ -562,7 +634,7 @@ svg a:focus-visible {
 
 @media (min-width: 48rem) {
   .site-footer__grid {
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-7);
   }
 }

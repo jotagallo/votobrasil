@@ -13,7 +13,8 @@
     "systems": "Electoral systems",
     "methodology": "Methodology",
     "semipresidentialism": "Semi-presidentialism",
-    "about": "About"
+    "about": "About",
+    "simulate": "Simulate"
   },
   "lang": {
     "label": "Language",
@@ -41,6 +42,8 @@
     "disclaimer": "Counterfactual simulation with simplifying assumptions; it is not a forecast. VotoBrasil is independent and has no affiliation with the TSE (Superior Electoral Court) or the government.",
     "links": "Footer links",
     "source": "Source code",
+    "credit": "Developed by",
+    "openSource": "Open source on GitHub",
     "data": "Data: TSE (open data) and IBGE (boundaries). No cookies; usage statistics only with consent (LGPD)."
   },
   "consent": {
@@ -550,6 +553,10 @@
         "Candidates, parties and votes are held fixed: no changes in voter behaviour, party strategy or coalitions are simulated.",
         "In systems with districts, the districts are drawn by an algorithm and do not correspond to real districts. See the details and limits in the [Methodology](/metodologia)."
       ]
+    },
+    "final": {
+      "title": "Same votes, different rules. See the difference.",
+      "text": "Pick an electoral system and compare it, party by party, with the official result published by the TSE."
     },
     "more": {
       "title": "Explore more",

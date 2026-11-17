@@ -13,7 +13,8 @@
     "systems": "Sistemas electorales",
     "methodology": "Metodología",
     "semipresidentialism": "Semipresidencialismo",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "simulate": "Simular"
   },
   "lang": {
     "label": "Idioma",
@@ -41,6 +42,8 @@
     "disclaimer": "Simulación contrafactual con supuestos simplificadores; no es un pronóstico. VotoBrasil es independiente y no tiene vínculo con el TSE (Tribunal Superior Electoral) ni con el gobierno.",
     "links": "Enlaces del pie de página",
     "source": "Código fuente",
+    "credit": "Desarrollado por",
+    "openSource": "Código abierto en GitHub",
     "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Sin cookies; estadísticas de uso solo con consentimiento (LGPD)."
   },
   "consent": {
@@ -550,6 +553,10 @@
         "Candidatos, partidos y votos permanecen fijos: no se simulan cambios en el comportamiento del elector, en la estrategia de los partidos ni en las coaliciones.",
         "En los sistemas con distritos, los distritos se trazan mediante un algoritmo y no corresponden a distritos reales. Consulta los detalles y los límites en la [Metodología](/metodologia)."
       ]
+    },
+    "final": {
+      "title": "Los mismos votos, otras reglas. Vea la diferencia.",
+      "text": "Elija un sistema electoral y compárelo, partido por partido, con el resultado oficial publicado por el TSE."
     },
     "more": {
       "title": "Explora más",

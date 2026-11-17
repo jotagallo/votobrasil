@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { PageHero } from '../components/PageHero';
 import { Paragraphs, Rich } from '../components/Rich';
 import { usePageMeta } from '../hooks';
 import { useT } from '../i18n';
@@ -30,37 +31,36 @@ export default function AboutPage() {
   ] as const;
 
   return (
-    <div className="container page">
-      <p className="eyebrow">{t('nav.about')}</p>
-      <h1 className="page-title">{t('about.title')}</h1>
-      <p className="section-lede">{t('about.lede')}</p>
-
-      {sections.map((key) => (
-        <section key={key} id={key} className="prose-section" aria-labelledby={`about-${key}`}>
-          <h2 id={`about-${key}`} className="section-title">
-            {t(`about.${key}.title`)}
-          </h2>
-          <div className="prose">
-            <Paragraphs items={tl(`about.${key}.body`)} />
-            {key === 'contribute' ? (
-              <p>
-                {repoUrl ? (
-                  <a
-                    href={repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--ghost"
-                  >
-                    {t('about.contribute.repoLink')}
-                  </a>
-                ) : (
-                  <Rich text={t('about.contribute.noRepo')} />
-                )}
-              </p>
-            ) : null}
-          </div>
-        </section>
-      ))}
-    </div>
+    <>
+      <PageHero eyebrow={t('nav.about')} title={t('about.title')} lede={t('about.lede')} />
+      <div className="container page page--reading">
+        {sections.map((key) => (
+          <section key={key} id={key} className="prose-section" aria-labelledby={`about-${key}`}>
+            <h2 id={`about-${key}`} className="section-title">
+              {t(`about.${key}.title`)}
+            </h2>
+            <div className="prose">
+              <Paragraphs items={tl(`about.${key}.body`)} />
+              {key === 'contribute' ? (
+                <p>
+                  {repoUrl ? (
+                    <a
+                      href={repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--ghost"
+                    >
+                      {t('about.contribute.repoLink')}
+                    </a>
+                  ) : (
+                    <Rich text={t('about.contribute.noRepo')} />
+                  )}
+                </p>
+              ) : null}
+            </div>
+          </section>
+        ))}
+      </div>
+    </>
   );
 }

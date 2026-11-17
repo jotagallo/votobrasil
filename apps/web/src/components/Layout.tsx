@@ -8,6 +8,11 @@ import { ConsentBanner } from './ConsentBanner';
 
 const LANGUAGE_LABEL: Record<Locale, string> = { 'pt-BR': 'PT', en: 'EN', es: 'ES' };
 
+const AUTHOR_LINKS = [
+  { href: 'https://instagram.com/jotagallo', label: 'João Otávio Gallo' },
+  { href: 'https://jotagallo.dev', label: 'JOTAGALLO' },
+] as const;
+
 /** Marca: três arcos concêntricos (um hemiciclo) sobre um quadrado arredondado. */
 function BrandMark() {
   return (
@@ -132,6 +137,9 @@ export function Layout({ children }: { children: ReactNode }) {
               <NavLink href={PATHS.about}>{t('nav.about')}</NavLink>
             </nav>
             <LanguageSwitcher />
+            <Link href={housePath('federal')} className="btn btn--sm header-cta">
+              {t('nav.simulate')}
+            </Link>
           </div>
         </div>
         <div className="houses-bar">
@@ -191,6 +199,46 @@ export function Layout({ children }: { children: ReactNode }) {
           <div>
             <LanguageSwitcher className="lang-footer" />
             <p className="site-footer__note">{t('footer.data')}</p>
+          </div>
+        </div>
+        <div className="site-footer__bar">
+          <div className="container site-footer__signature">
+            <p className="site-footer__credit">
+              <span>{t('footer.credit')}</span>
+              <span className="site-footer__authors">
+                {AUTHOR_LINKS.map((author, index) => (
+                  <span key={author.href} className="site-footer__credit-item">
+                    {index > 0 ? <span aria-hidden="true">•</span> : null}
+                    <a href={author.href} target="_blank" rel="noopener noreferrer">
+                      {author.label}
+                    </a>
+                  </span>
+                ))}
+              </span>
+            </p>
+            <a
+              href="https://github.com/jotagallo/votobrasil"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--glass btn--sm"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16" />
+              </svg>
+              {t('footer.openSource')}
+              <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
       </footer>

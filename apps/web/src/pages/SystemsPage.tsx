@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { SYSTEMS } from '@votobr/shared';
+import { PageHero } from '../components/PageHero';
 import { Paragraphs, Rich } from '../components/Rich';
 import { usePageMeta } from '../hooks';
 import { useT } from '../i18n';
@@ -174,101 +175,101 @@ export default function SystemsPage() {
   }, []);
 
   return (
-    <div className="container page">
-      <p className="eyebrow">{t('nav.systems')}</p>
-      <h1 className="page-title">{t('systems.title')}</h1>
-      <p className="section-lede">{t('systems.lede')}</p>
-      <div className="prose">
-        <Paragraphs items={tl('systems.intro')} />
-      </div>
-
-      <section className="prose-section" aria-labelledby="compare-title">
-        <h2 id="compare-title" className="section-title">
-          {t('systems.compare.title')}
-        </h2>
-        <div
-          className="table-scroll"
-          tabIndex={0}
-          role="region"
-          aria-label={t('systems.compare.title')}
-        >
-          <table className="data-table">
-            <caption className="sr-only">{t('systems.compare.title')}</caption>
-            <thead>
-              <tr>
-                <th scope="col">{t('systems.compare.system')}</th>
-                <th scope="col">{t('systems.compare.districts')}</th>
-                <th scope="col">{t('systems.compare.lists')}</th>
-                <th scope="col">{t('systems.compare.proportionality')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {SYSTEMS.map((system) => (
-                <tr key={system.id}>
-                  <th scope="row">
-                    <a href={`#${system.id}`}>{t(`systems.${system.id}.name`)}</a>
-                  </th>
-                  <td>{system.usesDistricts ? t('common.yes') : t('common.no')}</td>
-                  <td>{system.usesLists ? t('common.yes') : t('common.no')}</td>
-                  <td>{t(`systems.${system.id}.proportionality`)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <>
+      <PageHero eyebrow={t('nav.systems')} title={t('systems.title')} lede={t('systems.lede')} />
+      <div className="container page page--reading">
+        <div className="prose">
+          <Paragraphs items={tl('systems.intro')} />
         </div>
-      </section>
 
-      {SYSTEMS.map((system) => (
-        <article
-          key={system.id}
-          id={system.id}
-          className="prose-section system-article"
-          aria-labelledby={`${system.id}-title`}
-        >
-          <h2 id={`${system.id}-title`} className="section-title">
-            {t(`systems.${system.id}.name`)}
+        <section className="prose-section" aria-labelledby="compare-title">
+          <h2 id="compare-title" className="section-title">
+            {t('systems.compare.title')}
+          </h2>
+          <div
+            className="table-scroll"
+            tabIndex={0}
+            role="region"
+            aria-label={t('systems.compare.title')}
+          >
+            <table className="data-table">
+              <caption className="sr-only">{t('systems.compare.title')}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">{t('systems.compare.system')}</th>
+                  <th scope="col">{t('systems.compare.districts')}</th>
+                  <th scope="col">{t('systems.compare.lists')}</th>
+                  <th scope="col">{t('systems.compare.proportionality')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SYSTEMS.map((system) => (
+                  <tr key={system.id}>
+                    <th scope="row">
+                      <a href={`#${system.id}`}>{t(`systems.${system.id}.name`)}</a>
+                    </th>
+                    <td>{system.usesDistricts ? t('common.yes') : t('common.no')}</td>
+                    <td>{system.usesLists ? t('common.yes') : t('common.no')}</td>
+                    <td>{t(`systems.${system.id}.proportionality`)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {SYSTEMS.map((system) => (
+          <article
+            key={system.id}
+            id={system.id}
+            className="prose-section system-article"
+            aria-labelledby={`${system.id}-title`}
+          >
+            <h2 id={`${system.id}-title`} className="section-title">
+              {t(`systems.${system.id}.name`)}
+            </h2>
+            <div className="prose">
+              <h3 className="subhead">{t('systems.how')}</h3>
+              <Paragraphs items={tl(`systems.${system.id}.how`)} />
+              <div className="pros-cons">
+                <div>
+                  <h3 className="subhead">{t('systems.pros')}</h3>
+                  <BulletList items={tl(`systems.${system.id}.pros`)} />
+                </div>
+                <div>
+                  <h3 className="subhead">{t('systems.cons')}</h3>
+                  <BulletList items={tl(`systems.${system.id}.cons`)} />
+                </div>
+              </div>
+              <h3 className="subhead">{t('systems.inSimulation')}</h3>
+              <Paragraphs items={tl(`systems.${system.id}.sim`)} />
+            </div>
+          </article>
+        ))}
+
+        <section className="prose-section" aria-labelledby="examples-title">
+          <h2 id="examples-title" className="section-title">
+            {t('systems.examples.title')}
           </h2>
           <div className="prose">
-            <h3 className="subhead">{t('systems.how')}</h3>
-            <Paragraphs items={tl(`systems.${system.id}.how`)} />
-            <div className="pros-cons">
-              <div>
-                <h3 className="subhead">{t('systems.pros')}</h3>
-                <BulletList items={tl(`systems.${system.id}.pros`)} />
-              </div>
-              <div>
-                <h3 className="subhead">{t('systems.cons')}</h3>
-                <BulletList items={tl(`systems.${system.id}.cons`)} />
-              </div>
-            </div>
-            <h3 className="subhead">{t('systems.inSimulation')}</h3>
-            <Paragraphs items={tl(`systems.${system.id}.sim`)} />
+            <p>{t('systems.examples.lede')}</p>
+            <h3 className="subhead">{t('systems.examples.proportional.title')}</h3>
+            <ProportionalExampleTable />
+            <h3 className="subhead">{t('systems.examples.mixed.title')}</h3>
+            <MixedExampleTable />
           </div>
-        </article>
-      ))}
+        </section>
 
-      <section className="prose-section" aria-labelledby="examples-title">
-        <h2 id="examples-title" className="section-title">
-          {t('systems.examples.title')}
-        </h2>
-        <div className="prose">
-          <p>{t('systems.examples.lede')}</p>
-          <h3 className="subhead">{t('systems.examples.proportional.title')}</h3>
-          <ProportionalExampleTable />
-          <h3 className="subhead">{t('systems.examples.mixed.title')}</h3>
-          <MixedExampleTable />
-        </div>
-      </section>
-
-      <section className="prose-section" id="pec" aria-labelledby="pec-title">
-        <h2 id="pec-title" className="section-title">
-          {t('systems.pec.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('systems.pec.body')} />
-          <p className="notice">{t('systems.pec.caveat')}</p>
-        </div>
-      </section>
-    </div>
+        <section className="prose-section" id="pec" aria-labelledby="pec-title">
+          <h2 id="pec-title" className="section-title">
+            {t('systems.pec.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('systems.pec.body')} />
+            <p className="notice">{t('systems.pec.caveat')}</p>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { ValidationReport } from '@votobr/shared';
+import { PageHero } from '../components/PageHero';
 import { Paragraphs, Rich } from '../components/Rich';
 import { ErrorState, Skeleton } from '../components/states';
 import { usePageMeta } from '../hooks';
@@ -135,88 +136,91 @@ export default function MethodologyPage() {
   const repoUrl = import.meta.env.VITE_REPO_URL?.trim();
 
   return (
-    <div className="container page">
-      <p className="eyebrow">{t('nav.methodology')}</p>
-      <h1 className="page-title">{t('methodology.title')}</h1>
-      <p className="section-lede">{t('methodology.lede')}</p>
-
-      <section className="prose-section" aria-labelledby="m-sources">
-        <h2 id="m-sources" className="section-title">
-          {t('methodology.sources.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('methodology.sources.body')} />
-        </div>
-        <Sources />
-      </section>
-
-      <section className="prose-section" aria-labelledby="m-validation">
-        <h2 id="m-validation" className="section-title">
-          {t('methodology.validation.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('methodology.validation.body')} />
-        </div>
-        <Validation />
-      </section>
-
-      {SECTIONS.map((key) => (
-        <section key={key} className="prose-section" id={key} aria-labelledby={`m-${key}`}>
-          <h2 id={`m-${key}`} className="section-title">
-            {t(`methodology.${key}.title`)}
+    <>
+      <PageHero
+        eyebrow={t('nav.methodology')}
+        title={t('methodology.title')}
+        lede={t('methodology.lede')}
+      />
+      <div className="container page page--reading">
+        <section className="prose-section" aria-labelledby="m-sources">
+          <h2 id="m-sources" className="section-title">
+            {t('methodology.sources.title')}
           </h2>
           <div className="prose">
-            <Paragraphs items={tl(`methodology.${key}.body`)} />
-            {key === 'metrics' ? (
-              <dl className="formulas">
-                {(
-                  [
-                    'gallagher',
-                    'effectiveParties',
-                    'majority',
-                    'partiesForMajority',
-                    'votesWithoutSeatPct',
-                  ] as const
-                ).map((metric) => (
-                  <div key={metric} className="formulas__row">
-                    <dt>{t(`metrics.${metric}.name`)}</dt>
-                    <dd>
-                      <code>{t(`methodology.metrics.formula.${metric}`)}</code>
-                      <span className="formulas__text">
-                        <Rich text={t(`methodology.metrics.explain.${metric}`)} />
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+            <Paragraphs items={tl('methodology.sources.body')} />
+          </div>
+          <Sources />
+        </section>
+
+        <section className="prose-section" aria-labelledby="m-validation">
+          <h2 id="m-validation" className="section-title">
+            {t('methodology.validation.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('methodology.validation.body')} />
+          </div>
+          <Validation />
+        </section>
+
+        {SECTIONS.map((key) => (
+          <section key={key} className="prose-section" id={key} aria-labelledby={`m-${key}`}>
+            <h2 id={`m-${key}`} className="section-title">
+              {t(`methodology.${key}.title`)}
+            </h2>
+            <div className="prose">
+              <Paragraphs items={tl(`methodology.${key}.body`)} />
+              {key === 'metrics' ? (
+                <dl className="formulas">
+                  {(
+                    [
+                      'gallagher',
+                      'effectiveParties',
+                      'majority',
+                      'partiesForMajority',
+                      'votesWithoutSeatPct',
+                    ] as const
+                  ).map((metric) => (
+                    <div key={metric} className="formulas__row">
+                      <dt>{t(`metrics.${metric}.name`)}</dt>
+                      <dd>
+                        <code>{t(`methodology.metrics.formula.${metric}`)}</code>
+                        <span className="formulas__text">
+                          <Rich text={t(`methodology.metrics.explain.${metric}`)} />
+                        </span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+            </div>
+          </section>
+        ))}
+
+        <section className="prose-section" id="reproduce" aria-labelledby="m-reproduce">
+          <h2 id="m-reproduce" className="section-title">
+            {t('methodology.reproduce.title')}
+          </h2>
+          <div className="prose">
+            <Paragraphs items={tl('methodology.reproduce.body')} />
+            <pre className="code-block" tabIndex={0}>
+              <code>{t('methodology.reproduce.commands')}</code>
+            </pre>
+            {repoUrl ? (
+              <p>
+                <a
+                  href={repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--ghost"
+                >
+                  {t('methodology.reproduce.repo')}
+                </a>
+              </p>
             ) : null}
           </div>
         </section>
-      ))}
-
-      <section className="prose-section" id="reproduce" aria-labelledby="m-reproduce">
-        <h2 id="m-reproduce" className="section-title">
-          {t('methodology.reproduce.title')}
-        </h2>
-        <div className="prose">
-          <Paragraphs items={tl('methodology.reproduce.body')} />
-          <pre className="code-block" tabIndex={0}>
-            <code>{t('methodology.reproduce.commands')}</code>
-          </pre>
-          {repoUrl ? (
-            <p>
-              <a
-                href={repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn--ghost"
-              >
-                {t('methodology.reproduce.repo')}
-              </a>
-            </p>
-          ) : null}
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }
