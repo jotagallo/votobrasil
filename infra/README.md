@@ -4,6 +4,8 @@ VotoBrasil is one Node.js process (Fastify API + static SPA + processed datasets
 single AWS Elastic Beanstalk instance, **always behind CloudFront**. Infrastructure is Terraform
 (`infra/terraform`); deployments are GitHub Actions using AWS OIDC (no static AWS keys).
 
+First time on AWS? A step-by-step guide in Portuguese lives in [`docs/DEPLOY.md`](../docs/DEPLOY.md).
+
 ## Architecture
 
 ```mermaid
@@ -159,9 +161,36 @@ region, and a GitHub repository with an environment named `production`.
   (cache key: `packages/etl/**` + `data/VERSION`), validate, build, bundle; then upload to S3, create
   the application version, update the environment, wait for Ready and Green, invalidate CloudFront,
   smoke-test `/healthz` through CloudFront. Runs are serialised.
-- `data-refresh.yml` (monthly or manual): rebuilds the data from TSE/IBGE without cache, runs
-  `data:validate`, uploads `data/processed` as an artifact (30 days). It never deploys: to ship new
-  data, bump `data/VERSION` on `main`.
+- `data-refresh.yml` (manual only, no schedule): a dry run of the ETL without cache. Rebuilds the
+  data from TSE/IBGE, runs `data:validate`, uploads `data/processed` as an artifact (30 days). It
+  never deploys: to ship new data, bump `data/VERSION` on `main`.
+
+### Where the ETL runs
+
+The datasets are built **only at deploy time**: in the `build` job of `deploy.yml`, and only on a
+cache miss. The elections are over, so nothing refreshes them on a schedule. The raw TSE/IBGE
+downloads (about 2.4 GB) stay on the runner; only `data/processed` (about 10 MB) travels inside
+`bundle.zip`. The instance never talks to TSE, a rollback restores the data that shipped with that
+version, and a replaced instance comes up with its data already in place.
+
+It deliberately does **not** run as an Elastic Beanstalk platform hook on the instance (`predeploy`
+would be the right one; `postdeploy` runs after the new version is already live):
+
+- the `t4g.small` (2 GB RAM, burstable CPU) would download and unzip several GB next to the live API;
+- the command timeout (`aws:elasticbeanstalk:command` `Timeout`) tops out at 3600 s, a hard ceiling
+  for an ETL that has never been timed;
+- hooks run again on every instance replacement, including managed platform updates, repeating the
+  ETL each time;
+- a failing hook aborts the deployment and every debugging iteration costs a full ETL run.
+
+Trade-off: GitHub evicts a cache entry after 7 days without access, so the first deploy after a long
+pause rebuilds the datasets (as does any change under `packages/etl/`). To force a rebuild on
+purpose, bump `data/VERSION`. To regenerate on a workstation, use `make data-refresh`.
+
+The `build` job declares `cache-mode: write`: since 2026-06 GitHub gives `workflow_run` runs (like
+this one) a read-only cache by default, which would silently skip saving the datasets and re-run the
+ETL on every deploy. It is safe because the job's `if` admits only same-repository push runs on
+`main` and manual runs on `main`; GitHub annotates each run with a warning about the write access.
 
 ## Rollback
 

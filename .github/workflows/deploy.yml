@@ -40,6 +40,11 @@ jobs:
       )
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    # workflow_run is a low-trust trigger: GitHub gives it a read-only cache by default (since
+    # 2026-06), so the datasets would never be saved and every deploy would re-run the ETL. Writing
+    # is safe here because the `if` above admits only same-repository push runs on main and manual
+    # runs on main. GitHub annotates the run with a warning whenever write access is declared.
+    cache-mode: write
     permissions:
       contents: read
     outputs:
@@ -59,8 +64,11 @@ jobs:
         id: meta
         run: echo "label=${SOURCE_SHA}-${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
 
-      # Restored before `npm ci` so node_modules never leaks into the key. Official data changes
-      # rarely: bump data/VERSION (or touch packages/etl) to force a rebuild.
+      # The only automatic place where the ETL runs, and only on a cache miss: the elections are over,
+      # so nothing refreshes the data on a schedule. Just the few MB of processed data ship in the
+      # bundle; the GB of raw TSE/IBGE downloads stay on this runner. Restored before `npm ci` so
+      # node_modules never leaks into the key. Bump data/VERSION (or touch packages/etl) to force a
+      # rebuild; GitHub also evicts the entry after 7 days without a deploy.
       - name: Restore processed datasets
         id: data-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -181,11 +189,19 @@ jobs:
             --environment-name "$EB_ENVIRONMENT" \
             --version-label "$VERSION_LABEL" \
             --output text --query '[EnvironmentName,Status,VersionLabel]'
-          aws elasticbeanstalk wait environment-updated --environment-names "$EB_ENVIRONMENT"
+          # The CLI waiter gives up after 20 x 20 s (~6.7 min), which a slow update can exceed. Only
+          # that timeout is tolerated; the next step keeps polling. Any other waiter error fails here.
+          if ! out="$(aws elasticbeanstalk wait environment-updated --environment-names "$EB_ENVIRONMENT" 2>&1)"; then
+            echo "$out"
+            case "$out" in
+              *"Max attempts exceeded"*) echo "::warning::waiter timed out; polling continues in the next step" ;;
+              *) exit 1 ;;
+            esac
+          fi
 
       - name: Wait for green health
         run: |
-          for attempt in $(seq 1 30); do
+          for attempt in $(seq 1 60); do
             read -r status health version < <(aws elasticbeanstalk describe-environments \
               --environment-names "$EB_ENVIRONMENT" \
               --query 'Environments[0].[Status,Health,VersionLabel]' --output text)
