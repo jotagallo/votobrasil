@@ -29,26 +29,27 @@ npm run preview -w @votobr/web      # serve dist em :4173 com o mesmo proxy
 
 ## Variáveis de ambiente (públicas; ver `.env.example`)
 
-| Variável                            | Uso                                                                        |
-| ----------------------------------- | -------------------------------------------------------------------------- |
-| `VITE_UMAMI_WEBSITE_ID`             | ID público do site no Umami. Vazio = nenhum script de análise é carregado. |
-| `VITE_UMAMI_SRC`                    | URL do script do Umami (padrão `https://cloud.umami.is/script.js`).        |
-| `VITE_SITE_URL`                     | Origem pública (canonical, hreflang, `og:url`).                            |
-| `VITE_REPO_URL`                     | Link do repositório de código aberto.                                      |
-| `VITE_MOCK_API`, `API_PROXY_TARGET` | Somente desenvolvimento (ver acima).                                       |
+| Variável                            | Uso                                                                                                                                           |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_GA_MEASUREMENT_ID`            | ID de medição do Google Analytics 4 (`G-XXXXXXXXXX`). Vazio = sem estatísticas e sem script externo (o aviso de cookies aparece mesmo assim). |
+| `VITE_SITE_URL`                     | Origem pública (canonical, hreflang, `og:*`, sitemap) e único domínio medido pelas estatísticas.                                              |
+| `VITE_MOCK_API`, `API_PROXY_TARGET` | Somente desenvolvimento (ver acima).                                                                                                          |
 
-## Análise de audiência e CSP
+## Estatísticas de audiência, cookies e CSP
 
-`src/analytics.ts` é um invólucro independente de provedor. Hoje usa Umami (sem cookies), carregado **somente** se `VITE_UMAMI_WEBSITE_ID` estiver definido, o navegador não sinalizar Do Not Track nem Global Privacy Control e o visitante aceitar o aviso de privacidade (LGPD). A escolha fica em `localStorage` (`votobr:analytics-consent`) e pode ser revista em “Preferências de privacidade”, no rodapé (`src/components/ConsentBanner.tsx`). O script usa `data-auto-track="false"` (as visualizações de página são enviadas a cada troca de rota da SPA, só com o caminho), `data-do-not-track="true"` e `data-exclude-search="true"`. Eventos: `system_change`, `area_change`, `language_change`, `share_click`, `coalition_toggle`, sempre com valores categóricos (sistema, UF, idioma), sem dados pessoais.
+`src/analytics.ts` concentra a medição (Google Analytics 4). Ela só existe se `VITE_GA_MEASUREMENT_ID` for válido e o site estiver no domínio de `VITE_SITE_URL`; o navegador não pode sinalizar Do Not Track nem Global Privacy Control. O aviso de cookies (`src/components/ConsentBanner.tsx`) aparece para todo visitante até o clique no único botão, “Entendi”: o `gtag.js` só é baixado, e cookies só são criados, **depois** do clique. O registro de que o aviso foi visto fica em `localStorage` (`votobr:cookie-notice`); revogar é apagar os cookies no navegador. As visualizações de página são enviadas a cada troca de rota da SPA (só o caminho) e os eventos são `system_change`, `area_change`, `language_change`, `share_click` e `coalition_toggle`, sempre com valores categóricos (sistema, UF, idioma), sem dados pessoais e com os sinais de publicidade desligados. Para o passo a passo de ativação, veja [../../docs/DEVELOPMENT.md](../../docs/DEVELOPMENT.md).
 
-Origens que a política CSP do servidor precisa liberar (também exportadas como `ANALYTICS_CSP` em `src/analytics.ts`):
+Os parâmetros dos eventos (`system`, `office`, `area`, `to`, `method`, `party`, `selected`) precisam ser cadastrados como dimensões personalizadas no Google Analytics para aparecer nos relatórios.
 
-| Diretiva      | Umami Cloud (padrão)       | Umami próprio              |
-| ------------- | -------------------------- | -------------------------- |
-| `script-src`  | `https://cloud.umami.is`   | origem de `VITE_UMAMI_SRC` |
-| `connect-src` | `https://gateway.umami.is` | origem de `VITE_UMAMI_SRC` |
+Origens que a política CSP do servidor precisa liberar (padrões de `apps/api/src/config.ts`, repetidos em `ANALYTICS_CSP`, em `src/analytics.ts`; mantenha-os em sincronia):
 
-Além disso, o frontend usa estilos em atributos `style` definidos via React/CSSOM (permitidos sob `style-src` sem `'unsafe-inline'` quando aplicados por JavaScript) e não carrega fontes, imagens ou scripts de terceiros.
+| Diretiva      | Origens                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| `script-src`  | `https://*.googletagmanager.com`                                                                     |
+| `connect-src` | `https://*.google-analytics.com`, `https://*.analytics.google.com`, `https://*.googletagmanager.com` |
+| `img-src`     | `https://*.google-analytics.com`, `https://*.googletagmanager.com`                                   |
+
+Além disso, o frontend usa estilos em atributos `style` definidos via React/CSSOM (permitidos sob `style-src` sem `'unsafe-inline'` quando aplicados por JavaScript) e não carrega fontes, imagens ou scripts de terceiros antes do “Entendi”.
 
 ## Design
 
@@ -96,7 +97,7 @@ apps/web
 │   │                    districts, voronoi, routes, rich, examples, color, api, geo
 │   ├── i18n/            hook useT() sobre translate/translateList de @votobr/shared
 │   ├── styles/          tokens, base, components, pages (CSS à mão)
-│   ├── analytics.ts     Umami sem cookies, eventos e origens de CSP
+│   ├── analytics.ts     Google Analytics 4 pós-consentimento, eventos e origens de CSP
 │   └── seo.ts           title, description, og:*, twitter:*, canonical e hreflang por rota/idioma
 └── test/                Vitest
 ```

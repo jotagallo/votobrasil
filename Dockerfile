@@ -9,11 +9,9 @@ COPY . .
 RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --no-fund
 
 # Public build-time variables baked into the SPA (never put secrets here).
-ARG VITE_UMAMI_WEBSITE_ID=""
-ARG VITE_UMAMI_SRC="https://cloud.umami.is/script.js"
+ARG VITE_GA_MEASUREMENT_ID=""
 ARG VITE_SITE_URL=""
-ENV VITE_UMAMI_WEBSITE_ID=${VITE_UMAMI_WEBSITE_ID} \
-    VITE_UMAMI_SRC=${VITE_UMAMI_SRC} \
+ENV VITE_GA_MEASUREMENT_ID=${VITE_GA_MEASUREMENT_ID} \
     VITE_SITE_URL=${VITE_SITE_URL}
 
 RUN npm run build

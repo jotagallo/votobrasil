@@ -44,15 +44,13 @@
     "source": "Código fuente",
     "credit": "Desarrollado por",
     "openSource": "Código abierto en GitHub",
-    "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Sin cookies; estadísticas de uso solo con consentimiento (LGPD)."
+    "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Cookies solo para estadísticas de uso (LGPD)."
   },
   "consent": {
-    "label": "Aviso de privacidad",
-    "text": "Usamos estadísticas de audiencia sin cookies (Umami) para saber, de forma agregada, qué páginas y simulaciones se usan. Solo se activan con su consentimiento, conforme a la ley brasileña de protección de datos (LGPD, Ley 13.709/2018), y puede cambiar de opinión en cualquier momento en “Preferencias de privacidad”, en el pie de página.",
+    "label": "Aviso de cookies",
+    "text": "Usamos cookies solo para estadísticas de uso del sitio (qué páginas y simulaciones se visitan más), de forma agregada y sin fines publicitarios. Al hacer clic en “Entendido”, usted acepta este uso, conforme a la ley brasileña de protección de datos (LGPD, Ley 13.709/2018).",
     "more": "Más información",
-    "accept": "Aceptar",
-    "reject": "Rechazar",
-    "manage": "Preferencias de privacidad"
+    "accept": "Entendido"
   },
   "common": {
     "loading": "Cargando…",
@@ -487,7 +485,7 @@
       "label": "En resumen",
       "data": "Datos abiertos del TSE",
       "open": "Código abierto",
-      "privacy": "Sin cookies · LGPD"
+      "privacy": "Privacidad · LGPD"
     },
     "hero": {
       "caption": "Ilustración con escaños genéricos, sin datos reales"
@@ -601,7 +599,7 @@
     },
     "about": {
       "title": "Acerca de — VotoBrasil",
-      "description": "Proyecto independiente y de código abierto que usa datos abiertos del TSE y del IBGE. Sin cookies."
+      "description": "Proyecto independiente y de código abierto que usa datos abiertos del TSE y del IBGE."
     },
     "notFound": {
       "title": "Página no encontrada — VotoBrasil",
@@ -658,11 +656,11 @@
     "privacy": {
       "title": "Privacidad y LGPD",
       "body": [
-        "VotoBrasil no usa cookies, no pide registro y no crea perfiles de visitantes. El tratamiento de datos personales sigue la Ley General de Protección de Datos Personales de Brasil (LGPD, Ley 13.709/2018).",
-        "**Estadísticas de uso.** Cuando está habilitado, el sitio usa Umami, un servicio de estadísticas sin cookies, para contar visitas, páginas e interacciones (como el cambio de sistema o de idioma). El servicio recibe datos técnicos de la conexión —como dirección IP, navegador, tipo de dispositivo e idioma— usados solo para generar recuentos agregados; los eventos registran acciones de uso, sin identificar personas.",
-        "**Base legal y elección.** Las estadísticas solo se activan después de que usted acepta el aviso de privacidad (consentimiento, art. 7º, I, de la LGPD). Si lo rechaza, no se envía nada. Puede dar o revocar el consentimiento en cualquier momento en “Preferencias de privacidad”, en el pie de página. Si el navegador envía la señal “Do Not Track” o Global Privacy Control, las estadísticas quedan desactivadas y el aviso ni siquiera se muestra.",
-        "**Almacenamiento local.** El sitio guarda en su navegador (localStorage) solo su elección sobre las estadísticas. Las elecciones hechas en el simulador quedan en la dirección de la página, para facilitar compartirlas.",
-        "**Sus derechos.** Puede solicitar información, corrección o eliminación de datos (art. 18 de la LGPD) por los canales del repositorio del proyecto, indicados en “Cómo contribuir”."
+        "VotoBrasil no pide registro, no exige inicio de sesión y no crea perfiles de visitantes. El tratamiento de datos personales sigue la Ley General de Protección de Datos Personales de Brasil (LGPD, Ley 13.709/2018).",
+        "**Cookies.** Usamos cookies solo para estadísticas de uso: contar visitas, páginas vistas e interacciones (como el cambio de sistema o de idioma), de forma agregada, para saber qué mejorar. No las usamos para publicidad ni para identificarlo. Estos datos son procesados por un servicio de estadísticas de terceros, que puede almacenarlos fuera de Brasil, e incluyen datos técnicos de la conexión —como dirección IP, navegador, tipo de dispositivo e idioma— usados solo para generar recuentos agregados.",
+        "**Base legal y elección.** Las cookies solo se crean después de que usted hace clic en “Entendido” en el aviso (consentimiento, art. 7º, I, de la LGPD); antes de eso, no se envía nada. Si el navegador envía la señal “Do Not Track” o Global Privacy Control, no usamos cookies, ni siquiera después de hacer clic en “Entendido”. Puede borrar o bloquear las cookies en cualquier momento en la configuración del navegador, sin perjuicio del uso del sitio.",
+        "**Almacenamiento local.** El sitio guarda en su navegador (localStorage) solo el registro de que usted vio el aviso de cookies. Las elecciones hechas en el simulador quedan en la dirección de la página, para facilitar compartirlas.",
+        "**Sus derechos.** Puede solicitar información, corrección o eliminación de datos (art. 18 de la LGPD) por los canales del repositorio del proyecto, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {

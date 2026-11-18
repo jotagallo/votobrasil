@@ -44,15 +44,13 @@
     "source": "Source code",
     "credit": "Developed by",
     "openSource": "Open source on GitHub",
-    "data": "Data: TSE (open data) and IBGE (boundaries). No cookies; usage statistics only with consent (LGPD)."
+    "data": "Data: TSE (open data) and IBGE (boundaries). Cookies only for usage statistics (LGPD)."
   },
   "consent": {
-    "label": "Privacy notice",
-    "text": "We use cookie-free audience statistics (Umami) to learn, in aggregate, which pages and simulations are used. They are only switched on with your consent, as required by Brazil's data protection law (LGPD, Law 13,709/2018), and you can change your mind at any time under “Privacy preferences” in the footer.",
+    "label": "Cookie notice",
+    "text": "We use cookies only for site usage statistics (which pages and simulations are most visited), in aggregate and never for advertising. By clicking “Got it”, you agree to this use, as required by Brazil's data protection law (LGPD, Law 13,709/2018).",
     "more": "Learn more",
-    "accept": "Accept",
-    "reject": "Decline",
-    "manage": "Privacy preferences"
+    "accept": "Got it"
   },
   "common": {
     "loading": "Loading…",
@@ -487,7 +485,7 @@
       "label": "At a glance",
       "data": "TSE open data",
       "open": "Open source",
-      "privacy": "No cookies · LGPD"
+      "privacy": "Privacy · LGPD"
     },
     "hero": {
       "caption": "Illustration with generic seats, not real data"
@@ -601,7 +599,7 @@
     },
     "about": {
       "title": "About — VotoBrasil",
-      "description": "Independent, open-source project that uses open data from the TSE and IBGE. No cookies."
+      "description": "Independent, open-source project that uses open data from the TSE and IBGE."
     },
     "notFound": {
       "title": "Page not found — VotoBrasil",
@@ -658,11 +656,11 @@
     "privacy": {
       "title": "Privacy and LGPD",
       "body": [
-        "VotoBrasil does not use cookies, does not ask you to sign up and does not build visitor profiles. Personal data is handled in accordance with Brazil's General Data Protection Law (LGPD, Law 13,709/2018).",
-        "**Usage statistics.** When enabled, the site uses Umami, a cookie-free analytics service, to count visits, pages and interactions (such as changing the system or language). The service receives technical connection data — such as IP address, browser, device type and language — used only to produce aggregate counts; events record usage actions without identifying people.",
-        "**Legal basis and choice.** Statistics are only switched on after you accept the privacy notice (consent, art. 7, I, LGPD). If you decline, nothing is sent. You can give or withdraw consent at any time under “Privacy preferences” in the footer. If your browser sends a “Do Not Track” or Global Privacy Control signal, statistics stay off and the notice is not even shown.",
-        "**Local storage.** The site stores in your browser (localStorage) only your choice about statistics. The choices you make in the simulator are kept in the page address, to make sharing easier.",
-        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) through the project repository channels listed under “How to contribute”."
+        "VotoBrasil does not ask you to sign up, does not require a login and does not build visitor profiles. Personal data is handled in accordance with Brazil's General Data Protection Law (LGPD, Law 13,709/2018).",
+        "**Cookies.** We use cookies only for usage statistics: counting visits, pages viewed and interactions (such as changing the system or language), in aggregate, to learn what to improve. We do not use them for advertising or to identify you. This data is processed by a third-party statistics service, which may store it outside Brazil, and includes technical connection data — such as IP address, browser, device type and language — used only to produce aggregate counts.",
+        "**Legal basis and choice.** Cookies are only created after you click “Got it” on the notice (consent, art. 7, I, LGPD); until then, nothing is sent. If your browser sends a “Do Not Track” or Global Privacy Control signal, we do not use cookies, even after you click “Got it”. You can delete or block cookies at any time in your browser settings, without affecting your use of the site.",
+        "**Local storage.** The site stores in your browser (localStorage) only the record that you have seen the cookie notice. The choices you make in the simulator are kept in the page address, to make sharing easier.",
+        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) through the project repository channels, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {

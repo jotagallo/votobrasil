@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation, useSearch } from 'wouter';
 import { LOCALES, type Locale } from '@votobr/shared';
-import { analyticsConfigured, readConsent, trackEvent } from '../analytics';
+import { cookieNoticePending, trackEvent } from '../analytics';
 import { useLocale, useT } from '../i18n';
 import { PATHS, housePath, withLocale } from '../lib/routes';
 import { ConsentBanner } from './ConsentBanner';
@@ -103,8 +103,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const mainRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
   const repoUrl = import.meta.env.VITE_REPO_URL?.trim();
-  const [consentAsked] = useState(analyticsConfigured);
-  const [consentOpen, setConsentOpen] = useState(() => consentAsked && readConsent() === null);
+  const [consentOpen, setConsentOpen] = useState(() => cookieNoticePending());
 
   // Troca de rota: fecha o menu, volta ao topo e move o foco para o conteúdo (leitores de tela).
   useEffect(() => {
@@ -191,17 +190,6 @@ export function Layout({ children }: { children: ReactNode }) {
               <li>
                 <Link href={PATHS.about}>{t('nav.about')}</Link>
               </li>
-              {consentAsked ? (
-                <li>
-                  <button
-                    type="button"
-                    className="site-footer__button"
-                    onClick={() => setConsentOpen(true)}
-                  >
-                    {t('consent.manage')}
-                  </button>
-                </li>
-              ) : null}
               {repoUrl ? (
                 <li>
                   <a href={repoUrl} target="_blank" rel="noopener noreferrer">

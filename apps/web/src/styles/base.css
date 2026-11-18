@@ -541,23 +541,6 @@ svg a:focus-visible {
   text-decoration: underline;
 }
 
-.site-footer__button {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--touch);
-  padding: 0;
-  background: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.site-footer__button:hover {
-  text-decoration: underline;
-}
-
 .site-footer__bar {
   border-top: 1px solid var(--line-dark);
 }

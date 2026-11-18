@@ -32,7 +32,7 @@ Out of scope:
 - Errors or disagreements about the electoral data itself. The data comes from the official
   TSE/IBGE open data and is processed by the documented methodology; report these as regular
   issues.
-- Vulnerabilities in third-party services (AWS, GitHub, Umami Cloud, TSE, IBGE) or in upstream
+- Vulnerabilities in third-party services (AWS, GitHub, Google, TSE, IBGE) or in upstream
   dependencies without a demonstrated impact on this project.
 - Volumetric denial of service, social engineering, and physical attacks.
 - Reports from automated scanners without a working proof of concept.

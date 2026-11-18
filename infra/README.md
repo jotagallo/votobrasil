@@ -131,21 +131,22 @@ region, and a GitHub repository with an environment named `production`.
    (this is what pins who can assume the role, because the OIDC subject contains the environment,
    not the branch) and optionally add required reviewers. Then set:
 
-   | Where                      | Kind     | Name                         | Value (from `terraform output`)                |
-   | -------------------------- | -------- | ---------------------------- | ---------------------------------------------- |
-   | Environment `production`   | secret   | `AWS_ROLE_ARN`               | `deploy_role_arn`                              |
-   | Environment `production`   | variable | `AWS_REGION`                 | `aws_region`                                   |
-   | Environment `production`   | variable | `EB_APPLICATION`             | `eb_application_name`                          |
-   | Environment `production`   | variable | `EB_ENVIRONMENT`             | `eb_environment_name`                          |
-   | Environment `production`   | variable | `ARTIFACTS_BUCKET`           | `artifacts_bucket`                             |
-   | Environment `production`   | variable | `CLOUDFRONT_DISTRIBUTION_ID` | `cloudfront_distribution_id`                   |
-   | Repository                 | variable | `SITE_URL`                   | `site_url` (custom domain once DNS points)     |
-   | Repository                 | variable | `VITE_UMAMI_WEBSITE_ID`      | your Umami website ID (public)                 |
-   | Repository (optional)      | variable | `VITE_UMAMI_SRC`             | defaults to `https://cloud.umami.is/script.js` |
-   | Repository (organisations) | secret   | `GITLEAKS_LICENSE`           | free key from gitleaks.io, only for org repos  |
+   | Where                      | Kind     | Name                         | Value (from `terraform output`)               |
+   | -------------------------- | -------- | ---------------------------- | --------------------------------------------- |
+   | Environment `production`   | secret   | `AWS_ROLE_ARN`               | `deploy_role_arn`                             |
+   | Environment `production`   | variable | `AWS_REGION`                 | `aws_region`                                  |
+   | Environment `production`   | variable | `EB_APPLICATION`             | `eb_application_name`                         |
+   | Environment `production`   | variable | `EB_ENVIRONMENT`             | `eb_environment_name`                         |
+   | Environment `production`   | variable | `ARTIFACTS_BUCKET`           | `artifacts_bucket`                            |
+   | Environment `production`   | variable | `CLOUDFRONT_DISTRIBUTION_ID` | `cloudfront_distribution_id`                  |
+   | Repository                 | variable | `SITE_URL`                   | `site_url` (custom domain once DNS points)    |
+   | Repository (optional)      | variable | `GA_MEASUREMENT_ID`          | Google Analytics 4 measurement ID (`G-…`)     |
+   | Repository (organisations) | secret   | `GITLEAKS_LICENSE`           | free key from gitleaks.io, only for org repos |
 
-   `SITE_URL` and the `VITE_*` values are repository variables because the build job deliberately
+   `SITE_URL` and `GA_MEASUREMENT_ID` are repository variables because the build job deliberately
    runs without the `production` environment (see "Secrets"). None of these values is a credential.
+   Without `GA_MEASUREMENT_ID` the site ships no analytics (the cookie notice is still shown). Without `SITE_URL`
+   the build emits no `sitemap.xml` and no absolute Open Graph URLs.
 
 5. **Custom domain** (optional): create a CNAME from `domain_name` to the `cloudfront_domain_name`
    output at your DNS provider, then set `SITE_URL` to `https://<domain_name>`.

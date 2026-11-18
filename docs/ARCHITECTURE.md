@@ -74,7 +74,7 @@ Erros seguem `{ "error": { "code", "message" } }`. As entradas são validadas de
 ### Segurança
 
 - Atrás do CloudFront, a API exige o header secreto `x-origin-verify` (comparação em tempo constante) e a instância só aceita tráfego dos IPs do CloudFront.
-- CSP restrita (`default-src 'self'`; Umami como única origem externa), `nosniff`, `frame-ancestors 'none'`, `Referrer-Policy`. O HSTS fica a cargo do CloudFront.
+- CSP restrita (`default-src 'self'`; as únicas origens externas liberadas são as do Google Analytics, para script, conexão e imagem), `nosniff`, `frame-ancestors 'none'`, `Referrer-Policy`. O HSTS fica a cargo do CloudFront. O script de estatísticas só é baixado depois do “Entendi” no aviso de cookies.
 - Rate limit por IP (com `TRUST_PROXY_HOPS=2` em produção) e limite de tamanho de parâmetros; nenhum segredo no repositório.
 
 ## Algoritmos (`packages/shared`)

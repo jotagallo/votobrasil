@@ -269,9 +269,12 @@ gh variable set CLOUDFRONT_DISTRIBUTION_ID --env production --repo "$REPO" --bod
 
 # 3) Variável do repositório (o job de build não usa ambiente, então SITE_URL não pode ficar no ambiente)
 gh variable set SITE_URL --repo "$REPO" --body "$SITE"
+
+# 4) Opcional: ID de medição do Google Analytics 4 (formato G-XXXXXXXXXX; veja docs/DEVELOPMENT.md)
+gh variable set GA_MEASUREMENT_ID --repo "$REPO" --body "G-XXXXXXXXXX"
 ```
 
-Prefere clicar? GitHub → repositório → _Settings_ → _Environments_ → _New environment_ `production` → _Deployment branches and tags_ → _Selected branches and tags_ → adicione `main`; depois _Add environment secret/variable_ com os nomes acima. As variáveis opcionais `VITE_UMAMI_WEBSITE_ID` e `VITE_UMAMI_SRC` (analytics) ficam em _Settings_ → _Secrets and variables_ → _Actions_ → _Variables_.
+Prefere clicar? GitHub → repositório → _Settings_ → _Environments_ → _New environment_ `production` → _Deployment branches and tags_ → _Selected branches and tags_ → adicione `main`; depois _Add environment secret/variable_ com os nomes acima. As variáveis do repositório (`SITE_URL` e a opcional `GA_MEASUREMENT_ID`) ficam em _Settings_ → _Secrets and variables_ → _Actions_ → _Variables_. Sem `GA_MEASUREMENT_ID`, o site não carrega estatísticas (o aviso de cookies aparece mesmo assim).
 
 **Opcional, recomendado:** no mesmo ambiente `production`, marque _Required reviewers_ e adicione você mesmo, para que cada deploy espere um clique de aprovação. **Não** marque _Prevent self-review_ (você é o único mantenedor).
 
@@ -280,7 +283,7 @@ Prefere clicar? GitHub → repositório → _Settings_ → _Environments_ → _N
 ```bash
 gh secret list   --env production --repo "$REPO"     # AWS_ROLE_ARN
 gh variable list --env production --repo "$REPO"     # as 5 variáveis do ambiente
-gh variable list --repo "$REPO"                       # SITE_URL
+gh variable list --repo "$REPO"                       # SITE_URL (e GA_MEASUREMENT_ID, se definida)
 ```
 
 ## Etapa 8: Testar o deploy automático (sem ETL)
@@ -375,6 +378,7 @@ O **primeiro** Deploy leva cerca de 1 h (ETL: cerca de 2,4 GB do TSE/IBGE). O ca
 - [ ] A origem está protegida: `curl -m 5 "http://$(tfo eb_environment_cname)/healthz"` **dá timeout** (só o CloudFront alcança a instância). Se responder, o grupo de segurança está aberto demais.
 - [ ] Se informou `alarm_email`: e-mail do SNS confirmado (Etapa 5) e orçamento `votobr-prod-monthly` visível em _Billing_ → _Budgets_ (avisa a 80% e 100% de US$ 25 de gasto da **conta inteira**).
 - [ ] Um deploy automático terminou verde (Etapa 9).
+- [ ] O aviso de cookies aparece em `$SITE` (janela anônima). Se definiu `GA_MEASUREMENT_ID`: depois do “Entendi” (sem Do Not Track), o acesso surge em _Relatórios_ → _Tempo real_ do Google Analytics.
 - [ ] O ambiente `production` do GitHub só aceita a branch `main`.
 - [ ] Chave de acesso do administrador apagada (Opção B) e MFA ativo no root.
 - [ ] `git status` não lista `terraform.tfvars` nem arquivos `.tfstate`.

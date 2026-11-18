@@ -1,24 +1,70 @@
 import { describe, expect, it } from 'vitest';
-import { analyticsCspOrigins, ANALYTICS_CSP, privacyOptOut } from '../src/analytics';
+import {
+  CONSENT_KEY,
+  acknowledgeCookies,
+  cookieNoticePending,
+  cookiesAcknowledged,
+  hostAllowed,
+  parseMeasurementId,
+  privacyOptOut,
+} from '../src/analytics';
 import { buildAlternates } from '../src/seo';
 
-describe('analytics: CSP', () => {
-  it('Umami Cloud: script de cloud.umami.is e envio ao gateway', () => {
-    expect(ANALYTICS_CSP).toEqual({
-      scriptSrc: ['https://cloud.umami.is'],
-      connectSrc: ['https://gateway.umami.is'],
-    });
+function fakeStorage(initial: Record<string, string> = {}) {
+  const data = new Map(Object.entries(initial));
+  return {
+    getItem: (key: string) => data.get(key) ?? null,
+    setItem: (key: string, value: string) => void data.set(key, value),
+  };
+}
+
+describe('analytics: configuração', () => {
+  it('aceita só IDs de medição no formato G-XXXXXXXXXX (case-insensitive)', () => {
+    expect(parseMeasurementId('G-ABC123XYZ9')).toBe('G-ABC123XYZ9');
+    expect(parseMeasurementId(' g-abc123xyz9 ')).toBe('G-ABC123XYZ9');
+    expect(parseMeasurementId('UA-12345-1')).toBeNull();
+    expect(parseMeasurementId('G-')).toBeNull();
+    expect(parseMeasurementId('')).toBeNull();
+    expect(parseMeasurementId(undefined)).toBeNull();
   });
 
-  it('Umami próprio: script e conexão usam a mesma origem', () => {
-    expect(analyticsCspOrigins('https://stats.exemplo.org/script.js')).toEqual({
-      scriptSrc: ['https://stats.exemplo.org'],
-      connectSrc: ['https://stats.exemplo.org'],
-    });
+  it('só mede o domínio do site quando VITE_SITE_URL existe', () => {
+    expect(hostAllowed('votobrasil.org', 'https://votobrasil.org')).toBe(true);
+    expect(hostAllowed('localhost', 'https://votobrasil.org')).toBe(false);
+    expect(hostAllowed('localhost', undefined)).toBe(true);
+    expect(hostAllowed('localhost', '  ')).toBe(true);
+  });
+});
+
+describe('analytics: aviso de cookies', () => {
+  it('mostra o aviso até o "Entendi", mesmo sem ID de medição configurado', () => {
+    expect(cookieNoticePending(fakeStorage())).toBe(true);
+    expect(cookieNoticePending(null)).toBe(true);
+    expect(cookieNoticePending(fakeStorage({ [CONSENT_KEY]: '1' }))).toBe(false);
   });
 
-  it('URL inválida não libera nenhuma origem', () => {
-    expect(analyticsCspOrigins('nao-e-url')).toEqual({ scriptSrc: [], connectSrc: [] });
+  it('só considera ciente quem clicou em "Entendi"', () => {
+    expect(cookiesAcknowledged(fakeStorage())).toBe(false);
+    expect(cookiesAcknowledged(fakeStorage({ [CONSENT_KEY]: '0' }))).toBe(false);
+    expect(cookiesAcknowledged(fakeStorage({ [CONSENT_KEY]: '1' }))).toBe(true);
+    expect(cookiesAcknowledged(null)).toBe(false);
+  });
+
+  it('registra o "Entendi" e tolera armazenamento indisponível', () => {
+    const storage = fakeStorage();
+    acknowledgeCookies(storage);
+    expect(storage.getItem(CONSENT_KEY)).toBe('1');
+
+    const broken = {
+      getItem: () => {
+        throw new Error('bloqueado');
+      },
+      setItem: () => {
+        throw new Error('bloqueado');
+      },
+    };
+    expect(() => acknowledgeCookies(broken)).not.toThrow();
+    expect(cookiesAcknowledged(broken)).toBe(false);
   });
 });
 

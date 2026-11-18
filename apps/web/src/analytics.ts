@@ -1,7 +1,9 @@
 /**
- * Análise de audiência independente de provedor. Hoje usa Umami (sem cookies), carregado só se
- * `VITE_UMAMI_WEBSITE_ID` estiver definido, o visitante não tiver pedido privacidade (DNT/GPC) e
- * tiver consentido expressamente (LGPD, art. 7º, I). A escolha fica no `localStorage`.
+ * Estatísticas de audiência (Google Analytics 4), isoladas neste módulo. O aviso de cookies aparece
+ * para todo visitante até o "Entendi". A medição só é carregada depois do clique, se
+ * `VITE_GA_MEASUREMENT_ID` estiver definido e o visitante não tiver pedido privacidade (DNT/GPC):
+ * antes disso, nenhum script externo é baixado e nenhum cookie é criado. O registro de que o aviso
+ * foi visto fica no `localStorage`.
  * Nunca enviamos dados pessoais: apenas nomes de eventos e valores categóricos (sistema, UF, idioma).
  */
 
@@ -10,41 +12,45 @@ export type AnalyticsEvent =
 
 export type EventData = Record<string, string | number | boolean>;
 
-const DEFAULT_SRC = 'https://cloud.umami.is/script.js';
-const UMAMI_CLOUD_HOST = 'cloud.umami.is';
-const UMAMI_CLOUD_GATEWAY = 'https://gateway.umami.is';
-
-interface UmamiApi {
-  track: (
-    arg?: string | ((props: Record<string, unknown>) => Record<string, unknown>),
-    data?: EventData,
-  ) => void;
-}
+const GTAG_SRC = 'https://www.googletagmanager.com/gtag/js';
+const MEASUREMENT_ID = /^G-[A-Z0-9]{4,}$/;
 
 declare global {
   interface Window {
-    umami?: UmamiApi;
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
     doNotTrack?: string;
     globalPrivacyControl?: boolean;
   }
 }
 
-/** Origens que o CSP do servidor precisa liberar para o provedor configurado. */
-export function analyticsCspOrigins(src: string = DEFAULT_SRC): {
-  scriptSrc: string[];
-  connectSrc: string[];
-} {
-  try {
-    const url = new URL(src);
-    const connect = url.hostname === UMAMI_CLOUD_HOST ? UMAMI_CLOUD_GATEWAY : url.origin;
-    return { scriptSrc: [url.origin], connectSrc: [connect] };
-  } catch {
-    return { scriptSrc: [], connectSrc: [] };
-  }
+/** Origens que a CSP do servidor precisa liberar (valores padrão de `apps/api/src/config.ts`). */
+export const ANALYTICS_CSP = {
+  scriptSrc: ['https://*.googletagmanager.com'],
+  connectSrc: [
+    'https://*.google-analytics.com',
+    'https://*.analytics.google.com',
+    'https://*.googletagmanager.com',
+  ],
+  imgSrc: ['https://*.google-analytics.com', 'https://*.googletagmanager.com'],
+} as const;
+
+/** Devolve o ID de medição (`G-XXXXXXXXXX`) em formato válido, ou `null`. */
+export function parseMeasurementId(value: string | undefined): string | null {
+  const id = value?.trim().toUpperCase();
+  return id && MEASUREMENT_ID.test(id) ? id : null;
 }
 
-/** Valores padrão (Umami Cloud) para copiar na política CSP do backend. */
-export const ANALYTICS_CSP = analyticsCspOrigins(DEFAULT_SRC);
+/** Só mede o domínio público do site: acessos locais e de pré-visualização ficam de fora. */
+export function hostAllowed(hostname: string, siteUrl: string | undefined): boolean {
+  const configured = siteUrl?.trim();
+  if (!configured) return true;
+  try {
+    return new URL(configured).hostname === hostname;
+  } catch {
+    return true;
+  }
+}
 
 export function privacyOptOut(
   nav: Pick<Navigator, 'doNotTrack'> & { globalPrivacyControl?: boolean } = navigator,
@@ -53,13 +59,11 @@ export function privacyOptOut(
   return dnt === '1' || dnt === 'yes' || nav.globalPrivacyControl === true;
 }
 
-export type Consent = 'granted' | 'denied';
+export const CONSENT_KEY = 'votobr:cookie-notice';
 
-export const CONSENT_KEY = 'votobr:analytics-consent';
+type NoticeStorage = Pick<Storage, 'getItem' | 'setItem'>;
 
-type ConsentStorage = Pick<Storage, 'getItem' | 'setItem'>;
-
-function defaultStorage(): ConsentStorage | null {
+function defaultStorage(): NoticeStorage | null {
   try {
     return typeof window !== 'undefined' ? window.localStorage : null;
   } catch {
@@ -67,87 +71,79 @@ function defaultStorage(): ConsentStorage | null {
   }
 }
 
-export function readConsent(storage: ConsentStorage | null = defaultStorage()): Consent | null {
+/** O visitante já clicou em "Entendi"? */
+export function cookiesAcknowledged(storage: NoticeStorage | null = defaultStorage()): boolean {
   try {
-    const value = storage?.getItem(CONSENT_KEY);
-    return value === 'granted' || value === 'denied' ? value : null;
+    return storage?.getItem(CONSENT_KEY) === '1';
   } catch {
-    return null;
+    return false;
   }
 }
 
-/** Há algo a consentir: analytics configurado e sem pedido de privacidade do navegador. */
+/** A medição pode rodar: ID configurado, domínio do site e sem pedido de privacidade do navegador. */
 export function analyticsConfigured(): boolean {
   if (typeof navigator === 'undefined') return false;
-  return Boolean(import.meta.env.VITE_UMAMI_WEBSITE_ID?.trim()) && !privacyOptOut();
+  return (
+    parseMeasurementId(import.meta.env.VITE_GA_MEASUREMENT_ID) !== null &&
+    hostAllowed(window.location.hostname, import.meta.env.VITE_SITE_URL) &&
+    !privacyOptOut()
+  );
+}
+
+/** O aviso de cookies aparece até o visitante clicar em "Entendi". */
+export function cookieNoticePending(storage: NoticeStorage | null = defaultStorage()): boolean {
+  return !cookiesAcknowledged(storage);
 }
 
 let enabled = false;
 let injected = false;
-let loaded = false;
-const queue: Array<() => void> = [];
 
-function run(fn: () => void): void {
-  if (!enabled) return;
-  if (loaded && window.umami) fn();
-  else if (queue.length < 50) queue.push(fn);
+/** O `gtag.js` exige o objeto `arguments` (e não um array) na `dataLayer`. */
+function gtag(..._args: unknown[]): void {
+  // eslint-disable-next-line prefer-rest-params
+  (window.dataLayer ??= []).push(arguments);
 }
 
-/** Inicia o analytics somente se o visitante já tiver consentido. */
+/** Inicia a medição somente se o visitante já tiver clicado em "Entendi". */
 export function initAnalytics(): void {
-  if (readConsent() === 'granted') startAnalytics();
+  if (cookiesAcknowledged()) startAnalytics();
 }
 
-/** Registra a escolha do visitante; o consentimento pode ser revogado a qualquer momento. */
-export function setConsent(consent: Consent, storage: ConsentStorage | null = defaultStorage()) {
+/** Registra o "Entendi" (guardado no navegador) e inicia a medição. */
+export function acknowledgeCookies(storage: NoticeStorage | null = defaultStorage()): void {
   try {
-    storage?.setItem(CONSENT_KEY, consent);
+    storage?.setItem(CONSENT_KEY, '1');
   } catch {
-    /* armazenamento indisponível: a escolha vale só para esta visita */
+    /* armazenamento indisponível: o aviso vale só para esta visita */
   }
-  if (consent === 'granted') {
-    startAnalytics();
-    if (typeof window !== 'undefined') trackPageview(window.location.pathname);
-  } else {
-    enabled = false;
-    queue.length = 0;
-  }
+  startAnalytics();
+  if (enabled) trackPageview(window.location.pathname);
 }
 
 function startAnalytics(): void {
   if (typeof document === 'undefined' || enabled) return;
-  if (injected) {
-    enabled = true;
-    return;
-  }
-  const websiteId = import.meta.env.VITE_UMAMI_WEBSITE_ID?.trim();
-  if (!websiteId || privacyOptOut()) return;
+  const id = parseMeasurementId(import.meta.env.VITE_GA_MEASUREMENT_ID);
+  if (!id || !analyticsConfigured()) return;
+
+  window.gtag = gtag;
+  gtag('js', new Date());
+  // As visualizações de página são enviadas à mão: a navegação do SPA não recarrega a página.
+  gtag('config', id, {
+    send_page_view: false,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
+  enabled = true;
+  if (injected) return;
 
   const script = document.createElement('script');
-  script.defer = true;
-  script.src = import.meta.env.VITE_UMAMI_SRC?.trim() || DEFAULT_SRC;
-  script.dataset.websiteId = websiteId;
-  script.dataset.autoTrack = 'false';
-  script.dataset.doNotTrack = 'true';
-  script.dataset.excludeSearch = 'true';
-  const siteUrl = import.meta.env.VITE_SITE_URL?.trim();
-  if (siteUrl) {
-    try {
-      script.dataset.domains = new URL(siteUrl).hostname;
-    } catch {
-      /* URL inválida: sem restrição de domínio */
-    }
-  }
-  script.addEventListener('load', () => {
-    loaded = true;
-    queue.splice(0).forEach((fn) => fn());
-  });
+  script.async = true;
+  script.src = `${GTAG_SRC}?id=${encodeURIComponent(id)}`;
   script.addEventListener('error', () => {
     enabled = false;
     injected = false;
-    queue.length = 0;
+    script.remove();
   });
-  enabled = true;
   injected = true;
   document.head.appendChild(script);
 }
@@ -158,9 +154,15 @@ export function analyticsEnabled(): boolean {
 
 /** Visualização de página em navegação SPA (somente o caminho; estado fica fora da URL enviada). */
 export function trackPageview(path: string): void {
-  run(() => window.umami?.track((props) => ({ ...props, url: path, title: document.title })));
+  if (!enabled) return;
+  window.gtag?.('event', 'page_view', {
+    page_path: path,
+    page_location: `${window.location.origin}${path}`,
+    page_title: document.title,
+  });
 }
 
 export function trackEvent(name: AnalyticsEvent, data?: EventData): void {
-  run(() => window.umami?.track(name, data));
+  if (!enabled) return;
+  window.gtag?.('event', name, data);
 }

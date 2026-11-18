@@ -1,5 +1,5 @@
 import { Link } from 'wouter';
-import { setConsent, type Consent } from '../analytics';
+import { acknowledgeCookies } from '../analytics';
 import { useT } from '../i18n';
 import { PATHS } from '../lib/routes';
 
@@ -7,11 +7,11 @@ interface Props {
   onClose: () => void;
 }
 
-/** Aviso de privacidade (LGPD): as estatísticas de uso só são ativadas após o aceite. */
+/** Aviso de cookies (LGPD): as estatísticas de uso só começam depois do "Entendi". */
 export function ConsentBanner({ onClose }: Props) {
   const { t } = useT();
-  const choose = (consent: Consent) => {
-    setConsent(consent);
+  const acknowledge = () => {
+    acknowledgeCookies();
     onClose();
   };
   return (
@@ -24,10 +24,7 @@ export function ConsentBanner({ onClose }: Props) {
           </Link>
         </p>
         <div className="consent__actions">
-          <button type="button" className="btn btn--ghost" onClick={() => choose('denied')}>
-            {t('consent.reject')}
-          </button>
-          <button type="button" className="btn" onClick={() => choose('granted')}>
+          <button type="button" className="btn" onClick={acknowledge}>
             {t('consent.accept')}
           </button>
         </div>
