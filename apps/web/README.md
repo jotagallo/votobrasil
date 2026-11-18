@@ -64,6 +64,7 @@ Além disso, o frontend usa estilos em atributos `style` definidos via React/CSS
 - **Cores de partidos**: paleta categórica de 16 cores em `src/lib/parties.ts` (`PARTY_PALETTE`), sem o vermelho de alerta, com contraste ≥ 3:1 com o fundo e ≥ 4,5:1 com o texto sobre a cor (verificado em `test/color.test.ts`). As doze maiores bancadas da Câmara têm cor fixa; os demais partidos recebem cor pelo hash do id, evitando colisões no conjunto exibido. "Outros" é cinza. Nenhuma informação depende só da cor (rótulos e "ver tabela").
 - **Movimento**: transições e animações de entrada só rodam sob `prefers-reduced-motion: no-preference`.
 - **Leitura**: os títulos dos heros escuros e das seções de `.page--reading` são centralizados. Os blocos de prosa ficam no centro, limitados a `--measure`, com parágrafos alinhados à esquerda; tabelas e ferramentas mantêm a largura disponível.
+- **Espaçamentos internos**: os heros claros de `/casa/*` têm topo compacto antes do breadcrumb; o seletor reserva `--space-5` entre a legenda e os botões. Em Sobre, o link JOTAGALLO integra o parágrafo de autoria, com separador e quebra de linha natural em telas estreitas.
 - **Rodapé**: conteúdo e assinatura centralizados, com selo de código aberto que leva ao GitHub do projeto. O selo é um link localmente renderizado, sem scripts ou imagens de terceiros.
 
 ## Rotas da SPA

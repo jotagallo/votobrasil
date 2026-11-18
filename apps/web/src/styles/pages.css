@@ -23,10 +23,6 @@
   border-radius: 4px;
 }
 
-.selector .eyebrow {
-  margin-bottom: 0;
-}
-
 .page-title {
   margin-bottom: var(--space-4);
   font-size: var(--text-h1);
@@ -841,6 +837,10 @@
 .page-hero__inner {
   position: relative;
   padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+}
+
+.page-hero--light .page-hero__inner {
+  padding-top: clamp(var(--space-4), 3vw, var(--space-6));
 }
 
 .page-hero__title {

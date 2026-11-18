@@ -298,7 +298,7 @@
 
 .selector__fieldset legend {
   padding: 0;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 .chips {
