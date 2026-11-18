@@ -9,6 +9,14 @@ import { ConsentBanner } from './ConsentBanner';
 
 const LANGUAGE_LABEL: Record<Locale, string> = { 'pt-BR': 'PT', en: 'EN', es: 'ES' };
 
+// Shared by header and footer so both menus keep the same order.
+const MAIN_NAV = [
+  { href: PATHS.systems, label: 'nav.systems' },
+  { href: PATHS.methodology, label: 'nav.methodology' },
+  { href: PATHS.semipresidentialism, label: 'nav.semipresidentialism' },
+  { href: PATHS.about, label: 'nav.about' },
+] as const;
+
 function BrandMark({ className = 'brand__mark' }: { className?: string }) {
   return (
     <svg
@@ -66,20 +74,9 @@ function LanguageSwitcher({ className }: { className?: string }) {
   );
 }
 
-function NavLink({
-  href,
-  children,
-  exact = false,
-  alsoUnder,
-}: {
-  href: string;
-  children: ReactNode;
-  exact?: boolean;
-  alsoUnder?: string;
-}) {
+function NavLink({ href, children }: { href: string; children: ReactNode }) {
   const [path] = useLocation();
-  const under = (base: string) => path === base || path.startsWith(`${base}/`);
-  const active = (exact ? path === href : under(href)) || (alsoUnder ? under(alsoUnder) : false);
+  const active = path === href || path.startsWith(`${href}/`);
   return (
     <Link
       href={href}
@@ -137,22 +134,18 @@ export function Layout({ children }: { children: ReactNode }) {
           </button>
           <div id={menuId} className={menuOpen ? 'site-header__menu is-open' : 'site-header__menu'}>
             <nav aria-label={t('nav.main')} className="nav nav--utility">
-              <NavLink href={PATHS.systems}>{t('nav.systems')}</NavLink>
-              <NavLink href={PATHS.methodology}>{t('nav.methodology')}</NavLink>
-              <NavLink href={PATHS.semipresidentialism}>{t('nav.semipresidentialism')}</NavLink>
-              <NavLink href={PATHS.about}>{t('nav.about')}</NavLink>
+              {MAIN_NAV.map((item) => (
+                <NavLink key={item.href} href={item.href}>
+                  {t(item.label)}
+                </NavLink>
+              ))}
             </nav>
             <LanguageSwitcher />
-            <Link href={housePath('federal')} className="btn btn--sm header-cta">
-              {t('nav.simulate')}
-            </Link>
           </div>
         </div>
         <div className="houses-bar">
           <nav className="container houses-bar__row" aria-label={t('nav.houses')}>
-            <NavLink href={PATHS.home} exact alsoUnder={housePath('federal')}>
-              {t('houses.federal.short')}
-            </NavLink>
+            <NavLink href={housePath('federal')}>{t('houses.federal.short')}</NavLink>
             <NavLink href={housePath('state')}>{t('houses.state.short')}</NavLink>
             <NavLink href={housePath('municipal')}>{t('houses.municipal.short')}</NavLink>
           </nav>
@@ -176,15 +169,11 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
           <nav aria-label={t('footer.links')}>
             <ul className="site-footer__links">
-              <li>
-                <Link href={PATHS.methodology}>{t('nav.methodology')}</Link>
-              </li>
-              <li>
-                <Link href={PATHS.systems}>{t('nav.systems')}</Link>
-              </li>
-              <li>
-                <Link href={PATHS.about}>{t('nav.about')}</Link>
-              </li>
+              {MAIN_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href}>{t(item.label)}</Link>
+                </li>
+              ))}
             </ul>
           </nav>
           <div>

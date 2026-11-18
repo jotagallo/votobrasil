@@ -387,16 +387,6 @@ svg a:focus-visible {
   color: #fff;
 }
 
-.header-cta {
-  align-self: flex-start;
-}
-
-@media (min-width: 56rem) {
-  .header-cta {
-    align-self: center;
-  }
-}
-
 /* Casas legislativas: abas em pílula logo abaixo do cabeçalho */
 .houses-bar {
   background: var(--bg-soft);
