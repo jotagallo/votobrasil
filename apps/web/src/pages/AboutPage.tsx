@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { PageHero } from '../components/PageHero';
-import { Paragraphs, Rich } from '../components/Rich';
+import { Rich } from '../components/Rich';
 import { usePageMeta } from '../hooks';
 import { useT } from '../i18n';
+import { AUTHOR_LINKS } from '../lib/author';
 import { PATHS } from '../lib/routes';
 
 export default function AboutPage() {
@@ -12,7 +13,6 @@ export default function AboutPage() {
     description: t('meta.about.description'),
     path: PATHS.about,
   });
-  const repoUrl = import.meta.env.VITE_REPO_URL?.trim();
 
   // Âncoras (`/sobre#privacy`, usada pelo aviso de privacidade): a página é carregada sob demanda.
   useEffect(() => {
@@ -23,12 +23,14 @@ export default function AboutPage() {
   }, []);
   const sections = [
     'project',
+    'author',
     'sources',
     'independence',
     'privacy',
     'contribute',
     'credits',
   ] as const;
+  const [, personalSiteLink] = AUTHOR_LINKS;
 
   return (
     <>
@@ -40,23 +42,21 @@ export default function AboutPage() {
               {t(`about.${key}.title`)}
             </h2>
             <div className="prose">
-              <Paragraphs items={tl(`about.${key}.body`)} />
-              {key === 'contribute' ? (
-                <p>
-                  {repoUrl ? (
-                    <a
-                      href={repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn--ghost"
-                    >
-                      {t('about.contribute.repoLink')}
-                    </a>
-                  ) : (
-                    <Rich text={t('about.contribute.noRepo')} />
-                  )}
+              {tl(`about.${key}.body`).map((text, index, paragraphs) => (
+                <p key={index}>
+                  <Rich text={text} />
+                  {key === 'author' && index === paragraphs.length - 1 ? (
+                    <>
+                      {' '}
+                      <span aria-hidden="true">·</span>
+                      {'\u00a0'}
+                      <a href={personalSiteLink.href} target="_blank" rel="noopener noreferrer">
+                        {personalSiteLink.label}
+                      </a>
+                    </>
+                  ) : null}
                 </p>
-              ) : null}
+              ))}
             </div>
           </section>
         ))}

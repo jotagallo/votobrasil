@@ -5,6 +5,7 @@ import { ErrorState, Skeleton } from '../components/states';
 import { usePageMeta } from '../hooks';
 import { useT } from '../i18n';
 import { apiUrls } from '../lib/api';
+import { REPO_URL } from '../lib/author';
 import { PATHS } from '../lib/routes';
 import { useMeta, useVersionedApi } from '../meta';
 
@@ -133,7 +134,6 @@ export default function MethodologyPage() {
     description: t('meta.methodology.description'),
     path: PATHS.methodology,
   });
-  const repoUrl = import.meta.env.VITE_REPO_URL?.trim();
 
   return (
     <>
@@ -203,21 +203,16 @@ export default function MethodologyPage() {
           </h2>
           <div className="prose">
             <Paragraphs items={tl('methodology.reproduce.body')} />
-            <pre className="code-block" tabIndex={0}>
-              <code>{t('methodology.reproduce.commands')}</code>
-            </pre>
-            {repoUrl ? (
-              <p>
-                <a
-                  href={repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--ghost"
-                >
-                  {t('methodology.reproduce.repo')}
-                </a>
-              </p>
-            ) : null}
+            <p>
+              <a
+                href={REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--ghost"
+              >
+                {t('methodology.reproduce.repo')}
+              </a>
+            </p>
           </div>
         </section>
       </div>

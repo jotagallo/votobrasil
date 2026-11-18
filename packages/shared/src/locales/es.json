@@ -41,7 +41,6 @@
   "footer": {
     "disclaimer": "Simulación contrafactual con supuestos simplificadores; no es un pronóstico. VotoBrasil es independiente y no tiene vínculo con el TSE (Tribunal Superior Electoral) ni con el gobierno.",
     "links": "Enlaces del pie de página",
-    "source": "Código fuente",
     "credit": "Desarrollado por",
     "openSource": "Código abierto en GitHub",
     "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Cookies solo para estadísticas de uso (LGPD)."
@@ -639,6 +638,12 @@
         "El objetivo es ofrecer un análisis de datos verificable a un debate público relevante. Por tratarse de un tema en disputa política, el proyecto publica datos, supuestos y código, para que cualquier persona pueda comprobarlos y criticarlos."
       ]
     },
+    "author": {
+      "title": "Autoría",
+      "body": [
+        "VotoBrasil es idealizado y desarrollado de forma independiente por [João Otávio Gallo](https://instagram.com/jotagallo)."
+      ]
+    },
     "sources": {
       "title": "Fuentes de datos",
       "body": [
@@ -666,11 +671,9 @@
     "contribute": {
       "title": "Cómo contribuir",
       "body": [
-        "Las sugerencias, correcciones y contribuciones son bienvenidas mediante issues y pull requests en el repositorio. Los reportes de errores en los datos o en las descripciones de los sistemas son especialmente útiles.",
-        "Para reproducir los números localmente, sigue las instrucciones de la página de [Metodología](/metodologia)."
-      ],
-      "repoLink": "Ver el repositorio",
-      "noRepo": "La dirección del repositorio aún no fue configurada en esta instalación (variable `VITE_REPO_URL`)."
+        "Las sugerencias, correcciones y contribuciones son bienvenidas mediante issues y pull requests en el repositorio del proyecto. Los reportes de errores en los datos o en las descripciones de los sistemas son especialmente útiles.",
+        "Para reproducir los números localmente, sigue las instrucciones del repositorio."
+      ]
     },
     "credits": {
       "title": "Créditos",
@@ -781,10 +784,8 @@
     "reproduce": {
       "title": "Código abierto y reproducción",
       "body": [
-        "Todo el código —extracción de datos, motor de simulación, API y este sitio— es abierto. El procesamiento es determinista: con los mismos archivos de origen (comprobados por los hashes anteriores), produce los mismos resultados.",
-        "Para reproducirlo localmente (requiere Node.js):"
+        "Todo el código —extracción de datos, motor de simulación, API y este sitio— es abierto. El procesamiento es determinista: con los mismos archivos de origen (comprobados por los hashes anteriores), produce los mismos resultados."
       ],
-      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
       "repo": "Abrir el repositorio"
     }
   },

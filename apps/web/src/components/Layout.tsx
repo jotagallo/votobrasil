@@ -3,15 +3,11 @@ import { Link, useLocation, useSearch } from 'wouter';
 import { LOCALES, type Locale } from '@votobr/shared';
 import { cookieNoticePending, trackEvent } from '../analytics';
 import { useLocale, useT } from '../i18n';
+import { AUTHOR_LINKS, REPO_URL } from '../lib/author';
 import { PATHS, housePath, withLocale } from '../lib/routes';
 import { ConsentBanner } from './ConsentBanner';
 
 const LANGUAGE_LABEL: Record<Locale, string> = { 'pt-BR': 'PT', en: 'EN', es: 'ES' };
-
-const AUTHOR_LINKS = [
-  { href: 'https://instagram.com/jotagallo', label: 'João Otávio Gallo' },
-  { href: 'https://jotagallo.dev', label: 'JOTAGALLO' },
-] as const;
 
 function BrandMark({ className = 'brand__mark' }: { className?: string }) {
   return (
@@ -102,7 +98,6 @@ export function Layout({ children }: { children: ReactNode }) {
   const menuId = useId();
   const mainRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
-  const repoUrl = import.meta.env.VITE_REPO_URL?.trim();
   const [consentOpen, setConsentOpen] = useState(() => cookieNoticePending());
 
   // Troca de rota: fecha o menu, volta ao topo e move o foco para o conteúdo (leitores de tela).
@@ -190,13 +185,6 @@ export function Layout({ children }: { children: ReactNode }) {
               <li>
                 <Link href={PATHS.about}>{t('nav.about')}</Link>
               </li>
-              {repoUrl ? (
-                <li>
-                  <a href={repoUrl} target="_blank" rel="noopener noreferrer">
-                    {t('footer.source')}
-                  </a>
-                </li>
-              ) : null}
             </ul>
           </nav>
           <div>
@@ -220,7 +208,7 @@ export function Layout({ children }: { children: ReactNode }) {
               </span>
             </p>
             <a
-              href="https://github.com/jotagallo/votobrasil"
+              href={REPO_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--glass btn--sm"

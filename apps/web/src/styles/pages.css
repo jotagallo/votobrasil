@@ -1225,27 +1225,3 @@
   font-size: 0.75rem;
   overflow-wrap: anywhere;
 }
-
-.code-block {
-  margin: 0;
-  padding: var(--space-4);
-  overflow-x: auto;
-  background: var(--brand-950);
-  border-radius: var(--radius);
-  color: #f3e8fc;
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-.code-block code {
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-  color: inherit;
-  font-size: inherit;
-}
-
-.code-block:focus-visible {
-  outline-color: var(--yellow-deep);
-}

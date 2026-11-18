@@ -78,7 +78,7 @@ Pt-BR não tem prefixo; `/en/...` e `/es/...` espelham as mesmas rotas.
 | `/sistemas`             | Explicação dos sistemas eleitorais                                             |
 | `/metodologia`          | Fontes, validação, premissas e limites                                         |
 | `/semipresidencialismo` | PEC 2/2025 e painel de governabilidade (montador de coalizão)                  |
-| `/sobre`                | Projeto, créditos e privacidade                                                |
+| `/sobre`                | Projeto, autoria, fontes, privacidade e como contribuir                        |
 
 O estado selecionado fica na query (`?sistema=distrital-misto&mapa=mudanca&coalizao=PT,PL`) e é preservado ao compartilhar. Links antigos com `misto-paralelo`/`misto-compensatorio` abrem o distrital misto.
 
@@ -97,7 +97,7 @@ apps/web
 │   ├── components/      Hemicycle, ChamberPanel, BrazilMap, DistrictMap, Winners, Layout…
 │   ├── pages/           uma página por rota (carregadas com React.lazy)
 │   ├── lib/             lógica pura: urlState, format, hemicycle, parties, coalition,
-│   │                    districts, voronoi, routes, rich, examples, color, api, geo
+│   │                    districts, voronoi, routes, sitemap, author, rich, examples, color, api, geo
 │   ├── i18n/            hook useT() sobre translate/translateList de @votobr/shared
 │   ├── styles/          tokens, base, components, pages (CSS à mão)
 │   ├── analytics.ts     Google Analytics 4 pós-consentimento, eventos e origens de CSP

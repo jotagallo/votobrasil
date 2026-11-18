@@ -41,7 +41,6 @@
   "footer": {
     "disclaimer": "Counterfactual simulation with simplifying assumptions; it is not a forecast. VotoBrasil is independent and has no affiliation with the TSE (Superior Electoral Court) or the government.",
     "links": "Footer links",
-    "source": "Source code",
     "credit": "Developed by",
     "openSource": "Open source on GitHub",
     "data": "Data: TSE (open data) and IBGE (boundaries). Cookies only for usage statistics (LGPD)."
@@ -639,6 +638,12 @@
         "The aim is to offer verifiable data analysis to a relevant public debate. Because the topic is politically contested, the project publishes its data, assumptions and code so that anyone can check and critique them."
       ]
     },
+    "author": {
+      "title": "Author",
+      "body": [
+        "VotoBrasil is conceived and developed independently by [João Otávio Gallo](https://instagram.com/jotagallo)."
+      ]
+    },
     "sources": {
       "title": "Data sources",
       "body": [
@@ -666,11 +671,9 @@
     "contribute": {
       "title": "How to contribute",
       "body": [
-        "Suggestions, corrections and contributions are welcome through issues and pull requests in the repository. Reports of errors in the data or in the descriptions of the systems are especially useful.",
-        "To reproduce the numbers locally, follow the instructions on the [Methodology](/metodologia) page."
-      ],
-      "repoLink": "View the repository",
-      "noRepo": "The repository address has not been configured for this installation (variable `VITE_REPO_URL`)."
+        "Suggestions, corrections and contributions are welcome through issues and pull requests in the project repository. Reports of errors in the data or in the descriptions of the systems are especially useful.",
+        "To reproduce the numbers locally, follow the instructions in the repository."
+      ]
     },
     "credits": {
       "title": "Credits",
@@ -781,10 +784,8 @@
     "reproduce": {
       "title": "Open source and reproduction",
       "body": [
-        "All the code — data extraction, simulation engine, API and this site — is open. The processing is deterministic: given the same source files (checked by the hashes above), it produces the same results.",
-        "To reproduce locally (requires Node.js):"
+        "All the code — data extraction, simulation engine, API and this site — is open. The processing is deterministic: given the same source files (checked by the hashes above), it produces the same results."
       ],
-      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
       "repo": "Open the repository"
     }
   },
