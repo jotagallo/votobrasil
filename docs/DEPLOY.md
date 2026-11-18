@@ -366,7 +366,7 @@ O **primeiro** Deploy leva cerca de 1 h (ETL: cerca de 2,4 GB do TSE/IBGE). O ca
 
 3. No `terraform.tfvars`, acrescente `domain_name = "votobrasil.exemplo.org"` e `acm_certificate_arn = "<ARN>"` (os dois juntos) e rode `make tf-apply`.
 4. No seu DNS, crie um CNAME de `votobrasil.exemplo.org` para o output `cloudfront_domain_name`. Domínios "raiz" (sem subdomínio) exigem ALIAS/ANAME no provedor; sem isso, use um subdomínio.
-5. Atualize `SITE_URL` e faça um novo deploy (qualquer merge na `main`) para que as tags canônicas e Open Graph usem o domínio novo:
+5. Atualize `SITE_URL` e faça um novo deploy (qualquer merge na `main`) para que as tags canônicas, Open Graph e o sitemap usem o domínio novo (as estatísticas só medem o domínio de `SITE_URL`):
 
    ```bash
    gh variable set SITE_URL --repo "$REPO" --body "https://votobrasil.exemplo.org"

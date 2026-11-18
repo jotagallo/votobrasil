@@ -27,6 +27,8 @@ npm run build -w @votobr/web        # typecheck + vite build → apps/web/dist (
 npm run preview -w @votobr/web      # serve dist em :4173 com o mesmo proxy
 ```
 
+`dev`, `build` e `preview` rodam o Vite com `--configLoader runner`: o carregador padrão não consegue importar `@votobr/shared` (TypeScript puro do workspace) a partir de `vite.config.ts`, e o plugin `plugins/site-files.ts` precisa dele. Os testes usam o `vitest.config.ts`, separado, que não carrega os plugins.
+
 ## Variáveis de ambiente (públicas; ver `.env.example`)
 
 | Variável                            | Uso                                                                                                                                           |
@@ -88,8 +90,9 @@ O estado selecionado fica na query (`?sistema=distrital-misto&mapa=mudanca&coali
 
 ```
 apps/web
-├── dev/                 mock da API (somente `vite serve`)
-├── public/              favicon, robots.txt, site.webmanifest
+├── dev/                 mock da API (somente dev/preview)
+├── plugins/             site-files.ts: robots.txt, sitemap.xml e __SITE_URL__ no index.html
+├── public/              favicon, og-image.png (1200×630), site.webmanifest
 ├── src/
 │   ├── components/      Hemicycle, ChamberPanel, BrazilMap, DistrictMap, Winners, Layout…
 │   ├── pages/           uma página por rota (carregadas com React.lazy)
@@ -99,13 +102,19 @@ apps/web
 │   ├── styles/          tokens, base, components, pages (CSS à mão)
 │   ├── analytics.ts     Google Analytics 4 pós-consentimento, eventos e origens de CSP
 │   └── seo.ts           title, description, og:*, twitter:*, canonical e hreflang por rota/idioma
-└── test/                Vitest
+├── test/                Vitest
+└── vitest.config.ts     configuração dos testes (separada de vite.config.ts)
 ```
 
 Os textos de interface ficam **somente** em `packages/shared/src/locales/{pt-BR,en,es}.json` (pt-BR é a fonte; `packages/shared/test/i18n.test.ts` garante as mesmas chaves e placeholders nos três idiomas, e `test/i18n-keys.test.ts` garante que toda chave usada no código existe).
 
+## SEO
+
+- Metatags por rota (`src/seo.ts`): título, descrição, `canonical`, `hreflang`, `og:*` e `twitter:*` (`summary_large_image`, com `public/og-image.png`).
+- `index.html` traz um JSON-LD `WebSite`. O token `__SITE_URL__` é trocado por `VITE_SITE_URL` no build (`plugins/site-files.ts`).
+- `robots.txt` e `sitemap.xml` são gerados no build. O sitemap lista cada página nos três idiomas (com `hreflang`) e as áreas de `data/processed/meta.json`, quando o arquivo existe. Sem `VITE_SITE_URL` não há sitemap nem linha `Sitemap:`, e `og:image` fica relativo.
+
 ## Limitações conhecidas
 
-- Não há imagem `og:image`; os cartões de compartilhamento são apenas texto.
-- `robots.txt` não traz `Sitemap:` (exige URL absoluta, que depende do domínio de produção).
-- As metatags por rota são atualizadas no cliente; rastreadores que não executam JavaScript veem os valores padrão (pt-BR) de `index.html`.
+- As metatags por rota são atualizadas no cliente: o Google executa JavaScript, mas rastreadores de pré-visualização que não o executam (WhatsApp, Facebook, X) veem sempre as metatags da home (pt-BR) de `index.html`.
+- A imagem `og-image.png` está só em português.

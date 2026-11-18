@@ -8,6 +8,7 @@ import {
   parseMeasurementId,
   privacyOptOut,
 } from '../src/analytics';
+import { buildRobots, buildSitemap, sitePaths } from '../src/lib/sitemap';
 import { buildAlternates } from '../src/seo';
 
 function fakeStorage(initial: Record<string, string> = {}) {
@@ -96,5 +97,39 @@ describe('seo: alternates', () => {
       'https://votobr.example/es',
       'https://votobr.example/',
     ]);
+  });
+});
+
+describe('seo: sitemap e robots', () => {
+  it('inclui páginas fixas, casas e as áreas informadas', () => {
+    const paths = sitePaths([{ office: 'federal', code: 'SP' }]);
+    expect(paths).toContain('/');
+    expect(paths).toContain('/sobre');
+    expect(paths).toContain('/casa/federal');
+    expect(paths).toContain('/casa/federal/SP');
+    expect(sitePaths()).not.toContain('/casa/federal/SP');
+  });
+
+  it('gera uma entrada por idioma, cada uma com todas as alternativas', () => {
+    const xml = buildSitemap('https://votobr.example', ['/sistemas']);
+    expect(xml.match(/<url>/g)).toHaveLength(3);
+    expect(xml).toContain('<loc>https://votobr.example/sistemas</loc>');
+    expect(xml).toContain('<loc>https://votobr.example/en/sistemas</loc>');
+    expect(xml).toContain('<loc>https://votobr.example/es/sistemas</loc>');
+    expect(xml.match(/hreflang="x-default"/g)).toHaveLength(3);
+  });
+
+  it('escapa caracteres especiais do XML', () => {
+    const xml = buildSitemap('https://votobr.example', ['/a&b']);
+    expect(xml).toContain('/a&amp;b');
+    expect(xml).not.toContain('/a&b');
+  });
+
+  it('robots.txt só aponta o sitemap quando há origem', () => {
+    expect(buildRobots('https://votobr.example')).toContain(
+      'Sitemap: https://votobr.example/sitemap.xml',
+    );
+    expect(buildRobots('')).not.toContain('Sitemap');
+    expect(buildRobots('')).toContain('Disallow: /api/');
   });
 });
