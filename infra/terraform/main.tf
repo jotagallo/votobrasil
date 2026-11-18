@@ -32,6 +32,17 @@ data "aws_vpc" "default" {
   default = true
 }
 
+# A type offered in the region may be missing from some of its zones (older ones in sa-east-1);
+# launching there would fail, so only zones that offer it get a subnet.
+data "aws_ec2_instance_type_offerings" "instance" {
+  location_type = "availability-zone"
+
+  filter {
+    name   = "instance-type"
+    values = [var.instance_type]
+  }
+}
+
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
@@ -41,6 +52,11 @@ data "aws_subnets" "default" {
   filter {
     name   = "default-for-az"
     values = ["true"]
+  }
+
+  filter {
+    name   = "availability-zone"
+    values = data.aws_ec2_instance_type_offerings.instance.locations
   }
 }
 

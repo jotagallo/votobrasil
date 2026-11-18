@@ -148,7 +148,7 @@ A CSP da API precisa liberar as origens do Google (padrões na tabela acima). A 
 
 ## Deploy
 
-Resumo em [../infra/README.md](../infra/README.md) e passo a passo em [DEPLOY.md](DEPLOY.md): o Terraform cria um Elastic Beanstalk (instância única `t4g.small`, sem load balancer) atrás de um CloudFront; o GitHub Actions publica via OIDC (sem chaves de longa duração). Custo estimado em torno de US$ 18/mês.
+Resumo em [../infra/README.md](../infra/README.md) e passo a passo em [DEPLOY.md](DEPLOY.md): o Terraform cria um Elastic Beanstalk em São Paulo (`sa-east-1`; instância única `t4g.small`, sem load balancer) atrás de um CloudFront; o GitHub Actions publica via OIDC (sem chaves de longa duração). Custo estimado em torno de US$ 27/mês.
 
 ## Contribuindo e segurança
 

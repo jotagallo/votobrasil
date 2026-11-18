@@ -25,7 +25,8 @@ Navegador ──HTTPS──► CloudFront (cache) ──HTTP + segredo──► 
 GitHub Actions ──OIDC (sem chaves)──► papel de deploy ──► S3 + Elastic Beanstalk + CloudFront
 ```
 
-- **Custo:** cerca de **US$ 18/mês** (instância ≈ 12, disco ≈ 2, IPv4 ≈ 4, logs ≈ 0,5; CloudFront no nível gratuito). Detalhes em [`infra/README.md`](../infra/README.md).
+- **Região:** tudo roda em **São Paulo (`sa-east-1`)**, perto do público. Exceção: o certificado de domínio próprio (Etapa 10), que o CloudFront exige em `us-east-1`.
+- **Custo:** cerca de **US$ 27/mês** antes de impostos (instância ≈ 19,6, disco ≈ 3, IPv4 ≈ 3,7, logs ≈ 0,8; CloudFront no nível gratuito). Em `us-east-1` seria ≈ US$ 18. Detalhes em [`infra/README.md`](../infra/README.md).
 - **Tempo (estimativa):** 2 a 3 horas na primeira vez, quase tudo esperando: `apply` de 15 a 25 min; primeiro deploy automático de cerca de 1 h, por causa do ETL.
 
 **Roteiro**
@@ -58,7 +59,7 @@ GitHub Actions ──OIDC (sem chaves)──► papel de deploy ──► S3 + E
 
 1. **Crie a conta** em <https://aws.amazon.com> (e-mail, cartão e telefone). Contas criadas a partir de 15/07/2025 começam no plano **Free**, que é encerrado em até 6 meses (ou quando os créditos acabam) e restringe serviços. Para um site que deve ficar no ar, faça o upgrade para o plano **Paid** no console de _Billing_ (os créditos são mantidos).
 2. **Ative MFA no usuário root:** console → nome da conta (canto superior direito) → _Security credentials_ → _Assign MFA device_. Depois disso, não use o root no dia a dia e nunca crie chaves de acesso para ele.
-3. **Escolha a região** _US East (N. Virginia) us-east-1_ no seletor do console. Todo o guia assume `us-east-1`.
+3. **Escolha a região** _South America (São Paulo) sa-east-1_ no seletor do console. Todo o guia assume `sa-east-1`.
 4. **Crie uma identidade administradora** para o terminal. Ela só será usada até a Etapa 8. Escolha uma opção:
 
    **Opção A (recomendada pela AWS): IAM Identity Center**, login SSO com credenciais temporárias.
@@ -110,7 +111,7 @@ aws configure sso --profile votobr
 aws sso login --profile votobr
 ```
 
-**Opção B (chave de acesso):** cole o _Access Key ID_ e o _Secret access key_; região `us-east-1`; formato `json`.
+**Opção B (chave de acesso):** cole o _Access Key ID_ e o _Secret access key_; região `sa-east-1`; formato `json`.
 
 ```bash
 aws configure --profile votobr
@@ -119,7 +120,7 @@ aws configure --profile votobr
 Depois, em **cada terminal novo** (as variáveis `export` valem só para o terminal atual):
 
 ```bash
-export AWS_PROFILE=votobr AWS_REGION=us-east-1
+export AWS_PROFILE=votobr AWS_REGION=sa-east-1
 aws sts get-caller-identity
 ```
 
@@ -141,10 +142,11 @@ aws iam list-open-id-connect-providers --query 'OpenIDConnectProviderList[].Arn'
 O Terraform precisa de um lugar para guardar o estado **antes** de criar qualquer coisa, então este é o único recurso criado à mão. O bucket é privado, versionado e criptografado:
 
 ```bash
-export TF_BACKEND_REGION=us-east-1
+export TF_BACKEND_REGION=sa-east-1
 export TF_BACKEND_BUCKET="votobr-tfstate-$(aws sts get-caller-identity --query Account --output text)"
 
-aws s3api create-bucket --bucket "$TF_BACKEND_BUCKET" --region "$TF_BACKEND_REGION"
+aws s3api create-bucket --bucket "$TF_BACKEND_BUCKET" --region "$TF_BACKEND_REGION" \
+  --create-bucket-configuration LocationConstraint="$TF_BACKEND_REGION"
 aws s3api put-public-access-block --bucket "$TF_BACKEND_BUCKET" \
   --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
 aws s3api put-bucket-versioning --bucket "$TF_BACKEND_BUCKET" \
@@ -153,7 +155,7 @@ aws s3api put-bucket-encryption --bucket "$TF_BACKEND_BUCKET" \
   --server-side-encryption-configuration '{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
 ```
 
-(Fora de `us-east-1`, acrescente `--create-bucket-configuration LocationConstraint=<região>` ao primeiro comando.)
+(Em `us-east-1`, a AWS recusa o `--create-bucket-configuration`: tire essa linha.)
 
 **Como saber que deu certo:** `aws s3api get-bucket-versioning --bucket "$TF_BACKEND_BUCKET"` mostra `"Status": "Enabled"`.
 
@@ -204,7 +206,7 @@ Por que manual: o primeiro deploy automático precisa rodar o ETL no GitHub (cer
 Defina as variáveis (cole de novo em terminais novos):
 
 ```bash
-export AWS_PROFILE=votobr AWS_REGION=us-east-1
+export AWS_PROFILE=votobr AWS_REGION=sa-east-1
 tfo() { terraform -chdir=infra/terraform output -raw "$1"; }
 REPO=jotagallo/votobrasil
 EB_APP=$(tfo eb_application_name)
@@ -376,7 +378,7 @@ O **primeiro** Deploy leva cerca de 1 h (ETL: cerca de 2,4 GB do TSE/IBGE). O ca
 
 - [ ] `$SITE` abre o VotoBrasil e `$SITE/healthz` responde `{"status":"ok",...}`.
 - [ ] A origem está protegida: `curl -m 5 "http://$(tfo eb_environment_cname)/healthz"` **dá timeout** (só o CloudFront alcança a instância). Se responder, o grupo de segurança está aberto demais.
-- [ ] Se informou `alarm_email`: e-mail do SNS confirmado (Etapa 5) e orçamento `votobr-prod-monthly` visível em _Billing_ → _Budgets_ (avisa a 80% e 100% de US$ 25 de gasto da **conta inteira**).
+- [ ] Se informou `alarm_email`: e-mail do SNS confirmado (Etapa 5) e orçamento `votobr-prod-monthly` visível em _Billing_ → _Budgets_ (avisa a 80% e 100% de US$ 40 de gasto da **conta inteira**, impostos incluídos).
 - [ ] Um deploy automático terminou verde (Etapa 9).
 - [ ] O aviso de cookies aparece em `$SITE` (janela anônima). Se definiu `GA_MEASUREMENT_ID`: depois do “Entendi” (sem Do Not Track), o acesso surge em _Relatórios_ → _Tempo real_ do Google Analytics.
 - [ ] O ambiente `production` do GitHub só aceita a branch `main`.

@@ -1,7 +1,7 @@
 variable "aws_region" {
-  description = "Region for every resource except CloudFront/ACM, which are global (certificates must be in us-east-1). us-east-1 is the cheapest region; sa-east-1 (Sao Paulo) lowers origin latency but costs roughly 40-60% more for EC2/EBS."
+  description = "Region for every resource except CloudFront/ACM, which are global (certificates must be in us-east-1). Defaults to sa-east-1 (Sao Paulo), next to the Brazilian audience; us-east-1 costs about a third less but adds a ~120 ms round trip to every cache miss."
   type        = string
-  default     = "us-east-1"
+  default     = "sa-east-1"
 }
 
 variable "project" {
@@ -107,7 +107,7 @@ variable "alarm_email" {
 }
 
 variable "monthly_budget_usd" {
-  description = "Monthly AWS account cost budget in USD; alerts at 80% and 100% when alarm_email is set."
+  description = "Monthly AWS account cost budget in USD; alerts at 80% and 100% when alarm_email is set. The default leaves headroom over the ~27 USD this stack costs in sa-east-1 (plus taxes, which the budget includes)."
   type        = number
-  default     = 25
+  default     = 40
 }

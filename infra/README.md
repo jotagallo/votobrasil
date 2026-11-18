@@ -39,18 +39,21 @@ API) and `Accept-Encoding`. Every deploy invalidates `/*` (one path, inside the 
 Unknown SPA routes are served as `index.html` by the origin: a CloudFront custom error response is
 distribution-wide and would also rewrite API 404s.
 
-## Cost (us-east-1, on demand, approximate)
+## Cost (sa-east-1, on demand, approximate)
 
 | Item                                          | USD / month     |
 | --------------------------------------------- | --------------- |
-| EC2 `t4g.small` (2 vCPU, 2 GB), 730 h         | 12.3            |
-| EBS gp3 20 GB                                 | 1.6             |
+| EC2 `t4g.small` (2 vCPU, 2 GB), 730 h         | 19.6            |
+| EBS gp3 20 GB                                 | 3.0             |
 | Public IPv4 of the instance                   | 3.7             |
-| CloudWatch Logs (7-day retention), 1 alarm    | ~0.5            |
+| CloudWatch Logs (7-day retention), 1 alarm    | ~0.8            |
 | S3 bundles, SNS, Budgets (2 free), IAM, OIDC  | ~0              |
 | CloudFront (1 TB + 10 M requests always free) | 0 at this scale |
 | Elastic Beanstalk itself                      | 0               |
-| **Total**                                     | **about 18**    |
+| **Total (before taxes)**                      | **about 27**    |
+
+The same stack in `us-east-1` costs about 18 USD: São Paulo charges ~60% more for EC2 and ~90%
+more for EBS; the IPv4 address and CloudFront cost the same everywhere.
 
 Why each decision:
 
@@ -65,9 +68,12 @@ Why each decision:
   Data transfer from EC2 to CloudFront is free.
 - **arm64 (Graviton) `t4g`**: ~20% cheaper than `t3.small` for the same size. The bundle is pure
   JavaScript (esbuild, all dependencies inlined), so it runs unchanged on arm64. If memory allows,
-  `t4g.micro` (1 GB) halves the compute line to ~6 USD; check `free -m` under load first.
-- **`us-east-1`**: cheapest region. `sa-east-1` cuts origin latency for Brazil but costs roughly
-  40-60% more on EC2/EBS; with CloudFront caching, origin latency matters little.
+  `t4g.micro` (1 GB) halves the compute line to ~10 USD; check `free -m` under load first.
+- **`sa-east-1` (São Paulo)**: the audience is Brazilian. CloudFront already answers cache hits
+  from São Paulo edges, but every miss (first request for each API response, and everything after
+  a deploy's invalidation) would otherwise cross to the US and back (~120 ms), and the origin stays
+  in the country. It costs about 9 USD/month more than `us-east-1` (see the table); `aws_region`
+  switches it.
 - **`PriceClass_All`**: South America edge locations are only included in `PriceClass_All`;
   `PriceClass_100` would serve Brazilian users from the US, adding ~100-150 ms to every cache hit.
   It is a variable (`cloudfront_price_class`) if the audience changes.
@@ -75,7 +81,7 @@ Why each decision:
   plus per-rule and per-request fees). See "Known limits".
 
 Prices drift; check the AWS Pricing Calculator before committing to a budget
-(`monthly_budget_usd` defaults to 25).
+(`monthly_budget_usd` defaults to 40, which includes taxes).
 
 ### Why not S3 + CloudFront only?
 
@@ -95,10 +101,10 @@ region, and a GitHub repository with an environment named `production`.
 1. **State bucket** (private, versioned, encrypted; choose a globally unique name):
 
    ```bash
-   export AWS_REGION=us-east-1
+   export AWS_REGION=sa-east-1
    export STATE_BUCKET=<globally-unique-bucket-name>
-   aws s3api create-bucket --bucket "$STATE_BUCKET" --region "$AWS_REGION"
-   # outside us-east-1 add: --create-bucket-configuration LocationConstraint="$AWS_REGION"
+   aws s3api create-bucket --bucket "$STATE_BUCKET" --region "$AWS_REGION" \
+     --create-bucket-configuration LocationConstraint="$AWS_REGION"   # omit this line in us-east-1
    aws s3api put-public-access-block --bucket "$STATE_BUCKET" \
      --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
    aws s3api put-bucket-versioning --bucket "$STATE_BUCKET" --versioning-configuration Status=Enabled
