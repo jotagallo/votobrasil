@@ -81,8 +81,8 @@ Prices drift; check the AWS Pricing Calculator before committing to a budget
 
 For purely static JSON it would cost about 1 USD/month and have no server to patch. We use
 Elastic Beanstalk because the API computes responses on demand (query parameters, validation,
-`ETag`/`Cache-Control` per endpoint, SPA fallback, one process that is identical in local Docker
-and production) and the project requirement is to run on Elastic Beanstalk. If every endpoint
+`ETag`/`Cache-Control` per endpoint, SPA fallback, the same Node.js process locally and in
+production) and the project requirement is to run on Elastic Beanstalk. If every endpoint
 eventually becomes a pre-rendered file produced by the ETL, the S3 route becomes the cheaper option
 and CloudFront, the cache policies and the deploy role carry over unchanged.
 
@@ -157,7 +157,7 @@ region, and a GitHub repository with an environment named `production`.
 ## CI/CD
 
 - `ci.yml` (PRs and `main`): format, lint, typecheck, test, build; `npm audit` (high and above,
-  blocking); gitleaks; `terraform fmt`/`validate`; Docker image build without datasets.
+  blocking); gitleaks; `terraform fmt`/`validate`.
 - `deploy.yml` (after CI succeeds on `main`, or manually): restore or build `data/processed`
   (cache key: `packages/etl/**` + `data/VERSION`), validate, build, bundle; then upload to S3, create
   the application version, update the environment, wait for Ready and Green, invalidate CloudFront,

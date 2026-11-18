@@ -21,7 +21,7 @@ infra/          Terraform (AWS Elastic Beanstalk + CloudFront)
 
 - Node.js 22 (`.nvmrc`) e npm 10+
 - Para gerar os dados: ~3 GB de disco livre e rede. O download inicial do TSE passa de 1 GB, em especial as seções de São Paulo.
-- Opcional: Docker e Terraform (ver [../infra/README.md](../infra/README.md)).
+- Opcional: Terraform e AWS CLI, só para a infraestrutura (ver [../infra/README.md](../infra/README.md)).
 
 ## Como rodar localmente
 
@@ -41,8 +41,6 @@ npm run build
 node apps/api/dist/server.mjs     # http://localhost:8080
 ```
 
-Com Docker: `docker compose up --build app` (ver comentários em [../docker-compose.yml](../docker-compose.yml)).
-
 ### Makefile
 
 O [Makefile](../Makefile) centraliza os comandos do projeto (`make` lista todos). Os principais:
@@ -57,7 +55,7 @@ O [Makefile](../Makefile) centraliza os comandos do projeto (`make` lista todos)
 | `make data-status`  | tamanho de `data/raw`/`data/processed` e `dataVersion` atual                        |
 | `make flush`        | apaga dados processados, builds, coverage e `.cache` (mantém `data/raw`)            |
 | `make flush-raw`    | apaga os downloads do TSE/IBGE (~2 GB) — pede confirmação                           |
-| `make flush-all`    | reset total: dados, builds, `node_modules` e recursos Docker — pede confirmação     |
+| `make flush-all`    | reset total: dados, builds e `node_modules` — pede confirmação                      |
 | `make flush-cdn`    | invalida `/*` no CloudFront de produção (requer credenciais AWS) — pede confirmação |
 
 Use `CONFIRM=1` para pular as confirmações (ex.: em scripts). Após um flush, reinicie a API: os

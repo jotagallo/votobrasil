@@ -83,4 +83,4 @@ Todos são funções puras e determinísticas, cobertas por testes com valores c
 
 ## Infraestrutura e CI/CD
 
-Em [../infra/README.md](../infra/README.md) e `.github/workflows/`: CI (lint, tipos, testes, build, varredura de segredos, checagem da imagem Docker), deploy via OIDC e atualização periódica dos dados.
+Em [../infra/README.md](../infra/README.md) e `.github/workflows/`: CI (lint, tipos, testes, build, varredura de segredos, `terraform validate`), deploy via OIDC e geração dos dados no deploy.

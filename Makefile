@@ -18,7 +18,6 @@ OUT_DIR := $(or $(VOTOBR_OUT_DIR),$(ROOT)/data/processed)
 TF_DIR := $(ROOT)/infra/terraform
 
 NPM ?= npm
-COMPOSE ?= docker compose
 TERRAFORM ?= terraform
 AWS ?= aws
 
@@ -160,17 +159,11 @@ flush-raw: ## Apaga os downloads do TSE/IBGE (data/raw, ~2 GB; próximo ETL baix
 clean: ## Apaga builds, bundle, coverage e .cache
 	$(call safe_rm,$(foreach p,$(BUILD_ARTIFACTS),"$(p)"))
 
-.PHONY: flush-docker
-flush-docker: ## Remove containers, volume de node_modules e imagens locais do Compose
-	$(call confirm,Isto remove containers, volumes e imagens do projeto votobr no Docker.)
-	$(COMPOSE) --profile dev --profile etl down --volumes --remove-orphans --rmi all
-
 .PHONY: flush-all
-flush-all: ## Reset total: dados (inclusive data/raw), builds, node_modules e Docker
-	$(call confirm,Reset total: apaga data/raw, data/processed, builds, node_modules e recursos Docker.)
+flush-all: ## Reset total: dados (inclusive data/raw), builds e node_modules
+	$(call confirm,Reset total: apaga data/raw, data/processed, builds e node_modules.)
 	@$(MAKE) --no-print-directory flush CONFIRM=1
 	@$(MAKE) --no-print-directory flush-raw CONFIRM=1
-	@if command -v docker >/dev/null 2>&1; then $(MAKE) --no-print-directory flush-docker CONFIRM=1 || true; fi
 	$(call safe_rm,"$(ROOT)/node_modules" $(foreach w,apps/api apps/web packages/etl packages/shared,"$(ROOT)/$(w)/node_modules"))
 	@echo "Reset concluído. Rode 'make install' e 'make data'."
 
@@ -182,28 +175,6 @@ flush-cdn: ## Invalida todo o cache do CloudFront em produção (/*)
 	inv="$$($(AWS) cloudfront create-invalidation --distribution-id "$$id" --paths '/*' --query Invalidation.Id --output text)" || exit 1; \
 	echo "Invalidação $$inv criada; aguardando..."; \
 	$(AWS) cloudfront wait invalidation-completed --distribution-id "$$id" --id "$$inv" && echo "CloudFront limpo."
-
-##@ Docker
-
-.PHONY: up
-up: ## Imagem de produção em :8080 (dados montados de data/processed)
-	$(COMPOSE) up --build app
-
-.PHONY: up-dev
-up-dev: ## Ambiente dev em container (API :8080, web :5173)
-	$(COMPOSE) --profile dev up dev
-
-.PHONY: up-etl
-up-etl: ## Roda o ETL em container, gerando ./data/processed
-	$(COMPOSE) --profile etl run --rm etl
-
-.PHONY: down
-down: ## Para e remove os containers (mantém volumes e imagens)
-	$(COMPOSE) --profile dev --profile etl down --remove-orphans
-
-.PHONY: logs
-logs: ## Acompanha os logs dos containers
-	$(COMPOSE) --profile dev --profile etl logs -f
 
 ##@ Infra (Terraform)
 

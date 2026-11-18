@@ -6,7 +6,7 @@ import { buildRobots, buildSitemap, sitePaths, type AreaRef } from '../src/lib/s
 
 const SITE_TOKEN = '__SITE_URL__';
 
-/** Áreas simuláveis, lidas do `meta.json` do ETL quando ele existe (CI e Docker compilam sem dados). */
+/** Áreas simuláveis, lidas do `meta.json` do ETL quando ele existe (o CI compila sem dados). */
 function readAreas(root: string): AreaRef[] {
   const file = path.resolve(root, '../../data/processed/meta.json');
   if (!existsSync(file)) return [];

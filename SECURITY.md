@@ -25,7 +25,6 @@ In scope:
 - The infrastructure code in `infra/` and the CI/CD workflows in `.github/`
   (for example: overly broad IAM permissions, a way to bypass the CloudFront-only origin
   protection, workflow injection, or a way to exfiltrate credentials).
-- The Docker image built from the `Dockerfile`.
 
 Out of scope:
 

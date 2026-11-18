@@ -6,7 +6,7 @@ A referência técnica (em inglês) é o [`infra/README.md`](../infra/README.md)
 
 > **Leia antes de começar: o que foi e o que não foi testado**
 >
-> **Verificado sem acesso à AWS:** o CI valida `terraform fmt`/`validate` e constrói a imagem Docker; o pacote de deploy (`dist/bundle.zip`) foi gerado e o servidor rodou localmente em modo produção (proteção de origem, cabeçalhos de cache, `/healthz`); os SHAs das GitHub Actions, os ARNs das políticas gerenciadas e o nome do _solution stack_ Node.js 22 do Elastic Beanstalk conferem com a documentação da AWS.
+> **Verificado sem acesso à AWS:** o CI valida `terraform fmt`/`validate`; o pacote de deploy (`dist/bundle.zip`) foi gerado e o servidor rodou localmente em modo produção (proteção de origem, cabeçalhos de cache, `/healthz`); os SHAs das GitHub Actions, os ARNs das políticas gerenciadas e o nome do _solution stack_ Node.js 22 do Elastic Beanstalk conferem com a documentação da AWS.
 >
 > **Nunca aplicado em uma conta real:** o `terraform apply` completo, as permissões do papel de deploy do GitHub, a verificação de contas novas do CloudFront e o download dos dados do TSE/IBGE a partir dos servidores do GitHub. Por isso o roteiro tem um teste intermediário (Etapa 8) e a seção [Problemas comuns](#problemas-comuns) lista as falhas mais prováveis. É normal precisar de um ou dois ajustes na primeira vez.
 
@@ -315,7 +315,7 @@ Se usou a Opção B na Etapa 1 (chave de acesso), **apague a chave agora**: IAM 
 
 ```
 merge em main
-  └─► CI (formato, lint, testes, build, terraform validate, Docker, gitleaks)
+  └─► CI (formato, lint, testes, build, terraform validate, gitleaks)
         └─► Deploy
               ├─ build:  ETL (só se o cache de dados não existir) → bundle.zip     [sem acesso à AWS]
               └─ deploy: login OIDC → S3 → Elastic Beanstalk → invalida CloudFront → teste de fumaça
