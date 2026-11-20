@@ -308,11 +308,12 @@ describe('API', () => {
     expect(api404.json().error.code).toBe('not_found');
   });
 
-  it('envia cabeçalhos de segurança e CSP com o Umami', async () => {
+  it('envia cabeçalhos de segurança e a CSP com as origens das estatísticas', async () => {
     const res = await get('/');
     const csp = res.headers['content-security-policy'] as string;
     expect(csp).toContain("default-src 'self'");
-    expect(csp).toContain("script-src 'self' https://cloud.umami.is");
+    expect(csp).toContain("script-src 'self' https://*.googletagmanager.com");
+    expect(csp).toContain('https://*.google-analytics.com');
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).not.toContain('upgrade-insecure-requests');
     expect(res.headers['x-content-type-options']).toBe('nosniff');

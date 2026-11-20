@@ -24,11 +24,6 @@ updates:
         patterns:
           - '*'
 
-  - package-ecosystem: docker
-    directory: '/'
-    schedule:
-      interval: weekly
-
   - package-ecosystem: terraform
     directory: '/infra/terraform'
     schedule:

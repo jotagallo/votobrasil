@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { Paragraphs, Rich } from '../components/Rich';
+import { PageHero } from '../components/PageHero';
+import { Rich } from '../components/Rich';
 import { usePageMeta } from '../hooks';
 import { useT } from '../i18n';
+import { AUTHOR_LINKS } from '../lib/author';
 import { PATHS } from '../lib/routes';
 
 export default function AboutPage() {
@@ -11,7 +13,6 @@ export default function AboutPage() {
     description: t('meta.about.description'),
     path: PATHS.about,
   });
-  const repoUrl = import.meta.env.VITE_REPO_URL?.trim();
 
   // Âncoras (`/sobre#privacy`, usada pelo aviso de privacidade): a página é carregada sob demanda.
   useEffect(() => {
@@ -22,45 +23,44 @@ export default function AboutPage() {
   }, []);
   const sections = [
     'project',
+    'author',
     'sources',
     'independence',
     'privacy',
     'contribute',
     'credits',
   ] as const;
+  const [, personalSiteLink] = AUTHOR_LINKS;
 
   return (
-    <div className="container page">
-      <p className="eyebrow">{t('nav.about')}</p>
-      <h1 className="page-title">{t('about.title')}</h1>
-      <p className="section-lede">{t('about.lede')}</p>
-
-      {sections.map((key) => (
-        <section key={key} id={key} className="prose-section" aria-labelledby={`about-${key}`}>
-          <h2 id={`about-${key}`} className="section-title">
-            {t(`about.${key}.title`)}
-          </h2>
-          <div className="prose">
-            <Paragraphs items={tl(`about.${key}.body`)} />
-            {key === 'contribute' ? (
-              <p>
-                {repoUrl ? (
-                  <a
-                    href={repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--ghost"
-                  >
-                    {t('about.contribute.repoLink')}
-                  </a>
-                ) : (
-                  <Rich text={t('about.contribute.noRepo')} />
-                )}
-              </p>
-            ) : null}
-          </div>
-        </section>
-      ))}
-    </div>
+    <>
+      <PageHero eyebrow={t('nav.about')} title={t('about.title')} lede={t('about.lede')} />
+      <div className="container page page--reading">
+        {sections.map((key) => (
+          <section key={key} id={key} className="prose-section" aria-labelledby={`about-${key}`}>
+            <h2 id={`about-${key}`} className="section-title">
+              {t(`about.${key}.title`)}
+            </h2>
+            <div className="prose">
+              {tl(`about.${key}.body`).map((text, index, paragraphs) => (
+                <p key={index}>
+                  <Rich text={text} />
+                  {key === 'author' && index === paragraphs.length - 1 ? (
+                    <>
+                      {' '}
+                      <span aria-hidden="true">·</span>
+                      {'\u00a0'}
+                      <a href={personalSiteLink.href} target="_blank" rel="noopener noreferrer">
+                        {personalSiteLink.label}
+                      </a>
+                    </>
+                  ) : null}
+                </p>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </>
   );
 }

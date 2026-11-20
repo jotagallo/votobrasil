@@ -49,14 +49,14 @@ svg {
 }
 
 a {
-  color: var(--blue-700);
+  color: var(--brand-700);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.2em;
   transition: color var(--duration) var(--ease);
 }
 
 a:hover {
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 button,
@@ -85,7 +85,7 @@ summary {
 }
 
 :focus-visible {
-  outline: 3px solid var(--blue-700);
+  outline: 3px solid var(--brand-700);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -116,7 +116,7 @@ svg a:focus-visible {
   top: -4rem;
   z-index: 50;
   padding: var(--space-3) var(--space-5);
-  background: var(--blue-900);
+  background: var(--brand-900);
   border-radius: var(--radius-pill);
   color: #fff;
   font-weight: 700;
@@ -171,7 +171,7 @@ svg a:focus-visible {
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .site-header {
-    background: rgb(255 255 255 / 0.78);
+    background: rgb(255 255 255 / 0.86);
     -webkit-backdrop-filter: saturate(1.5) blur(16px);
     backdrop-filter: saturate(1.5) blur(16px);
   }
@@ -200,9 +200,10 @@ svg a:focus-visible {
 }
 
 .brand__mark {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 2.25rem;
   flex: none;
+  color: var(--brand-900);
 }
 
 .brand__name {
@@ -211,8 +212,30 @@ svg a:focus-visible {
   letter-spacing: -0.035em;
 }
 
-.brand__name span {
-  color: var(--green-700);
+.wordmark {
+  --wordmark-green: var(--green-700);
+  --wordmark-yellow: var(--yellow-700);
+  color: var(--brand-900);
+  white-space: nowrap;
+}
+
+/* Um único corte diagonal divide as cores dentro dos glifos. */
+.wordmark > span {
+  background-image: linear-gradient(
+    168deg,
+    var(--wordmark-green) 57.5%,
+    var(--wordmark-yellow) 57.5%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (forced-colors: active) {
+  .wordmark > span {
+    background-image: none;
+    color: CanvasText;
+  }
 }
 
 .menu-toggle {
@@ -231,7 +254,7 @@ svg a:focus-visible {
 }
 
 .menu-toggle:hover {
-  background: var(--blue-100);
+  background: var(--brand-100);
 }
 
 .menu-toggle__icon,
@@ -317,13 +340,13 @@ svg a:focus-visible {
 }
 
 .nav__link:hover {
-  background: var(--blue-50);
-  color: var(--blue-900);
+  background: var(--brand-50);
+  color: var(--brand-900);
 }
 
 .nav__link.is-active {
-  background: var(--blue-100);
-  color: var(--blue-900);
+  background: var(--brand-100);
+  color: var(--brand-900);
   font-weight: 700;
 }
 
@@ -355,12 +378,12 @@ svg a:focus-visible {
 }
 
 .lang__link:hover {
-  background: var(--blue-100);
-  color: var(--blue-900);
+  background: var(--brand-100);
+  color: var(--brand-900);
 }
 
 .lang__link.is-active {
-  background: var(--blue-900);
+  background: var(--brand-900);
   color: #fff;
 }
 
@@ -429,10 +452,22 @@ svg a:focus-visible {
 
 /* Rodapé */
 .site-footer {
-  background: var(--blue-950);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  color: #c4cce2;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(40rem 18rem at 100% 0%, rgb(0 156 59 / 0.18), transparent 70%),
+    radial-gradient(36rem 18rem at 0% 100%, rgb(71 11 162 / 0.35), transparent 70%),
+    var(--brand-950);
+  color: var(--on-dark-soft);
   font-size: var(--text-small);
+  text-align: center;
+}
+
+.site-footer::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: var(--grad-brand);
 }
 
 .site-footer a {
@@ -455,20 +490,33 @@ svg a:focus-visible {
 
 .site-footer__brand {
   margin-bottom: var(--space-3);
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.035em;
 }
 
-.site-footer__brand span {
-  color: var(--yellow);
+.site-footer__mark {
+  width: 3.25rem;
+  height: 2.375rem;
+  flex: none;
+  color: #fff;
+}
+
+.site-footer .wordmark {
+  --wordmark-green: var(--green-glow);
+  --wordmark-yellow: var(--yellow);
+  color: var(--on-dark);
 }
 
 .site-footer__note {
   max-width: 34rem;
+  margin-inline: auto;
   margin-bottom: var(--space-3);
-  color: #aeb9d6;
+  color: #c4aed6;
 }
 
 .site-footer__links li a {
@@ -483,20 +531,53 @@ svg a:focus-visible {
   text-decoration: underline;
 }
 
-.site-footer__button {
+.site-footer__bar {
+  border-top: 1px solid var(--line-dark);
+}
+
+.site-footer__signature {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+}
+
+.site-footer__credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 var(--space-3);
+  color: var(--on-dark-muted);
+  font-size: 0.85rem;
+}
+
+.site-footer__credit > span:first-child {
+  flex-basis: 100%;
+}
+
+@media (min-width: 40rem) {
+  .site-footer__credit > span:first-child {
+    flex-basis: auto;
+  }
+}
+
+.site-footer__authors,
+.site-footer__credit-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.site-footer__credit a {
   display: inline-flex;
   align-items: center;
   min-height: var(--touch);
-  padding: 0;
-  background: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
 }
 
-.site-footer__button:hover {
+.site-footer__credit a:hover {
   text-decoration: underline;
 }
 
@@ -553,7 +634,7 @@ svg a:focus-visible {
 
 .lang-footer .lang__link.is-active {
   background: #fff;
-  color: var(--blue-900);
+  color: var(--brand-900);
 }
 
 .lang-footer + .site-footer__note {
@@ -562,7 +643,7 @@ svg a:focus-visible {
 
 @media (min-width: 48rem) {
   .site-footer__grid {
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-7);
   }
 }

@@ -1,7 +1,7 @@
 variable "aws_region" {
-  description = "Region for every resource except CloudFront/ACM, which are global (certificates must be in us-east-1). us-east-1 is the cheapest region; sa-east-1 (Sao Paulo) lowers origin latency but costs roughly 40-60% more for EC2/EBS."
+  description = "Region for every resource except CloudFront/ACM, which are global (certificates must be in us-east-1). Defaults to sa-east-1 (Sao Paulo), next to the Brazilian audience; us-east-1 costs about a third less but adds a ~120 ms round trip to every cache miss."
   type        = string
-  default     = "us-east-1"
+  default     = "sa-east-1"
 }
 
 variable "project" {
@@ -67,13 +67,13 @@ variable "create_github_oidc_provider" {
 }
 
 variable "domain_name" {
-  description = "Optional custom domain served by CloudFront (e.g. votobr.example.org). Requires acm_certificate_arn. DNS is not managed here: create a CNAME to the cloudfront_domain_name output."
+  description = "Optional custom domain served by CloudFront (e.g. votobr.example.org). Set it without acm_certificate_arn to request a DNS-validated ACM certificate. DNS records are configured separately."
   type        = string
   default     = ""
 }
 
 variable "acm_certificate_arn" {
-  description = "Optional ACM certificate ARN for domain_name. Must be issued in us-east-1 (CloudFront requirement). Empty uses the default *.cloudfront.net certificate."
+  description = "Optional ARN of an existing issued ACM certificate for domain_name in us-east-1. Empty requests a new certificate when domain_name is set; otherwise CloudFront uses its default certificate."
   type        = string
   default     = ""
 
@@ -107,7 +107,7 @@ variable "alarm_email" {
 }
 
 variable "monthly_budget_usd" {
-  description = "Monthly AWS account cost budget in USD; alerts at 80% and 100% when alarm_email is set."
+  description = "Monthly AWS account cost budget in USD; alerts at 80% and 100% when alarm_email is set. The default leaves headroom over the ~27 USD this stack costs in sa-east-1 (plus taxes, which the budget includes)."
   type        = number
-  default     = 25
+  default     = 40
 }

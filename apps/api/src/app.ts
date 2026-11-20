@@ -186,7 +186,7 @@ export async function buildApp(config: Config): Promise<App> {
         'default-src': ["'self'"],
         'script-src': ["'self'", ...config.cspScriptSrc],
         'connect-src': ["'self'", ...config.cspConnectSrc],
-        'img-src': ["'self'", 'data:'],
+        'img-src': ["'self'", 'data:', ...config.cspImgSrc],
         'style-src': ["'self'"],
         'style-src-attr': ["'unsafe-inline'"],
         'font-src': ["'self'"],

@@ -53,9 +53,12 @@ export interface PageMeta {
   noindex?: boolean;
 }
 
+const SOCIAL_IMAGE_PATH = '/og-image.png';
+
 export function applyPageMeta(meta: PageMeta): void {
   const origin = siteOrigin();
   const url = `${origin}${withLocale(meta.locale, meta.path)}`;
+  const imageUrl = `${origin}${SOCIAL_IMAGE_PATH}`;
 
   document.title = meta.title;
   document.documentElement.lang = HTML_LANG[meta.locale];
@@ -68,8 +71,11 @@ export function applyPageMeta(meta: PageMeta): void {
   upsertMeta('property', 'og:description', meta.description);
   upsertMeta('property', 'og:url', url);
   upsertMeta('property', 'og:locale', OG_LOCALES[meta.locale]);
+  upsertMeta('property', 'og:image', imageUrl);
+  upsertMeta('name', 'twitter:card', 'summary_large_image');
   upsertMeta('name', 'twitter:title', meta.title);
   upsertMeta('name', 'twitter:description', meta.description);
+  upsertMeta('name', 'twitter:image', imageUrl);
 
   document.head
     .querySelectorAll('meta[property="og:locale:alternate"]')

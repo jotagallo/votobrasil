@@ -18,11 +18,11 @@ describe('mock da API de desenvolvimento', () => {
     expect(api.handle(new URL('/outra-coisa', 'http://localhost'))).toBeNull();
   });
 
-  it('descreve as três casas, 27 UFs e 11 cidades', () => {
+  it('descreve as três casas, 27 UFs e 28 cidades', () => {
     const { body } = get<MetaResponse>('/api/v1/meta');
     expect(Object.keys(body.offices).sort()).toEqual(['federal', 'municipal', 'state']);
     expect(body.offices.federal.areas).toHaveLength(27);
-    expect(body.offices.municipal.areas).toHaveLength(11);
+    expect(body.offices.municipal.areas).toHaveLength(28);
     expect(body.sources.length).toBeGreaterThan(0);
   }, 60_000);
 

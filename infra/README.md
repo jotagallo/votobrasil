@@ -4,6 +4,8 @@ VotoBrasil is one Node.js process (Fastify API + static SPA + processed datasets
 single AWS Elastic Beanstalk instance, **always behind CloudFront**. Infrastructure is Terraform
 (`infra/terraform`); deployments are GitHub Actions using AWS OIDC (no static AWS keys).
 
+First time on AWS? A step-by-step guide in Portuguese lives in [`docs/DEPLOY.md`](../docs/DEPLOY.md).
+
 ## Architecture
 
 ```mermaid
@@ -37,18 +39,21 @@ API) and `Accept-Encoding`. Every deploy invalidates `/*` (one path, inside the 
 Unknown SPA routes are served as `index.html` by the origin: a CloudFront custom error response is
 distribution-wide and would also rewrite API 404s.
 
-## Cost (us-east-1, on demand, approximate)
+## Cost (sa-east-1, on demand, approximate)
 
 | Item                                          | USD / month     |
 | --------------------------------------------- | --------------- |
-| EC2 `t4g.small` (2 vCPU, 2 GB), 730 h         | 12.3            |
-| EBS gp3 20 GB                                 | 1.6             |
+| EC2 `t4g.small` (2 vCPU, 2 GB), 730 h         | 19.6            |
+| EBS gp3 20 GB                                 | 3.0             |
 | Public IPv4 of the instance                   | 3.7             |
-| CloudWatch Logs (7-day retention), 1 alarm    | ~0.5            |
+| CloudWatch Logs (7-day retention), 1 alarm    | ~0.8            |
 | S3 bundles, SNS, Budgets (2 free), IAM, OIDC  | ~0              |
 | CloudFront (1 TB + 10 M requests always free) | 0 at this scale |
 | Elastic Beanstalk itself                      | 0               |
-| **Total**                                     | **about 18**    |
+| **Total (before taxes)**                      | **about 27**    |
+
+The same stack in `us-east-1` costs about 18 USD: São Paulo charges ~60% more for EC2 and ~90%
+more for EBS; the IPv4 address and CloudFront cost the same everywhere.
 
 Why each decision:
 
@@ -63,9 +68,12 @@ Why each decision:
   Data transfer from EC2 to CloudFront is free.
 - **arm64 (Graviton) `t4g`**: ~20% cheaper than `t3.small` for the same size. The bundle is pure
   JavaScript (esbuild, all dependencies inlined), so it runs unchanged on arm64. If memory allows,
-  `t4g.micro` (1 GB) halves the compute line to ~6 USD; check `free -m` under load first.
-- **`us-east-1`**: cheapest region. `sa-east-1` cuts origin latency for Brazil but costs roughly
-  40-60% more on EC2/EBS; with CloudFront caching, origin latency matters little.
+  `t4g.micro` (1 GB) halves the compute line to ~10 USD; check `free -m` under load first.
+- **`sa-east-1` (São Paulo)**: the audience is Brazilian. CloudFront already answers cache hits
+  from São Paulo edges, but every miss (first request for each API response, and everything after
+  a deploy's invalidation) would otherwise cross to the US and back (~120 ms), and the origin stays
+  in the country. It costs about 9 USD/month more than `us-east-1` (see the table); `aws_region`
+  switches it.
 - **`PriceClass_All`**: South America edge locations are only included in `PriceClass_All`;
   `PriceClass_100` would serve Brazilian users from the US, adding ~100-150 ms to every cache hit.
   It is a variable (`cloudfront_price_class`) if the audience changes.
@@ -73,14 +81,14 @@ Why each decision:
   plus per-rule and per-request fees). See "Known limits".
 
 Prices drift; check the AWS Pricing Calculator before committing to a budget
-(`monthly_budget_usd` defaults to 25).
+(`monthly_budget_usd` defaults to 40, which includes taxes).
 
 ### Why not S3 + CloudFront only?
 
 For purely static JSON it would cost about 1 USD/month and have no server to patch. We use
 Elastic Beanstalk because the API computes responses on demand (query parameters, validation,
-`ETag`/`Cache-Control` per endpoint, SPA fallback, one process that is identical in local Docker
-and production) and the project requirement is to run on Elastic Beanstalk. If every endpoint
+`ETag`/`Cache-Control` per endpoint, SPA fallback, the same Node.js process locally and in
+production) and the project requirement is to run on Elastic Beanstalk. If every endpoint
 eventually becomes a pre-rendered file produced by the ETL, the S3 route becomes the cheaper option
 and CloudFront, the cache policies and the deploy role carry over unchanged.
 
@@ -93,10 +101,10 @@ region, and a GitHub repository with an environment named `production`.
 1. **State bucket** (private, versioned, encrypted; choose a globally unique name):
 
    ```bash
-   export AWS_REGION=us-east-1
+   export AWS_REGION=sa-east-1
    export STATE_BUCKET=<globally-unique-bucket-name>
-   aws s3api create-bucket --bucket "$STATE_BUCKET" --region "$AWS_REGION"
-   # outside us-east-1 add: --create-bucket-configuration LocationConstraint="$AWS_REGION"
+   aws s3api create-bucket --bucket "$STATE_BUCKET" --region "$AWS_REGION" \
+     --create-bucket-configuration LocationConstraint="$AWS_REGION"   # omit this line in us-east-1
    aws s3api put-public-access-block --bucket "$STATE_BUCKET" \
      --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
    aws s3api put-bucket-versioning --bucket "$STATE_BUCKET" --versioning-configuration Status=Enabled
@@ -106,7 +114,7 @@ region, and a GitHub repository with an environment named `production`.
 
 2. **Variables**: `cp infra/terraform/terraform.tfvars.example infra/terraform/terraform.tfvars`
    (git-ignored) and set at least `github_repository` (`owner/repo`). Optional: `alarm_email`,
-   `domain_name` + `acm_certificate_arn` (certificate issued in **us-east-1**),
+   `domain_name` (follow step 5 before applying if requesting a new certificate),
    `create_github_oidc_provider = false` if the account already has the GitHub OIDC provider.
 
 3. **Apply**:
@@ -129,24 +137,29 @@ region, and a GitHub repository with an environment named `production`.
    (this is what pins who can assume the role, because the OIDC subject contains the environment,
    not the branch) and optionally add required reviewers. Then set:
 
-   | Where                      | Kind     | Name                         | Value (from `terraform output`)                |
-   | -------------------------- | -------- | ---------------------------- | ---------------------------------------------- |
-   | Environment `production`   | secret   | `AWS_ROLE_ARN`               | `deploy_role_arn`                              |
-   | Environment `production`   | variable | `AWS_REGION`                 | `aws_region`                                   |
-   | Environment `production`   | variable | `EB_APPLICATION`             | `eb_application_name`                          |
-   | Environment `production`   | variable | `EB_ENVIRONMENT`             | `eb_environment_name`                          |
-   | Environment `production`   | variable | `ARTIFACTS_BUCKET`           | `artifacts_bucket`                             |
-   | Environment `production`   | variable | `CLOUDFRONT_DISTRIBUTION_ID` | `cloudfront_distribution_id`                   |
-   | Repository                 | variable | `SITE_URL`                   | `site_url` (custom domain once DNS points)     |
-   | Repository                 | variable | `VITE_UMAMI_WEBSITE_ID`      | your Umami website ID (public)                 |
-   | Repository (optional)      | variable | `VITE_UMAMI_SRC`             | defaults to `https://cloud.umami.is/script.js` |
-   | Repository (organisations) | secret   | `GITLEAKS_LICENSE`           | free key from gitleaks.io, only for org repos  |
+   | Where                      | Kind     | Name                         | Value (from `terraform output`)               |
+   | -------------------------- | -------- | ---------------------------- | --------------------------------------------- |
+   | Environment `production`   | secret   | `AWS_ROLE_ARN`               | `deploy_role_arn`                             |
+   | Environment `production`   | variable | `AWS_REGION`                 | `aws_region`                                  |
+   | Environment `production`   | variable | `EB_APPLICATION`             | `eb_application_name`                         |
+   | Environment `production`   | variable | `EB_ENVIRONMENT`             | `eb_environment_name`                         |
+   | Environment `production`   | variable | `ARTIFACTS_BUCKET`           | `artifacts_bucket`                            |
+   | Environment `production`   | variable | `CLOUDFRONT_DISTRIBUTION_ID` | `cloudfront_distribution_id`                  |
+   | Repository                 | variable | `SITE_URL`                   | `site_url` (custom domain once DNS points)    |
+   | Repository (optional)      | variable | `GA_MEASUREMENT_ID`          | Google Analytics 4 measurement ID (`G-…`)     |
+   | Repository (organisations) | secret   | `GITLEAKS_LICENSE`           | free key from gitleaks.io, only for org repos |
 
-   `SITE_URL` and the `VITE_*` values are repository variables because the build job deliberately
+   `SITE_URL` and `GA_MEASUREMENT_ID` are repository variables because the build job deliberately
    runs without the `production` environment (see "Secrets"). None of these values is a credential.
+   Without `GA_MEASUREMENT_ID` the site ships no analytics (the cookie notice is still shown). Without `SITE_URL`
+   the build emits no `sitemap.xml` and no absolute Open Graph URLs.
 
-5. **Custom domain** (optional): create a CNAME from `domain_name` to the `cloudfront_domain_name`
-   output at your DNS provider, then set `SITE_URL` to `https://<domain_name>`.
+5. **Custom domain** (optional): follow [Etapa 10](../docs/DEPLOY.md#etapa-10-domínio-próprio-opcional)
+   to request a free ACM certificate in **us-east-1**, publish its DNS validation CNAME, and
+   point the domain to CloudFront. ACM renews the certificate while it is in use and the
+   validation CNAME remains public. To reuse an already issued certificate, set
+   `acm_certificate_arn` as well. Without a custom domain, CloudFront serves HTTPS using
+   its default certificate.
 
 6. **First deploy**: merge to `main` (CI, then Deploy) or run the **Deploy** workflow from `main`.
    The first run builds the datasets (several minutes) and caches them.
@@ -154,14 +167,41 @@ region, and a GitHub repository with an environment named `production`.
 ## CI/CD
 
 - `ci.yml` (PRs and `main`): format, lint, typecheck, test, build; `npm audit` (high and above,
-  blocking); gitleaks; `terraform fmt`/`validate`; Docker image build without datasets.
+  blocking); gitleaks; `terraform fmt`/`validate`.
 - `deploy.yml` (after CI succeeds on `main`, or manually): restore or build `data/processed`
   (cache key: `packages/etl/**` + `data/VERSION`), validate, build, bundle; then upload to S3, create
   the application version, update the environment, wait for Ready and Green, invalidate CloudFront,
   smoke-test `/healthz` through CloudFront. Runs are serialised.
-- `data-refresh.yml` (monthly or manual): rebuilds the data from TSE/IBGE without cache, runs
-  `data:validate`, uploads `data/processed` as an artifact (30 days). It never deploys: to ship new
-  data, bump `data/VERSION` on `main`.
+- `data-refresh.yml` (manual only, no schedule): a dry run of the ETL without cache. Rebuilds the
+  data from TSE/IBGE, runs `data:validate`, uploads `data/processed` as an artifact (30 days). It
+  never deploys: to ship new data, bump `data/VERSION` on `main`.
+
+### Where the ETL runs
+
+The datasets are built **only at deploy time**: in the `build` job of `deploy.yml`, and only on a
+cache miss. The elections are over, so nothing refreshes them on a schedule. The raw TSE/IBGE
+downloads (about 2.4 GB) stay on the runner; only `data/processed` (about 10 MB) travels inside
+`bundle.zip`. The instance never talks to TSE, a rollback restores the data that shipped with that
+version, and a replaced instance comes up with its data already in place.
+
+It deliberately does **not** run as an Elastic Beanstalk platform hook on the instance (`predeploy`
+would be the right one; `postdeploy` runs after the new version is already live):
+
+- the `t4g.small` (2 GB RAM, burstable CPU) would download and unzip several GB next to the live API;
+- the command timeout (`aws:elasticbeanstalk:command` `Timeout`) tops out at 3600 s, a hard ceiling
+  for an ETL that has never been timed;
+- hooks run again on every instance replacement, including managed platform updates, repeating the
+  ETL each time;
+- a failing hook aborts the deployment and every debugging iteration costs a full ETL run.
+
+Trade-off: GitHub evicts a cache entry after 7 days without access, so the first deploy after a long
+pause rebuilds the datasets (as does any change under `packages/etl/`). To force a rebuild on
+purpose, bump `data/VERSION`. To regenerate on a workstation, use `make data-refresh`.
+
+The `build` job declares `cache-mode: write`: since 2026-06 GitHub gives `workflow_run` runs (like
+this one) a read-only cache by default, which would silently skip saving the datasets and re-run the
+ETL on every deploy. It is safe because the job's `if` admits only same-repository push runs on
+`main` and manual runs on `main`; GitHub annotates each run with a warning about the write access.
 
 ## Rollback
 

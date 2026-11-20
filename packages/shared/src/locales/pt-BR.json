@@ -40,16 +40,15 @@
   "footer": {
     "disclaimer": "Simulação contrafactual com premissas simplificadoras; não é previsão de resultados. O VotoBrasil é independente e não tem vínculo com o TSE nem com o governo.",
     "links": "Links do rodapé",
-    "source": "Código-fonte",
-    "data": "Dados: TSE (dados abertos) e IBGE (malhas territoriais). Sem cookies; estatísticas de uso só com consentimento (LGPD)."
+    "credit": "Desenvolvido por",
+    "openSource": "Código aberto no GitHub",
+    "data": "Dados: TSE (dados abertos) e IBGE (malhas territoriais). Cookies apenas para estatísticas de uso (LGPD)."
   },
   "consent": {
-    "label": "Aviso de privacidade",
-    "text": "Usamos estatísticas de audiência sem cookies (Umami) para saber, de forma agregada, quais páginas e simulações são usadas. Elas só são ativadas com o seu consentimento, conforme a LGPD (Lei 13.709/2018), e você pode mudar de ideia a qualquer momento em “Preferências de privacidade”, no rodapé.",
+    "label": "Aviso de cookies",
+    "text": "Usamos cookies apenas para estatísticas de uso do site (quais páginas e simulações são mais acessadas), de forma agregada e sem fins publicitários. Ao clicar em “Entendi”, você concorda com esse uso, conforme a LGPD (Lei 13.709/2018).",
     "more": "Saiba mais",
-    "accept": "Aceitar",
-    "reject": "Recusar",
-    "manage": "Preferências de privacidade"
+    "accept": "Entendi"
   },
   "common": {
     "loading": "Carregando…",
@@ -412,9 +411,9 @@
       "pickHint": "Cada Assembleia Legislativa é eleita separadamente, então somar as 27 casas não diz muito. Clique no mapa ou na lista para ver o resultado oficial e a simulação de uma UF."
     },
     "municipal": {
-      "areasTitle": "Câmaras Municipais das cidades com 1 milhão de eleitores ou mais",
+      "areasTitle": "Câmaras Municipais das capitais estaduais e cidades com mais de 1 milhão de habitantes",
       "intro": [
-        "O VotoBrasil cobre as Câmaras Municipais de todas as cidades com 1 milhão de eleitores ou mais — 11 na eleição de 2024, cujos resultados são usados aqui.",
+        "O VotoBrasil cobre as Câmaras Municipais das 26 capitais estaduais e das demais cidades com mais de 1 milhão de habitantes no Censo 2022 do IBGE — 28 cidades no total. Brasília não tem eleição municipal. Os resultados usados aqui são os da eleição de 2024.",
         "Nas cidades, a unidade mínima dos distritos simulados é o local de votação."
       ]
     }
@@ -484,7 +483,7 @@
       "label": "Em resumo",
       "data": "Dados abertos do TSE",
       "open": "Código aberto",
-      "privacy": "Sem cookies · LGPD"
+      "privacy": "Privacidade · LGPD"
     },
     "hero": {
       "caption": "Ilustração com cadeiras genéricas, sem dados reais"
@@ -493,7 +492,7 @@
       "label": "O VotoBrasil em números",
       "seats": "cadeiras na Câmara dos Deputados",
       "states": "unidades da federação",
-      "cities": "cidades com 1 milhão de eleitores ou mais",
+      "cities": "capitais estaduais e cidades com mais de 1 milhão de habitantes",
       "systems": "sistemas eleitorais comparados"
     },
     "how": {
@@ -551,6 +550,10 @@
         "Nos sistemas com distritos, os distritos são traçados por algoritmo e não correspondem a distritos reais. Veja os detalhes e os limites na [Metodologia](/metodologia)."
       ]
     },
+    "final": {
+      "title": "Os mesmos votos, outras regras. Veja a diferença.",
+      "text": "Escolha um sistema eleitoral e compare, partido a partido, com o resultado oficial publicado pelo TSE."
+    },
     "more": {
       "title": "Explore mais",
       "state": {
@@ -559,7 +562,7 @@
       },
       "municipal": {
         "title": "Câmaras Municipais",
-        "text": "Explore as cidades com 1 milhão de eleitores ou mais, com distritos desenhados a partir dos locais de votação."
+        "text": "Explore as capitais estaduais e cidades com mais de 1 milhão de habitantes, com distritos desenhados a partir dos locais de votação."
       },
       "systems": {
         "title": "Sistemas eleitorais",
@@ -594,7 +597,7 @@
     },
     "about": {
       "title": "Sobre — VotoBrasil",
-      "description": "Projeto independente e de código aberto que usa dados abertos do TSE e do IBGE. Sem cookies."
+      "description": "Projeto independente e de código aberto que usa dados abertos do TSE e do IBGE."
     },
     "notFound": {
       "title": "Página não encontrada — VotoBrasil",
@@ -611,7 +614,7 @@
       },
       "municipal": {
         "title": "Câmaras Municipais — VotoBrasil",
-        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para as Câmaras Municipais das cidades com 1 milhão de eleitores ou mais."
+        "description": "Resultado oficial e simulação de sistemas eleitorais alternativos para as Câmaras Municipais das capitais estaduais e cidades com mais de 1 milhão de habitantes."
       }
     },
     "area": {
@@ -634,6 +637,12 @@
         "O objetivo é oferecer análise de dados verificável a um debate público relevante. Por se tratar de um tema em disputa política, o projeto publica dados, premissas e código, para que qualquer pessoa possa conferir e criticar."
       ]
     },
+    "author": {
+      "title": "Autoria",
+      "body": [
+        "O VotoBrasil é idealizado e desenvolvido por [João Otávio Gallo](https://instagram.com/jotagallo), de forma independente."
+      ]
+    },
     "sources": {
       "title": "Fontes de dados",
       "body": [
@@ -651,21 +660,19 @@
     "privacy": {
       "title": "Privacidade e LGPD",
       "body": [
-        "O VotoBrasil não usa cookies, não pede cadastro e não cria perfis de visitantes. O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados Pessoais (LGPD, Lei 13.709/2018).",
-        "**Estatísticas de uso.** Quando habilitado, o site usa o Umami, um serviço de estatísticas sem cookies, para contar visitas, páginas e interações (como a troca de sistema ou de idioma). O serviço recebe dados técnicos da conexão — como endereço IP, navegador, tipo de dispositivo e idioma — usados apenas para gerar contagens agregadas; os eventos registram ações de uso, sem identificar pessoas.",
-        "**Base legal e escolha.** As estatísticas só são ativadas depois que você aceita o aviso de privacidade (consentimento, art. 7º, I, da LGPD). Se recusar, nada é enviado. Você pode dar ou revogar o consentimento a qualquer momento em “Preferências de privacidade”, no rodapé. Se o navegador enviar o sinal “Do Not Track” ou o Global Privacy Control, as estatísticas ficam desligadas e o aviso nem é exibido.",
-        "**Armazenamento local.** O site guarda no seu navegador (localStorage) apenas a sua escolha sobre as estatísticas. As escolhas feitas no simulador ficam no endereço da página, para facilitar o compartilhamento.",
-        "**Seus direitos.** Você pode pedir informações, correção ou eliminação de dados (art. 18 da LGPD) pelos canais do repositório do projeto, indicados em “Como contribuir”."
+        "O VotoBrasil não pede cadastro, não exige login e não cria perfis de visitantes. O tratamento de dados pessoais segue a Lei Geral de Proteção de Dados Pessoais (LGPD, Lei 13.709/2018).",
+        "**Cookies.** Usamos cookies apenas para estatísticas de uso: contar visitas, páginas acessadas e interações (como a troca de sistema ou de idioma), de forma agregada, para saber o que melhorar. Não os usamos para publicidade nem para identificar você. Esses dados são processados por um serviço de estatísticas de terceiros, que pode armazená-los fora do Brasil, e incluem dados técnicos da conexão — como endereço IP, navegador, tipo de dispositivo e idioma — usados apenas para gerar contagens agregadas.",
+        "**Base legal e escolha.** Os cookies só são criados depois que você clica em “Entendi” no aviso (consentimento, art. 7º, I, da LGPD); antes disso, nada é enviado. Se o navegador enviar o sinal “Do Not Track” ou o Global Privacy Control, não usamos cookies, mesmo depois do “Entendi”. Você pode apagar ou bloquear cookies a qualquer momento nas configurações do navegador, sem prejuízo ao uso do site.",
+        "**Armazenamento local.** O site guarda no seu navegador (localStorage) apenas o registro de que você viu o aviso de cookies. As escolhas feitas no simulador ficam no endereço da página, para facilitar o compartilhamento.",
+        "**Seus direitos.** Você pode pedir informações, correção ou eliminação de dados (art. 18 da LGPD) pelos canais do repositório do projeto, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {
       "title": "Como contribuir",
       "body": [
-        "Sugestões, correções e contribuições são bem-vindas por issues e pull requests no repositório. Relatos de erros nos dados ou nas descrições dos sistemas são especialmente úteis.",
-        "Para reproduzir os números localmente, siga as instruções da página de [Metodologia](/metodologia)."
-      ],
-      "repoLink": "Ver o repositório",
-      "noRepo": "O endereço do repositório ainda não foi configurado nesta instalação (variável `VITE_REPO_URL`)."
+        "Sugestões, correções e contribuições são bem-vindas por issues e pull requests no repositório do projeto. Relatos de erros nos dados ou nas descrições dos sistemas são especialmente úteis.",
+        "Para reproduzir os números localmente, siga as instruções do repositório."
+      ]
     },
     "credits": {
       "title": "Créditos",
@@ -776,10 +783,8 @@
     "reproduce": {
       "title": "Código aberto e reprodução",
       "body": [
-        "Todo o código — extração dos dados, motor de simulação, API e este site — é aberto. O processamento é determinístico: com os mesmos arquivos de origem (conferidos pelos hashes acima), produz os mesmos resultados.",
-        "Para reproduzir localmente (requer Node.js):"
+        "Todo o código — extração dos dados, motor de simulação, API e este site — é aberto. O processamento é determinístico: com os mesmos arquivos de origem (conferidos pelos hashes acima), produz os mesmos resultados."
       ],
-      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
       "repo": "Abrir o repositório"
     }
   },

@@ -4,15 +4,15 @@ data "aws_partition" "current" {}
 
 # arm64 (Graviton) instance families end the generation digits with "g", e.g. t4g, m7g, c6gd.
 locals {
-  name               = "${var.project}-${var.environment}"
-  architecture       = can(regex("^[a-z]+[0-9]+g[a-z]*\\.", var.instance_type)) ? "arm64" : "x86_64"
-  custom_domain      = var.domain_name != ""
-  custom_certificate = var.acm_certificate_arn != ""
-  alerts_enabled     = var.alarm_email != ""
-  partition          = data.aws_partition.current.partition
-  account_id         = data.aws_caller_identity.current.account_id
-  region             = data.aws_region.current.name
-  origin_id          = "eb-${local.name}"
+  name                   = "${var.project}-${var.environment}"
+  architecture           = can(regex("^[a-z]+[0-9]+g[a-z]*\\.", var.instance_type)) ? "arm64" : "x86_64"
+  custom_domain          = var.domain_name != ""
+  create_acm_certificate = local.custom_domain && var.acm_certificate_arn == ""
+  alerts_enabled         = var.alarm_email != ""
+  partition              = data.aws_partition.current.partition
+  account_id             = data.aws_caller_identity.current.account_id
+  region                 = data.aws_region.current.name
+  origin_id              = "eb-${local.name}"
 
   eb_application_arn  = "arn:${local.partition}:elasticbeanstalk:${local.region}:${local.account_id}:application/${local.name}"
   eb_environment_arn  = "arn:${local.partition}:elasticbeanstalk:${local.region}:${local.account_id}:environment/${local.name}/${local.name}"
@@ -32,6 +32,17 @@ data "aws_vpc" "default" {
   default = true
 }
 
+# A type offered in the region may be missing from some of its zones (older ones in sa-east-1);
+# launching there would fail, so only zones that offer it get a subnet.
+data "aws_ec2_instance_type_offerings" "instance" {
+  location_type = "availability-zone"
+
+  filter {
+    name   = "instance-type"
+    values = [var.instance_type]
+  }
+}
+
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
@@ -41,6 +52,11 @@ data "aws_subnets" "default" {
   filter {
     name   = "default-for-az"
     values = ["true"]
+  }
+
+  filter {
+    name   = "availability-zone"
+    values = data.aws_ec2_instance_type_offerings.instance.locations
   }
 }
 

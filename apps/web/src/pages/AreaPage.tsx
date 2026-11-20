@@ -99,136 +99,144 @@ function AreaView({ office, areaParam }: { office: OfficeId; areaParam: string }
   const unitLevel = office === 'municipal' ? t('area.unit.votingPlace') : t('area.unit.zone');
 
   return (
-    <div className="container page">
-      <nav className="breadcrumb" aria-label={t('common.breadcrumb')}>
-        <Link href={PATHS.home}>{t('nav.home')}</Link>
-        <span aria-hidden="true">/</span>
-        <Link href={`${housePath(office)}${controls.query}`}>{t(`houses.${office}.short`)}</Link>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">{areaName}</span>
-      </nav>
+    <>
+      <header className="page-hero page-hero--light">
+        <div className="container page-hero__inner">
+          <nav className="breadcrumb" aria-label={t('common.breadcrumb')}>
+            <Link href={PATHS.home}>{t('nav.home')}</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`${housePath(office)}${controls.query}`}>
+              {t(`houses.${office}.short`)}
+            </Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{areaName}</span>
+          </nav>
 
-      <div className="area-head">
-        <div>
-          <p className="eyebrow">{houseName}</p>
-          <h1 className="page-title">{areaName}</h1>
-          {area ? (
-            <p className="area-head__facts">
-              {t('area.facts', {
-                seats: f.int(area.seats),
-                electorate: f.int(area.electorate),
-                year: meta.status === 'success' ? meta.data.offices[office].year : '',
-              })}
-            </p>
-          ) : null}
-        </div>
-        <div className="area-head__tools">
-          {meta.status === 'success' ? (
-            <div className="field">
-              <label htmlFor="area-select" className="field__label">
-                {t('area.switch')}
-              </label>
-              <select
-                id="area-select"
-                className="select"
-                value={area?.code ?? ''}
-                onChange={(event) =>
-                  navigate(`${areaPath(office, event.target.value)}${controls.query}`)
-                }
-              >
-                {[...meta.data.offices[office].areas]
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((a) => (
-                    <option key={a.code} value={a.code}>
-                      {office === 'municipal'
-                        ? `${a.name} (${a.uf})`
-                        : (UF_NAMES[a.code as keyof typeof UF_NAMES] ?? a.name)}
-                    </option>
-                  ))}
-              </select>
+          <div className="area-head">
+            <div>
+              <p className="eyebrow eyebrow--pill">{houseName}</p>
+              <h1 className="page-hero__title">{areaName}</h1>
+              {area ? (
+                <p className="area-head__facts">
+                  {t('area.facts', {
+                    seats: f.int(area.seats),
+                    electorate: f.int(area.electorate),
+                    year: meta.status === 'success' ? meta.data.offices[office].year : '',
+                  })}
+                </p>
+              ) : null}
             </div>
-          ) : null}
-          <ShareButton title={`${areaName} — ${houseName}`} text={t('explorer.shareText')} />
+            <div className="area-head__tools">
+              {meta.status === 'success' ? (
+                <div className="field">
+                  <label htmlFor="area-select" className="field__label">
+                    {t('area.switch')}
+                  </label>
+                  <select
+                    id="area-select"
+                    className="select"
+                    value={area?.code ?? ''}
+                    onChange={(event) =>
+                      navigate(`${areaPath(office, event.target.value)}${controls.query}`)
+                    }
+                  >
+                    {[...meta.data.offices[office].areas]
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((a) => (
+                        <option key={a.code} value={a.code}>
+                          {office === 'municipal'
+                            ? `${a.name} (${a.uf})`
+                            : (UF_NAMES[a.code as keyof typeof UF_NAMES] ?? a.name)}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              ) : null}
+              <ShareButton title={`${areaName} — ${houseName}`} text={t('explorer.shareText')} />
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <SystemSelector systems={controls.systems} system={system} onSystem={controls.onSystem} />
+      <div className="container page">
+        <SystemSelector systems={controls.systems} system={system} onSystem={controls.onSystem} />
 
-      {sim.status === 'error' && !data ? <ErrorState onRetry={sim.reload} /> : null}
-      {!data && sim.status !== 'error' ? <Skeleton height={420} /> : null}
+        {sim.status === 'error' && !data ? <ErrorState onRetry={sim.reload} /> : null}
+        {!data && sim.status !== 'error' ? <Skeleton height={420} /> : null}
 
-      {data ? (
-        <div
-          className={sim.stale ? 'area-results is-stale' : 'area-results'}
-          aria-busy={sim.stale ? 'true' : 'false'}
-        >
-          {usesDistricts ? (
-            <aside className="notice" aria-label={t('area.districtNoticeLabel')}>
-              <p>
-                <Rich
-                  text={t('area.districtNotice', {
-                    level: unitLevel,
-                    units: f.int(data.units?.length ?? 0),
-                  })}
-                />
-              </p>
-              {mixed ? (
+        {data ? (
+          <div
+            className={sim.stale ? 'area-results is-stale' : 'area-results'}
+            aria-busy={sim.stale ? 'true' : 'false'}
+          >
+            {usesDistricts ? (
+              <aside className="notice" aria-label={t('area.districtNoticeLabel')}>
                 <p>
-                  {t('area.mixedSplit', {
-                    district: f.int(data.scenario.result.districtSeats),
-                    list: f.int(data.scenario.result.listSeats),
-                  })}
+                  <Rich
+                    text={t('area.districtNotice', {
+                      level: unitLevel,
+                      units: f.int(data.units?.length ?? 0),
+                    })}
+                  />
                 </p>
-              ) : null}
-              {deviation !== undefined ? (
-                <p className={deviation >= 20 ? 'notice__alert' : undefined}>
-                  {t('area.deviation', { value: f.dec(deviation, 1) })}
-                </p>
-              ) : null}
-            </aside>
-          ) : null}
+                {mixed ? (
+                  <p>
+                    {t('area.mixedSplit', {
+                      district: f.int(data.scenario.result.districtSeats),
+                      list: f.int(data.scenario.result.listSeats),
+                    })}
+                  </p>
+                ) : null}
+                {deviation !== undefined ? (
+                  <p className={deviation >= 20 ? 'notice__alert' : undefined}>
+                    {t('area.deviation', { value: f.dec(deviation, 1) })}
+                  </p>
+                ) : null}
+              </aside>
+            ) : null}
 
-          <ChamberPanel
-            baseline={data.baseline.result.seatsByParty}
-            scenario={data.scenario.result.seatsByParty}
-            baselineMetrics={data.baseline.metrics}
-            scenarioMetrics={data.scenario.metrics}
-            partyVotes={data.partyVotes}
-            scenarioLabel={t('chamber.scenarioNamed', { system: t(`systems.${system}.short`) })}
-            isBaselineScenario={system === 'atual'}
-            colors={colors}
-            stale={sim.stale}
-          />
-
-          {data.units && data.units.length > 0 ? (
-            <Suspense fallback={<Skeleton height={320} />}>
-              {office === 'municipal' ? (
-                <CityDistrictMap
-                  ibge={data.area.code}
-                  units={data.units}
-                  districts={data.scenario.result.districts}
-                  partyColors={colors}
-                />
-              ) : (
-                <StateDistrictMap
-                  uf={data.area.code}
-                  units={data.units}
-                  districts={data.scenario.result.districts}
-                  partyColors={colors}
-                />
-              )}
-            </Suspense>
-          ) : null}
-
-          {system !== 'atual' ? (
-            <WinnersLosers
-              baseline={data.baseline.result.winners}
-              scenario={data.scenario.result.winners}
+            <ChamberPanel
+              baseline={data.baseline.result.seatsByParty}
+              scenario={data.scenario.result.seatsByParty}
+              baselineMetrics={data.baseline.metrics}
+              scenarioMetrics={data.scenario.metrics}
+              partyVotes={data.partyVotes}
+              scenarioLabel={t('chamber.scenarioNamed', { system: t(`systems.${system}.short`) })}
+              isBaselineScenario={system === 'atual'}
               colors={colors}
+              stale={sim.stale}
             />
-          ) : null}
-        </div>
-      ) : null}
-    </div>
+
+            {data.units && data.units.length > 0 ? (
+              <Suspense fallback={<Skeleton height={320} />}>
+                {office === 'municipal' ? (
+                  <CityDistrictMap
+                    ibge={data.area.code}
+                    units={data.units}
+                    districts={data.scenario.result.districts}
+                    partyColors={colors}
+                  />
+                ) : (
+                  <StateDistrictMap
+                    uf={data.area.code}
+                    units={data.units}
+                    districts={data.scenario.result.districts}
+                    partyColors={colors}
+                  />
+                )}
+              </Suspense>
+            ) : null}
+
+            {system !== 'atual' ? (
+              <WinnersLosers
+                baseline={data.baseline.result.winners}
+                scenario={data.scenario.result.winners}
+                colors={colors}
+              />
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 }

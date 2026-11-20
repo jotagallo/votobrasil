@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import { PageHero } from '../components/PageHero';
 import { usePageMeta } from '../hooks';
 import { useLocation } from 'wouter';
 import { useT } from '../i18n';
@@ -14,15 +15,12 @@ export default function NotFoundPage() {
     noindex: true,
   });
   return (
-    <div className="container page">
-      <p className="eyebrow">404</p>
-      <h1 className="page-title">{t('notFound.title')}</h1>
-      <p className="prose">{t('notFound.body')}</p>
-      <p>
-        <Link href={PATHS.home} className="btn">
+    <PageHero eyebrow="404" title={t('notFound.title')} lede={t('notFound.body')}>
+      <div className="page-hero__actions">
+        <Link href={PATHS.home} className="btn btn--lg btn--yellow">
           {t('notFound.cta')}
         </Link>
-      </p>
-    </div>
+      </div>
+    </PageHero>
   );
 }

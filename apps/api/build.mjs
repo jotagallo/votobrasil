@@ -1,6 +1,6 @@
 import { build } from 'esbuild';
 
-// Pacote único e autocontido (inclui @votobr/shared e dependências) para o Elastic Beanstalk e o Docker.
+// Pacote único e autocontido (inclui @votobr/shared e dependências) para o Elastic Beanstalk.
 await build({
   entryPoints: ['src/server.ts'],
   outfile: 'dist/server.mjs',

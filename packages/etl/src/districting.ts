@@ -297,7 +297,7 @@ export function attachDistrictPlans(
   const plans: Record<string, DistrictPlanRecord> = {};
   const stats: PlanStats[] = [];
 
-  const draw = (k: number, splittable: number) => {
+  const draw = (k: number, splittable: number, seed?: number) => {
     const quota = totalPop / k;
     // Átomos: municípios inteiros; os que passam de meia cota (e a cidade, nas Câmaras) viram um
     // átomo por coordenada de local de votação — e só são divididos se necessário (ver coesão).
@@ -407,6 +407,7 @@ export function attachDistrictPlans(
       tolerance: DISTRICT_TARGET,
       compactness: COMPACTNESS,
       cohesion: city ? CITY_COHESION : STATE_COHESION,
+      ...(seed === undefined ? {} : { seed }),
     });
     if (part.count !== k || part.assignment.length !== nodes.length) {
       throw new Error(`${ds.key}: não foi possível formar ${k} distritos completos`);
@@ -439,10 +440,21 @@ export function attachDistrictPlans(
     // −10% da cota e somado a Calçoene passa de +15%): só então os municípios menores também podem
     // ser divididos por local de votação.
     let best = draw(k, SPLITTABLE[0] as number);
-    for (const splittable of SPLITTABLE.slice(1)) {
-      if (city || best.part.maxDeviation <= RETRY_ABOVE) break;
-      const attempt = draw(k, splittable);
-      if (attempt.part.maxDeviation < best.part.maxDeviation - 0.005) best = attempt;
+    if (city) {
+      if (best.part.maxDeviation > DISTRICT_TOLERANCE) {
+        // Recomeços determinísticos ajudam cidades difíceis a respeitar o limite sem relaxar a meta.
+        for (let seed = 1; seed <= 4; seed++) {
+          const attempt = draw(k, SPLITTABLE[0] as number, seed);
+          if (attempt.part.maxDeviation < best.part.maxDeviation) best = attempt;
+          if (best.part.maxDeviation <= DISTRICT_TOLERANCE) break;
+        }
+      }
+    } else {
+      for (const splittable of SPLITTABLE.slice(1)) {
+        if (best.part.maxDeviation <= RETRY_ABOVE) break;
+        const attempt = draw(k, splittable);
+        if (attempt.part.maxDeviation < best.part.maxDeviation - 0.005) best = attempt;
+      }
     }
     const { atoms, atomsByMun, part } = best;
 

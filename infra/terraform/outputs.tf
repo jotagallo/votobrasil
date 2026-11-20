@@ -1,3 +1,14 @@
+output "acm_dns_validation_records" {
+  description = "Create these DNS records for ACM issuance and keep them for automatic renewal. Empty when Terraform did not request a certificate."
+  value = local.create_acm_certificate ? [
+    for record in aws_acm_certificate.site[0].domain_validation_options : {
+      name  = record.resource_record_name
+      type  = record.resource_record_type
+      value = record.resource_record_value
+    }
+  ] : []
+}
+
 output "cloudfront_domain_name" {
   description = "Public entry point. Point a CNAME here when using domain_name."
   value       = aws_cloudfront_distribution.this.domain_name

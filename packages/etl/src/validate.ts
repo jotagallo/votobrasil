@@ -4,6 +4,7 @@ import { UF_CODES, type MetaResponse, type ValidationReport } from '@votobr/shar
 import { OUT_DIR } from './download.js';
 import { readDataset } from './output.js';
 import { checkDataset } from './checks.js';
+import { STATE_CAPITALS } from './municipal.js';
 
 /** Fração máxima tolerada de eleitos oficiais que o motor de apuração não reproduz (ver docs/METHODOLOGY.md). */
 const MAX_MISSING_SHARE = Number(process.env.VOTOBR_MAX_MISSING_SHARE ?? 0.02);
@@ -44,14 +45,19 @@ async function main(): Promise<void> {
       problems.push(`${office}: áreas (${codes.length}) diferem das UFs esperadas (${ufs.length})`);
     }
   }
-  const minVoters = Number(process.env.VOTOBR_MIN_MUNICIPAL_VOTERS ?? 1_000_000);
-  const cities = meta.offices.municipal.areas;
-  if (minVoters > 0 && cities.length === 0) problems.push('municipal: nenhuma cidade no meta.json');
-  // O corte usa o eleitorado dos locais de votação; o do meta vem do detalhe da votação (≈ 1% de folga).
-  for (const city of cities) {
-    if (city.electorate < minVoters * 0.99) {
-      problems.push(`municipal: ${city.name} tem ${city.electorate} eleitores (< ${minVoters})`);
-    }
+  const minPopulation = Number(process.env.VOTOBR_MIN_MUNICIPAL_POPULATION ?? 1_000_000);
+  if (minPopulation > 0 && meta.offices.municipal.areas.length === 0) {
+    problems.push('municipal: nenhuma cidade no meta.json');
+  }
+  const municipalLimit = Number(process.env.VOTOBR_MAX_MUNICIPALITIES ?? Infinity);
+  if (
+    minPopulation > 0 &&
+    !Number.isFinite(municipalLimit) &&
+    [...STATE_CAPITALS.keys()].some(
+      (code) => !meta.offices.municipal.areas.some((area) => area.code === String(code)),
+    )
+  ) {
+    problems.push('municipal: faltam capitais estaduais no meta.json');
   }
 
   let datasets = 0;
@@ -74,6 +80,16 @@ async function main(): Promise<void> {
         ds.electorate !== area.electorate
       ) {
         problems.push(`${key}: totais do dataset divergem do meta.json`);
+      }
+      if (office === 'municipal') {
+        // A população das unidades de uma cidade soma a do município no Censo 2022.
+        const population = ds.units.reduce((sum, u) => sum + (u.pop ?? 0), 0);
+        const isCapital = STATE_CAPITALS.get(Number(area.code)) === area.uf;
+        if (!isCapital && population <= minPopulation) {
+          problems.push(
+            `municipal: ${area.name} tem ${population} habitantes (não é capital e não supera ${minPopulation})`,
+          );
+        }
       }
       const geo =
         area.kind === 'state' ? `geo/uf/${area.code}.topo.json` : `geo/city/${area.code}.topo.json`;
