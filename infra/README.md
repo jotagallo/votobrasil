@@ -114,7 +114,7 @@ region, and a GitHub repository with an environment named `production`.
 
 2. **Variables**: `cp infra/terraform/terraform.tfvars.example infra/terraform/terraform.tfvars`
    (git-ignored) and set at least `github_repository` (`owner/repo`). Optional: `alarm_email`,
-   `domain_name` + `acm_certificate_arn` (certificate issued in **us-east-1**),
+   `domain_name` (follow step 5 before applying if requesting a new certificate),
    `create_github_oidc_provider = false` if the account already has the GitHub OIDC provider.
 
 3. **Apply**:
@@ -154,8 +154,12 @@ region, and a GitHub repository with an environment named `production`.
    Without `GA_MEASUREMENT_ID` the site ships no analytics (the cookie notice is still shown). Without `SITE_URL`
    the build emits no `sitemap.xml` and no absolute Open Graph URLs.
 
-5. **Custom domain** (optional): create a CNAME from `domain_name` to the `cloudfront_domain_name`
-   output at your DNS provider, then set `SITE_URL` to `https://<domain_name>`.
+5. **Custom domain** (optional): follow [Etapa 10](../docs/DEPLOY.md#etapa-10-domínio-próprio-opcional)
+   to request a free ACM certificate in **us-east-1**, publish its DNS validation CNAME, and
+   point the domain to CloudFront. ACM renews the certificate while it is in use and the
+   validation CNAME remains public. To reuse an already issued certificate, set
+   `acm_certificate_arn` as well. Without a custom domain, CloudFront serves HTTPS using
+   its default certificate.
 
 6. **First deploy**: merge to `main` (CI, then Deploy) or run the **Deploy** workflow from `main`.
    The first run builds the datasets (several minutes) and caches them.

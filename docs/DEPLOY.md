@@ -352,23 +352,42 @@ O **primeiro** Deploy leva cerca de 1 h (ETL: cerca de 2,4 GB do TSE/IBGE). O ca
 
 ## Etapa 10: Domínio próprio (opcional)
 
-1. Peça o certificado **em `us-east-1`** (exigência do CloudFront) e anote o ARN retornado:
+Sem domínio próprio, o endereço `*.cloudfront.net` já tem HTTPS. Para domínio próprio, o
+Terraform solicita um certificado público gratuito no AWS ACM, em `us-east-1` (exigência do
+CloudFront). O redirecionamento HTTP → HTTPS vale para o site, os assets e a API. Nada muda no
+Nginx, no acesso à origem ou no ambiente local.
+
+1. No `terraform.tfvars`, defina `domain_name = "votobrasil.exemplo.org"` e deixe
+   `acm_certificate_arn` vazio. Para reutilizar **um certificado já emitido** em `us-east-1`
+   que cubra o domínio, informe também o ARN e pule para o passo 3.
+2. Na primeira emissão, aplique **só o recurso do certificado** para obter o CNAME de
+   validação antes de o Terraform esperar pela emissão:
 
    ```bash
-   aws acm request-certificate --region us-east-1 --domain-name votobrasil.exemplo.org --validation-method DNS
+   terraform -chdir=infra/terraform apply -target='aws_acm_certificate.site[0]'
+   terraform -chdir=infra/terraform output -json acm_dns_validation_records
    ```
 
-2. Veja o registro CNAME de validação, crie-o no seu provedor de DNS e espere o certificado ser emitido:
+   Publique o registro retornado (`name`, `type`, `value`) no DNS público do domínio, sem
+   proxy. **Mantenha esse CNAME no DNS:** o ACM o usa para renovar e o CloudFront passa a
+   servir o certificado renovado automaticamente, sem cron ou novo deploy. A renovação
+   gerenciada exige que o certificado seja emitido pelo ACM e esteja em uso; certificados
+   importados não têm renovação automática pelo ACM.
+
+3. Rode `make tf-plan` e `make tf-apply` normalmente. O Terraform aguarda a emissão antes
+   de associar o certificado novo ao CloudFront. Se a validação não concluir, confira o
+   CNAME no DNS público e repita o apply normal.
+4. No DNS, crie um **segundo** registro: o CNAME de `votobrasil.exemplo.org` para o output
+   `cloudfront_domain_name`. Domínios raiz exigem ALIAS/ANAME ou equivalente no provedor;
+   sem isso, use um subdomínio. Depois da propagação, teste sem seguir o redirecionamento:
 
    ```bash
-   aws acm describe-certificate --region us-east-1 --certificate-arn <ARN> \
-     --query 'Certificate.DomainValidationOptions[0].ResourceRecord'
-   aws acm wait certificate-validated --region us-east-1 --certificate-arn <ARN>
+   curl -sSI http://votobrasil.exemplo.org/healthz  # 301 e Location: https://...
+   curl -fsS https://votobrasil.exemplo.org/healthz # certificado confiável e status ok
    ```
 
-3. No `terraform.tfvars`, acrescente `domain_name = "votobrasil.exemplo.org"` e `acm_certificate_arn = "<ARN>"` (os dois juntos) e rode `make tf-apply`.
-4. No seu DNS, crie um CNAME de `votobrasil.exemplo.org` para o output `cloudfront_domain_name`. Domínios "raiz" (sem subdomínio) exigem ALIAS/ANAME no provedor; sem isso, use um subdomínio.
-5. Atualize `SITE_URL` e faça um novo deploy (qualquer merge na `main`) para que as tags canônicas, Open Graph e o sitemap usem o domínio novo (as estatísticas só medem o domínio de `SITE_URL`):
+5. Atualize `SITE_URL` e faça um novo deploy para que as tags canônicas, Open Graph e o
+   sitemap usem o domínio novo (as estatísticas só medem o domínio de `SITE_URL`):
 
    ```bash
    gh variable set SITE_URL --repo "$REPO" --body "https://votobrasil.exemplo.org"

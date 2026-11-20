@@ -67,13 +67,13 @@ variable "create_github_oidc_provider" {
 }
 
 variable "domain_name" {
-  description = "Optional custom domain served by CloudFront (e.g. votobr.example.org). Requires acm_certificate_arn. DNS is not managed here: create a CNAME to the cloudfront_domain_name output."
+  description = "Optional custom domain served by CloudFront (e.g. votobr.example.org). Set it without acm_certificate_arn to request a DNS-validated ACM certificate. DNS records are configured separately."
   type        = string
   default     = ""
 }
 
 variable "acm_certificate_arn" {
-  description = "Optional ACM certificate ARN for domain_name. Must be issued in us-east-1 (CloudFront requirement). Empty uses the default *.cloudfront.net certificate."
+  description = "Optional ARN of an existing issued ACM certificate for domain_name in us-east-1. Empty requests a new certificate when domain_name is set; otherwise CloudFront uses its default certificate."
   type        = string
   default     = ""
 

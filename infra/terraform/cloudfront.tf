@@ -210,16 +210,16 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = local.custom_certificate ? null : true
-    acm_certificate_arn            = local.custom_certificate ? var.acm_certificate_arn : null
-    ssl_support_method             = local.custom_certificate ? "sni-only" : null
-    minimum_protocol_version       = local.custom_certificate ? "TLSv1.2_2021" : null
+    cloudfront_default_certificate = local.custom_domain ? null : true
+    acm_certificate_arn            = local.create_acm_certificate ? aws_acm_certificate_validation.site[0].certificate_arn : (local.custom_domain ? var.acm_certificate_arn : null)
+    ssl_support_method             = local.custom_domain ? "sni-only" : null
+    minimum_protocol_version       = local.custom_domain ? "TLSv1.2_2021" : null
   }
 
   lifecycle {
     precondition {
-      condition     = local.custom_domain == local.custom_certificate
-      error_message = "domain_name and acm_certificate_arn must be set together (or both left empty)."
+      condition     = local.custom_domain || var.acm_certificate_arn == ""
+      error_message = "acm_certificate_arn requires domain_name."
     }
   }
 }

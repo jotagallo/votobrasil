@@ -8,8 +8,9 @@ instance_type = "t4g.small"
 
 github_repository = "owner/repo"
 
-# Optional custom domain (certificate must be issued in us-east-1)
-# domain_name         = "votobr.example.org"
+# Optional custom domain (see docs/DEPLOY.md before applying)
+# domain_name = "votobr.example.org"
+# Set the ARN only to reuse an existing issued certificate in us-east-1:
 # acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/00000000-0000-0000-0000-000000000000"
 
 # Set to false when the AWS account already has the GitHub Actions OIDC provider
