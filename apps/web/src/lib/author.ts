@@ -6,3 +6,6 @@ export const AUTHOR_LINKS = [
 
 /** Repositório de código aberto (rodapé, Sobre e Metodologia; também citado nos textos da página Sobre). */
 export const REPO_URL = 'https://github.com/jotagallo/votobrasil';
+
+/** Canal de contato direto do projeto. */
+export const PROJECT_EMAIL = 'votobrasil@proton.me';

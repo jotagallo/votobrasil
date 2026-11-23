@@ -531,6 +531,27 @@ svg a:focus-visible {
   text-decoration: underline;
 }
 
+.site-footer__links li a.site-footer__contact {
+  gap: var(--space-2);
+  margin-inline: auto;
+  text-decoration: none;
+}
+
+.site-footer__links li a.site-footer__contact svg {
+  flex: none;
+}
+
+.site-footer__links li a.site-footer__contact:hover {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+.about__email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .site-footer__bar {
   border-top: 1px solid var(--line-dark);
 }

@@ -42,6 +42,7 @@
     "links": "Links do rodapé",
     "credit": "Desenvolvido por",
     "openSource": "Código aberto no GitHub",
+    "email": "Fale conosco",
     "data": "Dados: TSE (dados abertos) e IBGE (malhas territoriais). Cookies apenas para estatísticas de uso (LGPD)."
   },
   "consent": {
@@ -664,14 +665,14 @@
         "**Cookies.** Usamos cookies apenas para estatísticas de uso: contar visitas, páginas acessadas e interações (como a troca de sistema ou de idioma), de forma agregada, para saber o que melhorar. Não os usamos para publicidade nem para identificar você. Esses dados são processados por um serviço de estatísticas de terceiros, que pode armazená-los fora do Brasil, e incluem dados técnicos da conexão — como endereço IP, navegador, tipo de dispositivo e idioma — usados apenas para gerar contagens agregadas.",
         "**Base legal e escolha.** Os cookies só são criados depois que você clica em “Entendi” no aviso (consentimento, art. 7º, I, da LGPD); antes disso, nada é enviado. Se o navegador enviar o sinal “Do Not Track” ou o Global Privacy Control, não usamos cookies, mesmo depois do “Entendi”. Você pode apagar ou bloquear cookies a qualquer momento nas configurações do navegador, sem prejuízo ao uso do site.",
         "**Armazenamento local.** O site guarda no seu navegador (localStorage) apenas o registro de que você viu o aviso de cookies. As escolhas feitas no simulador ficam no endereço da página, para facilitar o compartilhamento.",
-        "**Seus direitos.** Você pode pedir informações, correção ou eliminação de dados (art. 18 da LGPD) pelos canais do repositório do projeto, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
+        "**Seus direitos.** Você pode pedir informações, correção ou eliminação de dados (art. 18 da LGPD) pelo e-mail [votobrasil@proton.me](mailto:votobrasil@proton.me) ou pelos canais do repositório do projeto, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {
       "title": "Como contribuir",
       "body": [
         "Sugestões, correções e contribuições são bem-vindas por issues e pull requests no repositório do projeto. Relatos de erros nos dados ou nas descrições dos sistemas são especialmente úteis.",
-        "Para reproduzir os números localmente, siga as instruções do repositório."
+        "Para reproduzir os números localmente, siga as instruções do repositório. Você também pode enviar sugestões ou dúvidas diretamente para [votobrasil@proton.me](mailto:votobrasil@proton.me)."
       ]
     },
     "credits": {

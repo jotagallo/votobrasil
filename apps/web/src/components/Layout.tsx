@@ -3,9 +3,10 @@ import { Link, useLocation, useSearch } from 'wouter';
 import { LOCALES, type Locale } from '@votobr/shared';
 import { cookieNoticePending, trackEvent } from '../analytics';
 import { useLocale, useT } from '../i18n';
-import { AUTHOR_LINKS, REPO_URL } from '../lib/author';
+import { AUTHOR_LINKS, PROJECT_EMAIL, REPO_URL } from '../lib/author';
 import { PATHS, housePath, withLocale } from '../lib/routes';
 import { ConsentBanner } from './ConsentBanner';
+import { EmailIcon } from './EmailIcon';
 
 const LANGUAGE_LABEL: Record<Locale, string> = { 'pt-BR': 'PT', en: 'EN', es: 'ES' };
 
@@ -174,6 +175,15 @@ export function Layout({ children }: { children: ReactNode }) {
                   <Link href={item.href}>{t(item.label)}</Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href={`mailto:${PROJECT_EMAIL}`}
+                  className="site-footer__contact"
+                >
+                  <EmailIcon />
+                  {t('footer.email')}
+                </a>
+              </li>
             </ul>
           </nav>
           <div>

@@ -3,8 +3,9 @@ import { PageHero } from '../components/PageHero';
 import { Rich } from '../components/Rich';
 import { usePageMeta } from '../hooks';
 import { useT } from '../i18n';
-import { AUTHOR_LINKS } from '../lib/author';
+import { AUTHOR_LINKS, PROJECT_EMAIL } from '../lib/author';
 import { PATHS } from '../lib/routes';
+import { EmailIcon } from '../components/EmailIcon';
 
 export default function AboutPage() {
   const { t, tl } = useT();
@@ -57,6 +58,14 @@ export default function AboutPage() {
                   ) : null}
                 </p>
               ))}
+              {(key === 'privacy' || key === 'contribute') ? (
+                <p>
+                  <a href={`mailto:${PROJECT_EMAIL}`} className="btn btn--ghost about__email">
+                    <EmailIcon />
+                    {PROJECT_EMAIL}
+                  </a>
+                </p>
+              ) : null}
             </div>
           </section>
         ))}

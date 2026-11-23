@@ -42,6 +42,7 @@
     "links": "Footer links",
     "credit": "Developed by",
     "openSource": "Open source on GitHub",
+    "email": "Get in touch",
     "data": "Data: TSE (open data) and IBGE (boundaries). Cookies only for usage statistics (LGPD)."
   },
   "consent": {
@@ -664,14 +665,14 @@
         "**Cookies.** We use cookies only for usage statistics: counting visits, pages viewed and interactions (such as changing the system or language), in aggregate, to learn what to improve. We do not use them for advertising or to identify you. This data is processed by a third-party statistics service, which may store it outside Brazil, and includes technical connection data — such as IP address, browser, device type and language — used only to produce aggregate counts.",
         "**Legal basis and choice.** Cookies are only created after you click “Got it” on the notice (consent, art. 7, I, LGPD); until then, nothing is sent. If your browser sends a “Do Not Track” or Global Privacy Control signal, we do not use cookies, even after you click “Got it”. You can delete or block cookies at any time in your browser settings, without affecting your use of the site.",
         "**Local storage.** The site stores in your browser (localStorage) only the record that you have seen the cookie notice. The choices you make in the simulator are kept in the page address, to make sharing easier.",
-        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) through the project repository channels, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
+        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) by email at [votobrasil@proton.me](mailto:votobrasil@proton.me) or through the project repository channels, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {
       "title": "How to contribute",
       "body": [
         "Suggestions, corrections and contributions are welcome through issues and pull requests in the project repository. Reports of errors in the data or in the descriptions of the systems are especially useful.",
-        "To reproduce the numbers locally, follow the instructions in the repository."
+        "To reproduce the numbers locally, follow the instructions in the repository. You can also send suggestions or questions directly to [votobrasil@proton.me](mailto:votobrasil@proton.me)."
       ]
     },
     "credits": {
