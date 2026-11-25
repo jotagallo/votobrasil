@@ -154,12 +154,16 @@ region, and a GitHub repository with an environment named `production`.
    Without `GA_MEASUREMENT_ID` the site ships no analytics (the cookie notice is still shown). Without `SITE_URL`
    the build emits no `sitemap.xml` and no absolute Open Graph URLs.
 
-5. **Custom domain** (optional): follow [Etapa 10](../docs/DEPLOY.md#etapa-10-domínio-próprio-opcional)
-   to request a free ACM certificate in **us-east-1**, publish its DNS validation CNAME, and
-   point the domain to CloudFront. ACM renews the certificate while it is in use and the
-   validation CNAME remains public. To reuse an already issued certificate, set
-   `acm_certificate_arn` as well. Without a custom domain, CloudFront serves HTTPS using
-   its default certificate.
+5. **Custom domain** (optional): follow [Etapa 10](../docs/DEPLOY.md#etapa-10-domínio-próprio-opcional).
+   Recommended: `manage_dns = true` creates a Route 53 hosted zone for `domain_name` (apply it
+   first with `-target='aws_route53_zone.site[0]'` and delegate the registrar's name servers to
+   output `route53_name_servers`); Terraform then creates the ACM validation records and the
+   apex/`www` ALIAS records. `redirect_www = true` adds `www.<domain>` to the certificate and
+   answers it with a 301 from a CloudFront Function. Without `manage_dns`, publish the ACM
+   validation CNAME(s) and point the domain to CloudFront at your DNS provider. ACM renews the
+   certificate while it is in use and the validation records remain public. To reuse an already
+   issued certificate, set `acm_certificate_arn` as well. Without a custom domain, CloudFront
+   serves HTTPS using its default certificate.
 
 6. **First deploy**: merge to `main` (CI, then Deploy) or run the **Deploy** workflow from `main`.
    The first run builds the datasets (several minutes) and caches them.

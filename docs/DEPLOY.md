@@ -357,6 +357,50 @@ Terraform solicita um certificado público gratuito no AWS ACM, em `us-east-1` (
 CloudFront). O redirecionamento HTTP → HTTPS vale para o site, os assets e a API. Nada muda no
 Nginx, no acesso à origem ou no ambiente local.
 
+Há dois caminhos. O **A** é o recomendado; use o **B** só se o DNS precisar ficar no provedor atual.
+
+### Opção A (recomendada): DNS no Route 53, registro no provedor atual
+
+O domínio continua registrado onde está (GoDaddy, Registro.br etc.); só o **DNS** passa para uma
+_hosted zone_ do Route 53 na mesma conta do site (cerca de US$ 0,50/mês). Vantagens: o Terraform cria
+os registros de validação do certificado e os apontamentos, e o domínio raiz (`votobrasil.org`)
+funciona, porque o Route 53 tem registros ALIAS (um CNAME não é permitido na raiz e a GoDaddy, por
+exemplo, não oferece ALIAS).
+
+1. No `terraform.tfvars`:
+
+   ```hcl
+   domain_name  = "votobrasil.org"
+   manage_dns   = true
+   redirect_www = true # opcional: www.votobrasil.org responde 301 para votobrasil.org
+   ```
+
+2. Crie **só a zona** e veja os nameservers dela:
+
+   ```bash
+   terraform -chdir=infra/terraform apply -target='aws_route53_zone.site[0]'
+   terraform -chdir=infra/terraform output route53_name_servers
+   ```
+
+3. No registrador, troque os nameservers do domínio pelos **4** retornados (na GoDaddy:
+   _Domain_ → _DNS_ → _Nameservers_ → _Change Nameservers_ → _I'll use my own nameservers_). Se o
+   domínio já tinha registros em uso (e-mail, verificações), recrie-os antes na zona do Route 53:
+   depois da troca, os registros da GoDaddy deixam de valer. Confira a delegação (pode levar de
+   minutos a algumas horas):
+
+   ```bash
+   dig +short NS votobrasil.org   # deve listar os awsdns-*
+   ```
+
+4. Rode `make tf-plan` e `make tf-apply`. O Terraform cria os CNAMEs de validação, espera a
+   emissão do certificado, associa-o ao CloudFront e cria os ALIAS (A e AAAA) do domínio e,
+   com `redirect_www`, do `www`. Os CNAMEs de validação ficam na zona: o ACM os usa para renovar
+   o certificado sozinho. Se o apply expirar esperando a validação, a delegação ainda não
+   propagou: confira o passo 3 e repita o apply.
+5. Siga para "Teste e `SITE_URL`" abaixo.
+
+### Opção B: DNS no provedor atual
+
 1. No `terraform.tfvars`, defina `domain_name = "votobrasil.exemplo.org"` e deixe
    `acm_certificate_arn` vazio. Para reutilizar **um certificado já emitido** em `us-east-1`
    que cubra o domínio, informe também o ARN e pule para o passo 3.
@@ -379,18 +423,24 @@ Nginx, no acesso à origem ou no ambiente local.
    CNAME no DNS público e repita o apply normal.
 4. No DNS, crie um **segundo** registro: o CNAME de `votobrasil.exemplo.org` para o output
    `cloudfront_domain_name`. Domínios raiz exigem ALIAS/ANAME ou equivalente no provedor;
-   sem isso, use um subdomínio. Depois da propagação, teste sem seguir o redirecionamento:
+   sem isso, use um subdomínio (ou a Opção A). Com `redirect_www = true`, publique também o
+   CNAME de validação do `www` e um CNAME de `www` para o mesmo destino.
+
+### Teste e `SITE_URL`
+
+1. Depois da propagação, teste sem seguir o redirecionamento:
 
    ```bash
-   curl -sSI http://votobrasil.exemplo.org/healthz  # 301 e Location: https://...
-   curl -fsS https://votobrasil.exemplo.org/healthz # certificado confiável e status ok
+   curl -sSI http://votobrasil.org/healthz      # 301 e Location: https://...
+   curl -fsS https://votobrasil.org/healthz     # certificado confiável e status ok
+   curl -sSI https://www.votobrasil.org/sobre   # com redirect_www: 301 para https://votobrasil.org/sobre
    ```
 
-5. Atualize `SITE_URL` e faça um novo deploy para que as tags canônicas, Open Graph e o
+2. Atualize `SITE_URL` e faça um novo deploy para que as tags canônicas, Open Graph e o
    sitemap usem o domínio novo (as estatísticas só medem o domínio de `SITE_URL`):
 
    ```bash
-   gh variable set SITE_URL --repo "$REPO" --body "https://votobrasil.exemplo.org"
+   gh variable set SITE_URL --repo "$REPO" --body "https://votobrasil.org"
    ```
 
 ## Etapa 11: Checklist final

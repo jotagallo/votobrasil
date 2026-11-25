@@ -8,6 +8,10 @@ locals {
   architecture           = can(regex("^[a-z]+[0-9]+g[a-z]*\\.", var.instance_type)) ? "arm64" : "x86_64"
   custom_domain          = var.domain_name != ""
   create_acm_certificate = local.custom_domain && var.acm_certificate_arn == ""
+  manage_dns             = local.custom_domain && var.manage_dns
+  redirect_www           = local.custom_domain && var.redirect_www
+  www_domain             = "www.${var.domain_name}"
+  site_hostnames         = local.custom_domain ? concat([var.domain_name], local.redirect_www ? [local.www_domain] : []) : []
   alerts_enabled         = var.alarm_email != ""
   partition              = data.aws_partition.current.partition
   account_id             = data.aws_caller_identity.current.account_id

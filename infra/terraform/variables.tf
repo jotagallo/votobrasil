@@ -67,9 +67,21 @@ variable "create_github_oidc_provider" {
 }
 
 variable "domain_name" {
-  description = "Optional custom domain served by CloudFront (e.g. votobr.example.org). Set it without acm_certificate_arn to request a DNS-validated ACM certificate. DNS records are configured separately."
+  description = "Optional custom domain served by CloudFront (e.g. votobr.example.org). Set it without acm_certificate_arn to request a DNS-validated ACM certificate. DNS records are created by Terraform with manage_dns, otherwise at the DNS provider."
   type        = string
   default     = ""
+}
+
+variable "manage_dns" {
+  description = "Create a Route 53 public hosted zone for domain_name with the ACM validation and CloudFront alias records. The registrar must then delegate to the zone's name servers (output route53_name_servers). Requires domain_name."
+  type        = bool
+  default     = false
+}
+
+variable "redirect_www" {
+  description = "Also serve www.<domain_name> (certificate SAN and CloudFront alias) and answer it with a 301 to the bare domain. Requires domain_name."
+  type        = bool
+  default     = false
 }
 
 variable "acm_certificate_arn" {

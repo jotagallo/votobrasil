@@ -130,6 +130,20 @@ resource "aws_cloudfront_response_headers_policy" "security" {
   }
 }
 
+# Runs on every behavior so that www never serves content of its own.
+resource "aws_cloudfront_function" "www_redirect" {
+  count = local.redirect_www ? 1 : 0
+
+  name    = "${local.name}-www-redirect"
+  runtime = "cloudfront-js-2.0"
+  comment = "301 www to the bare domain"
+  publish = true
+  code = templatefile("${path.module}/functions/www-redirect.js.tftpl", {
+    domain     = lower(var.domain_name)
+    www_domain = lower(local.www_domain)
+  })
+}
+
 # Unknown SPA routes are not rewritten with a distribution-wide custom error response: it cannot be
 # scoped per path and would turn API 404s into index.html. The origin does the SPA fallback instead.
 resource "aws_cloudfront_distribution" "this" {
@@ -138,7 +152,7 @@ resource "aws_cloudfront_distribution" "this" {
   http_version    = "http2and3"
   price_class     = var.cloudfront_price_class
   comment         = "${local.name} (Elastic Beanstalk origin)"
-  aliases         = local.custom_domain ? [var.domain_name] : []
+  aliases         = local.site_hostnames
 
   origin {
     origin_id   = local.origin_id
@@ -167,6 +181,14 @@ resource "aws_cloudfront_distribution" "this" {
     compress                   = true
     cache_policy_id            = aws_cloudfront_cache_policy.web.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
+
+    dynamic "function_association" {
+      for_each = aws_cloudfront_function.www_redirect
+      content {
+        event_type   = "viewer-request"
+        function_arn = function_association.value.arn
+      }
+    }
   }
 
   ordered_cache_behavior {
@@ -178,6 +200,14 @@ resource "aws_cloudfront_distribution" "this" {
     compress                   = true
     cache_policy_id            = aws_cloudfront_cache_policy.assets.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
+
+    dynamic "function_association" {
+      for_each = aws_cloudfront_function.www_redirect
+      content {
+        event_type   = "viewer-request"
+        function_arn = function_association.value.arn
+      }
+    }
   }
 
   ordered_cache_behavior {
@@ -189,6 +219,14 @@ resource "aws_cloudfront_distribution" "this" {
     compress                   = true
     cache_policy_id            = aws_cloudfront_cache_policy.api.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
+
+    dynamic "function_association" {
+      for_each = aws_cloudfront_function.www_redirect
+      content {
+        event_type   = "viewer-request"
+        function_arn = function_association.value.arn
+      }
+    }
   }
 
   # Always reaches the origin so that deploy smoke tests see the real state.
@@ -201,6 +239,14 @@ resource "aws_cloudfront_distribution" "this" {
     compress                   = false
     cache_policy_id            = data.aws_cloudfront_cache_policy.caching_disabled.id
     response_headers_policy_id = aws_cloudfront_response_headers_policy.security.id
+
+    dynamic "function_association" {
+      for_each = aws_cloudfront_function.www_redirect
+      content {
+        event_type   = "viewer-request"
+        function_arn = function_association.value.arn
+      }
+    }
   }
 
   restrictions {
@@ -220,6 +266,11 @@ resource "aws_cloudfront_distribution" "this" {
     precondition {
       condition     = local.custom_domain || var.acm_certificate_arn == ""
       error_message = "acm_certificate_arn requires domain_name."
+    }
+
+    precondition {
+      condition     = local.custom_domain || (!var.manage_dns && !var.redirect_www)
+      error_message = "manage_dns and redirect_www require domain_name."
     }
   }
 }
