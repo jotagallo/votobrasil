@@ -40,16 +40,16 @@
   "footer": {
     "disclaimer": "Counterfactual simulation with simplifying assumptions; it is not a forecast. VotoBrasil is independent and has no affiliation with the TSE (Superior Electoral Court) or the government.",
     "links": "Footer links",
-    "source": "Source code",
-    "data": "Data: TSE (open data) and IBGE (boundaries). No cookies; usage statistics only with consent (LGPD)."
+    "credit": "Developed by",
+    "openSource": "Open source on GitHub",
+    "email": "Get in touch",
+    "data": "Data: TSE (open data) and IBGE (boundaries). Cookies only for usage statistics (LGPD)."
   },
   "consent": {
-    "label": "Privacy notice",
-    "text": "We use cookie-free audience statistics (Umami) to learn, in aggregate, which pages and simulations are used. They are only switched on with your consent, as required by Brazil's data protection law (LGPD, Law 13,709/2018), and you can change your mind at any time under “Privacy preferences” in the footer.",
+    "label": "Cookie notice",
+    "text": "We use cookies only for site usage statistics (which pages and simulations are most visited), in aggregate and never for advertising. By clicking “Got it”, you agree to this use, as required by Brazil's data protection law (LGPD, Law 13,709/2018).",
     "more": "Learn more",
-    "accept": "Accept",
-    "reject": "Decline",
-    "manage": "Privacy preferences"
+    "accept": "Got it"
   },
   "common": {
     "loading": "Loading…",
@@ -412,9 +412,9 @@
       "pickHint": "Each Legislative Assembly is elected separately, so adding up the 27 houses says little. Click the map or the list to see the official result and the simulation for one state."
     },
     "municipal": {
-      "areasTitle": "City Councils of cities with 1 million voters or more",
+      "areasTitle": "City Councils of state capitals and cities over 1 million inhabitants",
       "intro": [
-        "VotoBrasil covers the City Councils of every city with 1 million voters or more — 11 in the 2024 election, whose results are used here.",
+        "VotoBrasil covers the City Councils of all 26 state capitals and other cities with over 1 million inhabitants in IBGE's 2022 Census — 28 cities in total. Brasília has no municipal election. The results used here are from the 2024 election.",
         "In cities, the smallest building block of the simulated districts is the polling place."
       ]
     }
@@ -484,7 +484,7 @@
       "label": "At a glance",
       "data": "TSE open data",
       "open": "Open source",
-      "privacy": "No cookies · LGPD"
+      "privacy": "Privacy · LGPD"
     },
     "hero": {
       "caption": "Illustration with generic seats, not real data"
@@ -493,7 +493,7 @@
       "label": "VotoBrasil in numbers",
       "seats": "seats in the Chamber of Deputies",
       "states": "federation units",
-      "cities": "cities with 1 million voters or more",
+      "cities": "state capitals and cities over 1 million inhabitants",
       "systems": "electoral systems compared"
     },
     "how": {
@@ -551,6 +551,10 @@
         "In systems with districts, the districts are drawn by an algorithm and do not correspond to real districts. See the details and limits in the [Methodology](/metodologia)."
       ]
     },
+    "final": {
+      "title": "Same votes, different rules. See the difference.",
+      "text": "Pick an electoral system and compare it, party by party, with the official result published by the TSE."
+    },
     "more": {
       "title": "Explore more",
       "state": {
@@ -559,7 +563,7 @@
       },
       "municipal": {
         "title": "City Councils",
-        "text": "Explore the cities with 1 million voters or more, with districts drawn from polling places."
+        "text": "Explore state capitals and cities over 1 million inhabitants, with districts drawn from polling places."
       },
       "systems": {
         "title": "Electoral systems",
@@ -594,7 +598,7 @@
     },
     "about": {
       "title": "About — VotoBrasil",
-      "description": "Independent, open-source project that uses open data from the TSE and IBGE. No cookies."
+      "description": "Independent, open-source project that uses open data from the TSE and IBGE."
     },
     "notFound": {
       "title": "Page not found — VotoBrasil",
@@ -611,7 +615,7 @@
       },
       "municipal": {
         "title": "City Councils — VotoBrasil",
-        "description": "Official result and simulation of alternative electoral systems for the City Councils of cities with 1 million voters or more."
+        "description": "Official result and simulation of alternative electoral systems for the City Councils of state capitals and cities over 1 million inhabitants."
       }
     },
     "area": {
@@ -634,6 +638,12 @@
         "The aim is to offer verifiable data analysis to a relevant public debate. Because the topic is politically contested, the project publishes its data, assumptions and code so that anyone can check and critique them."
       ]
     },
+    "author": {
+      "title": "Author",
+      "body": [
+        "VotoBrasil is conceived and developed independently by [João Otávio Gallo](https://instagram.com/jotagallo)."
+      ]
+    },
     "sources": {
       "title": "Data sources",
       "body": [
@@ -651,21 +661,19 @@
     "privacy": {
       "title": "Privacy and LGPD",
       "body": [
-        "VotoBrasil does not use cookies, does not ask you to sign up and does not build visitor profiles. Personal data is handled in accordance with Brazil's General Data Protection Law (LGPD, Law 13,709/2018).",
-        "**Usage statistics.** When enabled, the site uses Umami, a cookie-free analytics service, to count visits, pages and interactions (such as changing the system or language). The service receives technical connection data — such as IP address, browser, device type and language — used only to produce aggregate counts; events record usage actions without identifying people.",
-        "**Legal basis and choice.** Statistics are only switched on after you accept the privacy notice (consent, art. 7, I, LGPD). If you decline, nothing is sent. You can give or withdraw consent at any time under “Privacy preferences” in the footer. If your browser sends a “Do Not Track” or Global Privacy Control signal, statistics stay off and the notice is not even shown.",
-        "**Local storage.** The site stores in your browser (localStorage) only your choice about statistics. The choices you make in the simulator are kept in the page address, to make sharing easier.",
-        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) through the project repository channels listed under “How to contribute”."
+        "VotoBrasil does not ask you to sign up, does not require a login and does not build visitor profiles. Personal data is handled in accordance with Brazil's General Data Protection Law (LGPD, Law 13,709/2018).",
+        "**Cookies.** We use cookies only for usage statistics: counting visits, pages viewed and interactions (such as changing the system or language), in aggregate, to learn what to improve. We do not use them for advertising or to identify you. This data is processed by a third-party statistics service, which may store it outside Brazil, and includes technical connection data — such as IP address, browser, device type and language — used only to produce aggregate counts.",
+        "**Legal basis and choice.** Cookies are only created after you click “Got it” on the notice (consent, art. 7, I, LGPD); until then, nothing is sent. If your browser sends a “Do Not Track” or Global Privacy Control signal, we do not use cookies, even after you click “Got it”. You can delete or block cookies at any time in your browser settings, without affecting your use of the site.",
+        "**Local storage.** The site stores in your browser (localStorage) only the record that you have seen the cookie notice. The choices you make in the simulator are kept in the page address, to make sharing easier.",
+        "**Your rights.** You can request information, correction or deletion of data (art. 18, LGPD) by email at [votobrasil@proton.me](mailto:votobrasil@proton.me) or through the project repository channels, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {
       "title": "How to contribute",
       "body": [
-        "Suggestions, corrections and contributions are welcome through issues and pull requests in the repository. Reports of errors in the data or in the descriptions of the systems are especially useful.",
-        "To reproduce the numbers locally, follow the instructions on the [Methodology](/metodologia) page."
-      ],
-      "repoLink": "View the repository",
-      "noRepo": "The repository address has not been configured for this installation (variable `VITE_REPO_URL`)."
+        "Suggestions, corrections and contributions are welcome through issues and pull requests in the project repository. Reports of errors in the data or in the descriptions of the systems are especially useful.",
+        "To reproduce the numbers locally, follow the instructions in the repository. You can also send suggestions or questions directly to [votobrasil@proton.me](mailto:votobrasil@proton.me)."
+      ]
     },
     "credits": {
       "title": "Credits",
@@ -776,10 +784,8 @@
     "reproduce": {
       "title": "Open source and reproduction",
       "body": [
-        "All the code — data extraction, simulation engine, API and this site — is open. The processing is deterministic: given the same source files (checked by the hashes above), it produces the same results.",
-        "To reproduce locally (requires Node.js):"
+        "All the code — data extraction, simulation engine, API and this site — is open. The processing is deterministic: given the same source files (checked by the hashes above), it produces the same results."
       ],
-      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
       "repo": "Open the repository"
     }
   },

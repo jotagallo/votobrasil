@@ -34,7 +34,7 @@ const WIDTH = 420;
 const MAX_HEIGHT = 520;
 /** Raio do número no mapa, em pixels de tela (independe da largura do mapa). */
 const BADGE_RADIUS_PX = 11;
-const EMPTY_FILL = '#E4EAF3';
+const EMPTY_FILL = '#EBE4F3';
 
 /** Tons claros e chapados: os distritos são divisões administrativas, sem significado político. */
 const DISTRICT_PALETTE = [
@@ -582,15 +582,15 @@ function DistrictMapBlock({
                       key={b.clip}
                       d={b.d}
                       clipPath={`url(#${b.clip})`}
-                      stroke="#0B1633"
+                      stroke="#210B33"
                       strokeWidth="1.4"
                       strokeLinecap="round"
                     />
                   ))}
                   {model.boundaries ? (
-                    <path d={model.boundaries} stroke="#0B1633" strokeWidth="1.4" />
+                    <path d={model.boundaries} stroke="#210B33" strokeWidth="1.4" />
                   ) : null}
-                  <path d={model.frame} stroke="#0B1633" strokeWidth="1.6" />
+                  <path d={model.frame} stroke="#210B33" strokeWidth="1.6" />
                 </g>
               </g>
               <g className="district-map__badges" aria-hidden="true">

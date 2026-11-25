@@ -1,11 +1,11 @@
-# Rebuilds the processed datasets from the official TSE/IBGE sources without any cache and fails if
-# validation fails. It never deploys: download the artifact to inspect it, then ship new data by
-# bumping data/VERSION in a commit to main (the deploy workflow rebuilds on the changed cache key).
+# Manual dry run of the ETL: rebuilds the processed datasets from the official TSE/IBGE sources
+# without any cache and fails if validation fails. There is no schedule: the elections are over, so
+# the data never changes by itself, and the only automatic ETL run is the cache miss in deploy.yml.
+# It never deploys: download the artifact to inspect it, then ship new data by bumping data/VERSION
+# in a commit to main (the Deploy workflow rebuilds on the changed cache key).
 name: Data refresh
 
 on:
-  schedule:
-    - cron: '17 6 1 * *'
   workflow_dispatch:
 
 concurrency:
@@ -51,7 +51,7 @@ jobs:
             echo "- Size: $(du -sh data/processed | cut -f1)"
             if [ -f data/VERSION ]; then echo "- data/VERSION: \`$(cat data/VERSION)\`"; fi
             echo
-            echo "Not deployed. To ship this data, bump \`data/VERSION\` on main."
+            echo "Not deployed. To ship fresh data, bump \`data/VERSION\` on main: the Deploy workflow rebuilds it."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

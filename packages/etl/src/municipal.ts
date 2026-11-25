@@ -8,11 +8,43 @@ import type { IntegrityCheck } from './states.js';
 
 const CARGO_VEREADOR = '13';
 
+/** Capitais estaduais com eleição municipal; Brasília não tem Câmara Municipal. */
+export const STATE_CAPITALS: ReadonlyMap<number, UfCode> = new Map([
+  [1100205, 'RO'],
+  [1200401, 'AC'],
+  [1302603, 'AM'],
+  [1400100, 'RR'],
+  [1501402, 'PA'],
+  [1600303, 'AP'],
+  [1721000, 'TO'],
+  [2111300, 'MA'],
+  [2211001, 'PI'],
+  [2304400, 'CE'],
+  [2408102, 'RN'],
+  [2507507, 'PB'],
+  [2611606, 'PE'],
+  [2704302, 'AL'],
+  [2800308, 'SE'],
+  [2927408, 'BA'],
+  [3106200, 'MG'],
+  [3205309, 'ES'],
+  [3304557, 'RJ'],
+  [3550308, 'SP'],
+  [4106902, 'PR'],
+  [4205407, 'SC'],
+  [4314902, 'RS'],
+  [5002704, 'MS'],
+  [5103403, 'MT'],
+  [5208707, 'GO'],
+]);
+
 export interface MunicipalCity {
   ibge: number;
   tse: string;
   uf: UfCode;
   name: string;
+  /** População residente (Censo 2022). */
+  population: number;
   voters: number;
 }
 
@@ -25,28 +57,44 @@ export interface MunicipalSources {
 }
 
 /**
- * Cidades com pelo menos `minVoters` eleitores aptos nos locais de votação (eleição municipal),
- * da maior para a menor. `limit` (opcional) corta a lista para builds de desenvolvimento.
+ * Capitais estaduais e cidades com mais de `minPopulation` habitantes no Censo 2022, da mais para
+ * a menos populosa. Brasília fica de fora porque o Distrito Federal não tem eleição municipal.
+ * `limit` (opcional) corta a lista para builds de desenvolvimento.
  */
 export function pickMunicipalities(
   loc: Locations,
   geo: GeoData,
-  minVoters: number,
+  population: ReadonlyMap<number, number>,
+  minPopulation: number,
   limit = Infinity,
 ): MunicipalCity[] {
   const voters = new Map<string, number>();
   for (const l of loc.locals.values()) voters.set(l.tse, (voters.get(l.tse) ?? 0) + l.voters);
-  return [...voters.entries()]
-    .filter(([, v]) => v >= minVoters)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  const tseOf = new Map<number, string>();
+  for (const [tse, ibge] of loc.tseToIbge) if (voters.has(tse)) tseOf.set(ibge, tse);
+  return [...population.entries()]
+    .filter(
+      ([ibge, pop]) =>
+        (pop > minPopulation || STATE_CAPITALS.has(ibge)) && geo.byCode.get(ibge)?.uf !== 'DF',
+    )
+    .sort((a, b) => b[1] - a[1] || a[0] - b[0])
     .slice(0, limit)
-    .map(([tse, v]) => {
-      const ibge = loc.tseToIbge.get(tse);
-      const info = ibge === undefined ? undefined : geo.byCode.get(ibge);
-      if (ibge === undefined || !info) {
-        throw new Error(`Município TSE ${tse} com ${v} eleitores sem correspondência no IBGE`);
+    .map(([ibge, pop]) => {
+      const info = geo.byCode.get(ibge);
+      const tse = tseOf.get(ibge);
+      if (!info || tse === undefined) {
+        throw new Error(
+          `Município IBGE ${ibge} com ${pop} habitantes sem locais de votação na eleição municipal`,
+        );
       }
-      return { ibge, tse, uf: info.uf, name: info.name, voters: v };
+      return {
+        ibge,
+        tse,
+        uf: info.uf,
+        name: info.name,
+        population: pop,
+        voters: voters.get(tse) ?? 0,
+      };
     });
 }
 

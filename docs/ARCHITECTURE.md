@@ -39,7 +39,7 @@ A cache interna exigida é feita em duas camadas: arquivos Brotli no disco da in
 ## Unidades geográficas
 
 - **Estados (Câmara dos Deputados e Assembleias):** a unidade mínima é a **zona eleitoral dentro do município**, posicionada pela média das coordenadas dos locais de votação ponderada pelo eleitorado (com fallback para a zona, o município e o centroide do polígono). O TSE publica coordenadas por local de votação, mas a votação por candidato só por município-zona. Os distritos (população do Censo 2022, ±5%, municípios inteiros salvo os grandes; ver [METHODOLOGY.md](METHODOLOGY.md#5-desenho-dos-distritos)) dividem os municípios grandes pelos locais de votação, e os votos de uma zona repartida entre distritos são divididos na proporção dos eleitores de cada parte.
-- **Câmaras Municipais (2024, cidades com 1 milhão de eleitores ou mais):** a unidade é o **local de votação**. A votação por seção apenas reparte o total de cada zona entre os locais da zona (método do maior resto), de modo que os totais coincidem exatamente com a apuração oficial.
+- **Câmaras Municipais (2024, capitais estaduais e cidades não capitais com mais de 1 milhão de habitantes no Censo 2022):** a unidade é o **local de votação**. A votação por seção apenas reparte o total de cada zona entre os locais da zona (método do maior resto), de modo que os totais coincidem exatamente com a apuração oficial.
 
 ## Formato dos dados (`data/processed`)
 
@@ -74,7 +74,7 @@ Erros seguem `{ "error": { "code", "message" } }`. As entradas são validadas de
 ### Segurança
 
 - Atrás do CloudFront, a API exige o header secreto `x-origin-verify` (comparação em tempo constante) e a instância só aceita tráfego dos IPs do CloudFront.
-- CSP restrita (`default-src 'self'`; Umami como única origem externa), `nosniff`, `frame-ancestors 'none'`, `Referrer-Policy`. O HSTS fica a cargo do CloudFront.
+- CSP restrita (`default-src 'self'`; as únicas origens externas liberadas são as do Google Analytics, para script, conexão e imagem), `nosniff`, `frame-ancestors 'none'`, `Referrer-Policy`. O HSTS fica a cargo do CloudFront. O script de estatísticas só é baixado depois do “Entendi” no aviso de cookies.
 - Rate limit por IP (com `TRUST_PROXY_HOPS=2` em produção) e limite de tamanho de parâmetros; nenhum segredo no repositório.
 
 ## Algoritmos (`packages/shared`)
@@ -83,4 +83,4 @@ Todos são funções puras e determinísticas, cobertas por testes com valores c
 
 ## Infraestrutura e CI/CD
 
-Em [../infra/README.md](../infra/README.md) e `.github/workflows/`: CI (lint, tipos, testes, build, varredura de segredos, checagem da imagem Docker), deploy via OIDC e atualização periódica dos dados.
+Em [../infra/README.md](../infra/README.md) e `.github/workflows/`: CI (lint, tipos, testes, build, varredura de segredos, `terraform validate`), deploy via OIDC e geração dos dados no deploy.

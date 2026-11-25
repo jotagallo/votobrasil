@@ -5,6 +5,7 @@ import { DatasetBuilder, competitorOf, statusOf } from '../src/builder.js';
 import { checkDataset } from '../src/checks.js';
 import { parseCoord, parseIntSafe, splitLine } from '../src/csv.js';
 import { dropSlivers, normalizeName, rewindGeometry } from '../src/geo.js';
+import { genericCoordinates } from '../src/locations.js';
 import { distribute } from '../src/municipal.js';
 
 describe('csv', () => {
@@ -113,6 +114,32 @@ describe('distribute', () => {
     const w = [17, 3, 9, 1, 30];
     const out = distribute(1234, w);
     expect(out.reduce((a, b) => a + b, 0)).toBe(1234);
+  });
+});
+
+describe('coordenadas genéricas', () => {
+  const at = (tse: string, lat: number, lon: number, hood: string) => ({ tse, lat, lon, hood });
+
+  it('trata como marcador o ponto, mesmo deslocado alguns metros, de 3 ou mais bairros', () => {
+    const flagged = genericCoordinates([
+      ['a', at('09210', -2.5217917, -44.2501648, 'São Francisco')],
+      ['b', at('09210', -2.521762, -44.2501904, 'Maranhão Novo')],
+      ['c', at('09210', -2.5217355, -44.250219, 'Bequimão')],
+      ['d', at('09210', -2.5217355, -44.250219, 'Bequimão')],
+      ['longe', at('09210', -2.5222, -44.2502, 'Centro')],
+    ]);
+    expect([...flagged].sort()).toEqual(['a', 'b', 'c', 'd']);
+  });
+
+  it('mantém pontos de só 2 bairros ou de municípios diferentes', () => {
+    expect(
+      genericCoordinates([
+        ['a', at('00001', -23.5, -46.6, 'Sé')],
+        ['b', at('00001', -23.5, -46.6, 'República')],
+        ['c', at('00002', -23.5, -46.6, 'Centro')],
+        ['d', at('00001', Number.NaN, Number.NaN, 'Bela Vista')],
+      ]).size,
+    ).toBe(0);
   });
 });
 

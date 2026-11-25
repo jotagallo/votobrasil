@@ -40,16 +40,16 @@
   "footer": {
     "disclaimer": "Simulación contrafactual con supuestos simplificadores; no es un pronóstico. VotoBrasil es independiente y no tiene vínculo con el TSE (Tribunal Superior Electoral) ni con el gobierno.",
     "links": "Enlaces del pie de página",
-    "source": "Código fuente",
-    "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Sin cookies; estadísticas de uso solo con consentimiento (LGPD)."
+    "credit": "Desarrollado por",
+    "openSource": "Código abierto en GitHub",
+    "email": "Contáctanos",
+    "data": "Datos: TSE (datos abiertos) e IBGE (mallas territoriales). Cookies solo para estadísticas de uso (LGPD)."
   },
   "consent": {
-    "label": "Aviso de privacidad",
-    "text": "Usamos estadísticas de audiencia sin cookies (Umami) para saber, de forma agregada, qué páginas y simulaciones se usan. Solo se activan con su consentimiento, conforme a la ley brasileña de protección de datos (LGPD, Ley 13.709/2018), y puede cambiar de opinión en cualquier momento en “Preferencias de privacidad”, en el pie de página.",
+    "label": "Aviso de cookies",
+    "text": "Usamos cookies solo para estadísticas de uso del sitio (qué páginas y simulaciones se visitan más), de forma agregada y sin fines publicitarios. Al hacer clic en “Entendido”, usted acepta este uso, conforme a la ley brasileña de protección de datos (LGPD, Ley 13.709/2018).",
     "more": "Más información",
-    "accept": "Aceptar",
-    "reject": "Rechazar",
-    "manage": "Preferencias de privacidad"
+    "accept": "Entendido"
   },
   "common": {
     "loading": "Cargando…",
@@ -412,9 +412,9 @@
       "pickHint": "Cada Asamblea Legislativa se elige por separado, así que sumar las 27 cámaras dice poco. Haga clic en el mapa o en la lista para ver el resultado oficial y la simulación de una UF."
     },
     "municipal": {
-      "areasTitle": "Cámaras Municipales de las ciudades con 1 millón de electores o más",
+      "areasTitle": "Cámaras Municipales de las capitales estatales y ciudades con más de 1 millón de habitantes",
       "intro": [
-        "VotoBrasil cubre las Cámaras Municipales de todas las ciudades con 1 millón de electores o más: 11 en la elección de 2024, cuyos resultados se usan aquí.",
+        "VotoBrasil cubre las Cámaras Municipales de las 26 capitales estatales y de las demás ciudades con más de 1 millón de habitantes según el Censo 2022 del IBGE: 28 ciudades en total. Brasilia no tiene elección municipal. Los resultados usados aquí son los de la elección de 2024.",
         "En las ciudades, la unidad mínima de los distritos simulados es el local de votación."
       ]
     }
@@ -484,7 +484,7 @@
       "label": "En resumen",
       "data": "Datos abiertos del TSE",
       "open": "Código abierto",
-      "privacy": "Sin cookies · LGPD"
+      "privacy": "Privacidad · LGPD"
     },
     "hero": {
       "caption": "Ilustración con escaños genéricos, sin datos reales"
@@ -493,7 +493,7 @@
       "label": "VotoBrasil en cifras",
       "seats": "escaños en la Cámara de Diputados",
       "states": "unidades de la federación",
-      "cities": "ciudades con 1 millón de electores o más",
+      "cities": "capitales estatales y ciudades con más de 1 millón de habitantes",
       "systems": "sistemas electorales comparados"
     },
     "how": {
@@ -551,6 +551,10 @@
         "En los sistemas con distritos, los distritos se trazan mediante un algoritmo y no corresponden a distritos reales. Consulta los detalles y los límites en la [Metodología](/metodologia)."
       ]
     },
+    "final": {
+      "title": "Los mismos votos, otras reglas. Vea la diferencia.",
+      "text": "Elija un sistema electoral y compárelo, partido por partido, con el resultado oficial publicado por el TSE."
+    },
     "more": {
       "title": "Explora más",
       "state": {
@@ -559,7 +563,7 @@
       },
       "municipal": {
         "title": "Cámaras Municipales",
-        "text": "Explore las ciudades con 1 millón de electores o más, con distritos trazados a partir de los locales de votación."
+        "text": "Explore las capitales estatales y ciudades con más de 1 millón de habitantes, con distritos trazados a partir de los locales de votación."
       },
       "systems": {
         "title": "Sistemas electorales",
@@ -594,7 +598,7 @@
     },
     "about": {
       "title": "Acerca de — VotoBrasil",
-      "description": "Proyecto independiente y de código abierto que usa datos abiertos del TSE y del IBGE. Sin cookies."
+      "description": "Proyecto independiente y de código abierto que usa datos abiertos del TSE y del IBGE."
     },
     "notFound": {
       "title": "Página no encontrada — VotoBrasil",
@@ -611,7 +615,7 @@
       },
       "municipal": {
         "title": "Cámaras Municipales — VotoBrasil",
-        "description": "Resultado oficial y simulación de sistemas electorales alternativos para las Cámaras Municipales de las ciudades con 1 millón de electores o más."
+        "description": "Resultado oficial y simulación de sistemas electorales alternativos para las Cámaras Municipales de las capitales estatales y ciudades con más de 1 millón de habitantes."
       }
     },
     "area": {
@@ -634,6 +638,12 @@
         "El objetivo es ofrecer un análisis de datos verificable a un debate público relevante. Por tratarse de un tema en disputa política, el proyecto publica datos, supuestos y código, para que cualquier persona pueda comprobarlos y criticarlos."
       ]
     },
+    "author": {
+      "title": "Autoría",
+      "body": [
+        "VotoBrasil es idealizado y desarrollado de forma independiente por [João Otávio Gallo](https://instagram.com/jotagallo)."
+      ]
+    },
     "sources": {
       "title": "Fuentes de datos",
       "body": [
@@ -651,21 +661,19 @@
     "privacy": {
       "title": "Privacidad y LGPD",
       "body": [
-        "VotoBrasil no usa cookies, no pide registro y no crea perfiles de visitantes. El tratamiento de datos personales sigue la Ley General de Protección de Datos Personales de Brasil (LGPD, Ley 13.709/2018).",
-        "**Estadísticas de uso.** Cuando está habilitado, el sitio usa Umami, un servicio de estadísticas sin cookies, para contar visitas, páginas e interacciones (como el cambio de sistema o de idioma). El servicio recibe datos técnicos de la conexión —como dirección IP, navegador, tipo de dispositivo e idioma— usados solo para generar recuentos agregados; los eventos registran acciones de uso, sin identificar personas.",
-        "**Base legal y elección.** Las estadísticas solo se activan después de que usted acepta el aviso de privacidad (consentimiento, art. 7º, I, de la LGPD). Si lo rechaza, no se envía nada. Puede dar o revocar el consentimiento en cualquier momento en “Preferencias de privacidad”, en el pie de página. Si el navegador envía la señal “Do Not Track” o Global Privacy Control, las estadísticas quedan desactivadas y el aviso ni siquiera se muestra.",
-        "**Almacenamiento local.** El sitio guarda en su navegador (localStorage) solo su elección sobre las estadísticas. Las elecciones hechas en el simulador quedan en la dirección de la página, para facilitar compartirlas.",
-        "**Sus derechos.** Puede solicitar información, corrección o eliminación de datos (art. 18 de la LGPD) por los canales del repositorio del proyecto, indicados en “Cómo contribuir”."
+        "VotoBrasil no pide registro, no exige inicio de sesión y no crea perfiles de visitantes. El tratamiento de datos personales sigue la Ley General de Protección de Datos Personales de Brasil (LGPD, Ley 13.709/2018).",
+        "**Cookies.** Usamos cookies solo para estadísticas de uso: contar visitas, páginas vistas e interacciones (como el cambio de sistema o de idioma), de forma agregada, para saber qué mejorar. No las usamos para publicidad ni para identificarlo. Estos datos son procesados por un servicio de estadísticas de terceros, que puede almacenarlos fuera de Brasil, e incluyen datos técnicos de la conexión —como dirección IP, navegador, tipo de dispositivo e idioma— usados solo para generar recuentos agregados.",
+        "**Base legal y elección.** Las cookies solo se crean después de que usted hace clic en “Entendido” en el aviso (consentimiento, art. 7º, I, de la LGPD); antes de eso, no se envía nada. Si el navegador envía la señal “Do Not Track” o Global Privacy Control, no usamos cookies, ni siquiera después de hacer clic en “Entendido”. Puede borrar o bloquear las cookies en cualquier momento en la configuración del navegador, sin perjuicio del uso del sitio.",
+        "**Almacenamiento local.** El sitio guarda en su navegador (localStorage) solo el registro de que usted vio el aviso de cookies. Las elecciones hechas en el simulador quedan en la dirección de la página, para facilitar compartirlas.",
+        "**Sus derechos.** Puede solicitar información, corrección o eliminación de datos (art. 18 de la LGPD) por correo electrónico a [votobrasil@proton.me](mailto:votobrasil@proton.me) o por los canales del repositorio del proyecto, [github.com/jotagallo/votobrasil](https://github.com/jotagallo/votobrasil)."
       ]
     },
     "contribute": {
       "title": "Cómo contribuir",
       "body": [
-        "Las sugerencias, correcciones y contribuciones son bienvenidas mediante issues y pull requests en el repositorio. Los reportes de errores en los datos o en las descripciones de los sistemas son especialmente útiles.",
-        "Para reproducir los números localmente, sigue las instrucciones de la página de [Metodología](/metodologia)."
-      ],
-      "repoLink": "Ver el repositorio",
-      "noRepo": "La dirección del repositorio aún no fue configurada en esta instalación (variable `VITE_REPO_URL`)."
+        "Las sugerencias, correcciones y contribuciones son bienvenidas mediante issues y pull requests en el repositorio del proyecto. Los reportes de errores en los datos o en las descripciones de los sistemas son especialmente útiles.",
+        "Para reproducir los números localmente, sigue las instrucciones del repositorio. También puedes enviar sugerencias o preguntas directamente a [votobrasil@proton.me](mailto:votobrasil@proton.me)."
+      ]
     },
     "credits": {
       "title": "Créditos",
@@ -776,10 +784,8 @@
     "reproduce": {
       "title": "Código abierto y reproducción",
       "body": [
-        "Todo el código —extracción de datos, motor de simulación, API y este sitio— es abierto. El procesamiento es determinista: con los mismos archivos de origen (comprobados por los hashes anteriores), produce los mismos resultados.",
-        "Para reproducirlo localmente (requiere Node.js):"
+        "Todo el código —extracción de datos, motor de simulación, API y este sitio— es abierto. El procesamiento es determinista: con los mismos archivos de origen (comprobados por los hashes anteriores), produce los mismos resultados."
       ],
-      "commands": "npm ci\nnpm run data:build\nnpm run data:validate\nnpm run dev",
       "repo": "Abrir el repositorio"
     }
   },

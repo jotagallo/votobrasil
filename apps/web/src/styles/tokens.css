@@ -1,33 +1,60 @@
 /*
  * Tokens de design: cores, tipografia, espaçamento, raios, sombras e movimento.
- * Verde, amarelo e azul aparecem como acentos; o vermelho é reservado a ênfase e alertas.
+ * O roxo (`--brand-*`) é a cor da marca; verde e amarelo aparecem como acentos; o vermelho é
+ * reservado a ênfase e alertas.
  */
 :root {
   /* Texto e superfícies */
-  --ink: #0a1b3d;
-  --ink-soft: #33466b;
-  --muted: #55627f;
+  --ink: #240a3d;
+  --ink-soft: #4f336b;
+  --muted: #6b557f;
   --bg: #ffffff;
-  --bg-soft: #f2f6fb;
-  --bg-tint: #e8f0fa;
-  --line: #dde5f0;
-  --line-strong: #bccadd;
+  --bg-soft: #f5f2fb;
+  --bg-tint: #efe8fa;
+  --line: #e5ddf0;
+  --line-strong: #cabcdd;
 
   /* Marca */
-  --blue-950: #061636;
-  --blue-900: #002776;
-  --blue-700: #0b4da2;
-  --blue-100: #dce8fa;
-  --blue-50: #eef4fd;
+  --brand-950: #1e0636;
+  --brand-900: #3b0076;
+  --brand-700: #470ba2;
+  --brand-100: #e9dcfa;
+  --brand-50: #f4eefd;
   --green-800: #00622a;
   --green-700: #007a33;
   --green-500: #009c3b;
   --green-100: #dff3e6;
   --yellow: #ffdf00;
   --yellow-deep: #f2c300;
+  --yellow-700: #b58b00;
   --yellow-100: #fff6bf;
   --red: #c8102e;
   --red-100: #fde8ec;
+
+  /* Superfícies escuras e gradientes de marketing (derivados da mesma paleta) */
+  --on-dark: #fff;
+  --on-dark-soft: #d5c4e2;
+  --on-dark-muted: #b29ac8;
+  --line-dark: rgb(255 255 255 / 0.12);
+  --glass-dark: rgb(255 255 255 / 0.06);
+  --green-glow: #19b35a;
+  --grad-brand: linear-gradient(90deg, var(--green-500), var(--yellow) 55%, var(--brand-700));
+  --grad-accent: linear-gradient(100deg, var(--green-glow), var(--yellow));
+  --mesh-dark:
+    radial-gradient(48rem 32rem at 88% -12%, rgb(0 156 59 / 0.42), transparent 60%),
+    radial-gradient(44rem 30rem at -8% 8%, rgb(71 11 162 / 0.65), transparent 62%),
+    radial-gradient(34rem 22rem at 55% 112%, rgb(255 223 0 / 0.2), transparent 64%),
+    var(--brand-950);
+  --mesh-light:
+    radial-gradient(42rem 26rem at 96% -10%, rgb(0 156 59 / 0.16), transparent 62%),
+    radial-gradient(38rem 24rem at -6% 0%, rgb(71 11 162 / 0.16), transparent 62%),
+    radial-gradient(28rem 18rem at 60% 110%, rgb(255 223 0 / 0.2), transparent 64%), var(--bg-soft);
+  --grid-dark:
+    linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  --grid-light:
+    linear-gradient(rgb(36 10 61 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(36 10 61 / 0.05) 1px, transparent 1px);
 
   /* Tipografia */
   --font-sans:
@@ -63,14 +90,17 @@
   --radius-pill: 999px;
 
   /* Sombras suaves em camadas */
-  --shadow-xs: 0 1px 2px rgb(10 27 61 / 0.06);
-  --shadow-sm: 0 1px 2px rgb(10 27 61 / 0.05), 0 4px 14px -2px rgb(10 27 61 / 0.07);
+  --shadow-xs: 0 1px 2px rgb(36 10 61 / 0.06);
+  --shadow-sm: 0 1px 2px rgb(36 10 61 / 0.05), 0 4px 14px -2px rgb(36 10 61 / 0.07);
   --shadow-md:
-    0 1px 2px rgb(10 27 61 / 0.04), 0 6px 16px -4px rgb(10 27 61 / 0.08),
-    0 18px 36px -12px rgb(10 27 61 / 0.1);
+    0 1px 2px rgb(36 10 61 / 0.04), 0 6px 16px -4px rgb(36 10 61 / 0.08),
+    0 18px 36px -12px rgb(36 10 61 / 0.1);
   --shadow-lg:
-    0 2px 4px rgb(10 27 61 / 0.04), 0 12px 24px -6px rgb(10 27 61 / 0.1),
-    0 32px 64px -16px rgb(10 27 61 / 0.16);
+    0 2px 4px rgb(36 10 61 / 0.04), 0 12px 24px -6px rgb(36 10 61 / 0.1),
+    0 32px 64px -16px rgb(36 10 61 / 0.16);
+  --shadow-xl:
+    0 2px 6px rgb(36 10 61 / 0.05), 0 24px 48px -12px rgb(36 10 61 / 0.18),
+    0 60px 120px -30px rgb(59 0 118 / 0.28);
 
   /* Movimento */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -78,7 +108,7 @@
 
   /* Layout */
   --touch: 2.75rem;
-  --container: 74rem;
+  --container: 76rem;
   --measure: 42rem;
   --gutter: 1.125rem;
 }

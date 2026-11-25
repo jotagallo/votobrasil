@@ -1,6 +1,6 @@
 # Copy to terraform.tfvars (git-ignored) or pass with -var-file. Never commit real values.
 
-aws_region = "us-east-1" # "sa-east-1" lowers origin latency at a higher price
+aws_region = "sa-east-1" # Sao Paulo, next to the audience; "us-east-1" is cheaper but farther
 project    = "votobr"
 environment = "prod"
 
@@ -8,8 +8,13 @@ instance_type = "t4g.small"
 
 github_repository = "owner/repo"
 
-# Optional custom domain (certificate must be issued in us-east-1)
-# domain_name         = "votobr.example.org"
+# Optional custom domain (see docs/DEPLOY.md, Etapa 10, before applying)
+# domain_name = "votobr.example.org"
+# Host the domain's DNS in Route 53 (registrar keeps the registration, delegates the name servers):
+# manage_dns = true
+# Also serve www.<domain_name> as a 301 to the bare domain:
+# redirect_www = true
+# Set the ARN only to reuse an existing issued certificate in us-east-1:
 # acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/00000000-0000-0000-0000-000000000000"
 
 # Set to false when the AWS account already has the GitHub Actions OIDC provider
@@ -19,4 +24,4 @@ github_repository = "owner/repo"
 
 # Enables the monthly budget alert and the environment health alarm
 # alarm_email        = "you@example.org"
-# monthly_budget_usd = 25
+# monthly_budget_usd = 40

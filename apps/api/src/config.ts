@@ -14,9 +14,10 @@ export interface Config {
   corsOrigins: string[];
   /** Quando definido, toda requisição (exceto /healthz) precisa do header `x-origin-verify` igual a este valor. */
   originVerifySecret: string | null;
-  /** Origens extras para a CSP (ex.: script e coleta do Umami). */
+  /** Origens extras para a CSP (ex.: script, coleta e pixel das estatísticas de uso). */
   cspScriptSrc: string[];
   cspConnectSrc: string[];
+  cspImgSrc: string[];
   /** Quantidade de proxies confiáveis à frente do Node (CloudFront + nginx do Elastic Beanstalk = 2). */
   trustProxyHops: number;
   rateLimitPerMinute: number;
@@ -85,12 +86,16 @@ export function loadConfig(env: Env = process.env): Config {
     originVerifySecret: env.ORIGIN_VERIFY_SECRET?.trim() || null,
     cspScriptSrc: origins(
       'CSP_SCRIPT_SRC_EXTRA',
-      env.CSP_SCRIPT_SRC_EXTRA ?? 'https://cloud.umami.is',
+      env.CSP_SCRIPT_SRC_EXTRA ?? 'https://*.googletagmanager.com',
     ),
     cspConnectSrc: origins(
       'CSP_CONNECT_SRC_EXTRA',
       env.CSP_CONNECT_SRC_EXTRA ??
-        'https://cloud.umami.is https://gateway.umami.is https://api-gateway.umami.dev',
+        'https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com',
+    ),
+    cspImgSrc: origins(
+      'CSP_IMG_SRC_EXTRA',
+      env.CSP_IMG_SRC_EXTRA ?? 'https://*.google-analytics.com https://*.googletagmanager.com',
     ),
     trustProxyHops: int(env, 'TRUST_PROXY_HOPS', 0, 0, 5),
     rateLimitPerMinute: int(env, 'RATE_LIMIT_PER_MINUTE', 600, 10, 100_000),

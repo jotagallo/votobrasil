@@ -8,15 +8,15 @@ import {
 import { fetchSource, tseUrl } from './download.js';
 import { loadGeo, writeCityTopology, writeTopologies } from './geo.js';
 import { loadLocations, type LocalRecord } from './locations.js';
-import { buildMunicipalDataset, pickMunicipalities } from './municipal.js';
+import { buildMunicipalDataset, pickMunicipalities, STATE_CAPITALS } from './municipal.js';
 import { cleanOutputs, summarize, writeDataset, writeMeta, type DatasetSummary } from './output.js';
 import { buildStateDatasets, type IntegrityCheck } from './states.js';
 import { CANDIDATE_RULES, missingElected } from './validation.js';
 
 const GENERAL_YEAR = 2026;
 const MUNICIPAL_YEAR = 2024;
-/** Câmaras Municipais: cidades com pelo menos este número de eleitores (0 desliga). */
-const MUNICIPAL_MIN_VOTERS = Number(process.env.VOTOBR_MIN_MUNICIPAL_VOTERS ?? 1_000_000);
+/** Câmaras Municipais: inclui capitais e cidades com mais que este número de habitantes (0 desliga). */
+const MUNICIPAL_MIN_POPULATION = Number(process.env.VOTOBR_MIN_MUNICIPAL_POPULATION ?? 1_000_000);
 const MUNICIPAL_LIMIT = Number(process.env.VOTOBR_MAX_MUNICIPALITIES ?? Infinity);
 const UFS = (process.env.VOTOBR_UFS?.split(',').map((s) => s.trim()) ?? [...UF_CODES]) as UfCode[];
 
@@ -57,6 +57,11 @@ async function main() {
   console.log(`Geometrias: ${topo.files} arquivos, ${(topo.bytes / 1e6).toFixed(1)} MB`);
   // Censo 2022 (população por município) e vizinhança dos municípios, para desenhar os distritos.
   const districting = await loadDistrictingContext(geo);
+  for (const ibge of STATE_CAPITALS.keys()) {
+    if (!districting.population.has(ibge)) {
+      throw new Error(`Capital estadual IBGE ${ibge} sem população no Censo 2022`);
+    }
+  }
 
   // Eleições gerais 2026.
   const [cand26, party26, detail26, locais26] = await Promise.all([
@@ -95,8 +100,8 @@ async function main() {
     );
   }
 
-  // Eleições municipais 2024: cidades com 1 milhão de eleitores ou mais.
-  if (MUNICIPAL_MIN_VOTERS > 0) {
+  // Eleições municipais 2024: capitais e cidades com mais de 1 milhão de habitantes.
+  if (MUNICIPAL_MIN_POPULATION > 0) {
     const [cand24, party24, detail24, locais24] = await Promise.all([
       fetchTse('votacao_candidato_munzona', MUNICIPAL_YEAR),
       fetchTse('votacao_partido_munzona', MUNICIPAL_YEAR),
@@ -109,10 +114,16 @@ async function main() {
     // As coordenadas de 2026 completam os locais que vieram sem latitude/longitude em 2024.
     const loc24 = await loadLocations(MUNICIPAL_YEAR, locais24, geo, UF_CODES, loc26);
     console.log('Locais 2024:', loc24.stats);
-    const top = pickMunicipalities(loc24, geo, MUNICIPAL_MIN_VOTERS, MUNICIPAL_LIMIT);
+    const top = pickMunicipalities(
+      loc24,
+      geo,
+      districting.population,
+      MUNICIPAL_MIN_POPULATION,
+      MUNICIPAL_LIMIT,
+    );
     console.log(
-      `Cidades (≥ ${MUNICIPAL_MIN_VOTERS} eleitores):`,
-      top.map((c) => `${c.name}/${c.uf} (${c.voters})`).join(', '),
+      `Capitais e cidades (> ${MUNICIPAL_MIN_POPULATION} habitantes):`,
+      top.map((c) => `${c.name}/${c.uf} (${c.population} hab., ${c.voters} eleitores)`).join(', '),
     );
 
     const localsByTse = new Map<string, LocalRecord[]>();

@@ -1,5 +1,21 @@
+output "acm_dns_validation_records" {
+  description = "DNS records that validate and renew the ACM certificate (created in Route 53 with manage_dns; otherwise create them at the DNS provider and keep them). Empty when Terraform did not request a certificate."
+  value = local.create_acm_certificate ? [
+    for record in aws_acm_certificate.site[0].domain_validation_options : {
+      name  = record.resource_record_name
+      type  = record.resource_record_type
+      value = record.resource_record_value
+    }
+  ] : []
+}
+
+output "route53_name_servers" {
+  description = "Name servers to set at the domain registrar when manage_dns is true (empty otherwise)."
+  value       = local.manage_dns ? aws_route53_zone.site[0].name_servers : []
+}
+
 output "cloudfront_domain_name" {
-  description = "Public entry point. Point a CNAME here when using domain_name."
+  description = "Public entry point. Without manage_dns, point the custom domain here (CNAME, or ALIAS/ANAME at the apex)."
   value       = aws_cloudfront_distribution.this.domain_name
 }
 
