@@ -176,10 +176,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 </li>
               ))}
               <li>
-                <a
-                  href={`mailto:${PROJECT_EMAIL}`}
-                  className="site-footer__contact"
-                >
+                <a href={`mailto:${PROJECT_EMAIL}`} className="site-footer__contact">
                   <EmailIcon />
                   {t('footer.email')}
                 </a>

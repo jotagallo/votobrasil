@@ -58,7 +58,7 @@ export default function AboutPage() {
                   ) : null}
                 </p>
               ))}
-              {(key === 'privacy' || key === 'contribute') ? (
+              {key === 'privacy' || key === 'contribute' ? (
                 <p>
                   <a href={`mailto:${PROJECT_EMAIL}`} className="btn btn--ghost about__email">
                     <EmailIcon />
